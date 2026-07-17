@@ -20,6 +20,7 @@ const RETURN_RATE = 0.72;
 const RETURN_THRESHOLD = 0.18;
 const ORIENTATION_FOLLOW = 6.2;
 const ORIENTATION_LIMIT = 32;
+const MOTION_TILT_MULTIPLIER = 4.6;
 
 const compassMarks = [
   { x: 160, y: 48, color: yellow, label: "N", size: 16, swap: "O" },
@@ -267,6 +268,10 @@ export function CommunityIntroGlyph({
   const orientationZeroRef = useRef<number | null>(null);
   const orientationLastEventAtRef = useRef(0);
   const attachOrientationListenerRef = useRef<(() => void) | null>(null);
+  const motionPermissionNeededRef = useRef(false);
+  const motionAttachedRef = useRef(false);
+  const motionLastEventAtRef = useRef(0);
+  const attachMotionListenerRef = useRef<(() => void) | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileCompassState, setMobileCompassState] = useState<MobileCompassState>("idle");
   const [motion, setMotion] = useState<MotionState>({
@@ -285,6 +290,7 @@ export function CommunityIntroGlyph({
         orientationTargetRef.current = 0;
         orientationEnabledRef.current = false;
         orientationPermissionNeededRef.current = false;
+        motionPermissionNeededRef.current = false;
         orientationZeroRef.current = null;
         setMobileCompassState("idle");
       }
@@ -326,6 +332,44 @@ export function CommunityIntroGlyph({
       }
     };
 
+    const handleDeviceMotion = (event: DeviceMotionEvent) => {
+      if (!isMobileRef.current) {
+        return;
+      }
+
+      const gravity = event.accelerationIncludingGravity;
+
+      if (!gravity) {
+        return;
+      }
+
+      const gx = typeof gravity.x === "number" ? gravity.x : null;
+      const gy = typeof gravity.y === "number" ? gravity.y : null;
+
+      if (gx === null && gy === null) {
+        return;
+      }
+
+      // Use gravity-derived tilt as a fallback on browsers that refuse compass heading.
+      const target = clamp(
+        -((gx ?? 0) * MOTION_TILT_MULTIPLIER + (gy ?? 0) * 0.32),
+        -ORIENTATION_LIMIT,
+        ORIENTATION_LIMIT,
+      );
+
+      orientationEnabledRef.current = true;
+      orientationTargetRef.current = target;
+      motionLastEventAtRef.current = performance.now();
+      setMobileCompassState("active");
+
+      if (frameRef.current === null && stepRef.current) {
+        const now = performance.now();
+
+        lastFrameRef.current = now;
+        frameRef.current = window.requestAnimationFrame(stepRef.current);
+      }
+    };
+
     attachOrientationListenerRef.current = () => {
       if (orientationAttachedRef.current) {
         return;
@@ -341,6 +385,17 @@ export function CommunityIntroGlyph({
       orientationAttachedRef.current = true;
     };
 
+    attachMotionListenerRef.current = () => {
+      if (motionAttachedRef.current) {
+        return;
+      }
+
+      window.addEventListener("devicemotion", handleDeviceMotion, {
+        passive: true,
+      });
+      motionAttachedRef.current = true;
+    };
+
     updateMobileState();
     coarseQuery.addEventListener("change", updateMobileState);
 
@@ -348,15 +403,34 @@ export function CommunityIntroGlyph({
       const orientationCtor = DeviceOrientationEvent as typeof DeviceOrientationEvent & {
         requestPermission?: () => Promise<"denied" | "granted">;
       };
+      const motionCtor =
+        typeof DeviceMotionEvent !== "undefined"
+          ? (DeviceMotionEvent as typeof DeviceMotionEvent & {
+              requestPermission?: () => Promise<"denied" | "granted">;
+            })
+          : undefined;
 
       if (typeof orientationCtor.requestPermission === "function") {
         orientationPermissionNeededRef.current = true;
-        setMobileCompassState(isMobileRef.current ? "idle" : "unsupported");
       } else {
         attachOrientationListenerRef.current?.();
-        if (isMobileRef.current) {
-          setMobileCompassState("idle");
-        }
+      }
+
+      if (typeof motionCtor?.requestPermission === "function") {
+        motionPermissionNeededRef.current = true;
+      } else {
+        attachMotionListenerRef.current?.();
+      }
+
+      if (isMobileRef.current) {
+        setMobileCompassState(
+          orientationPermissionNeededRef.current ||
+            motionPermissionNeededRef.current ||
+            orientationAttachedRef.current ||
+            motionAttachedRef.current
+            ? "idle"
+            : "unsupported",
+        );
       }
     } else if (isMobileRef.current) {
       setMobileCompassState("unsupported");
@@ -370,8 +444,9 @@ export function CommunityIntroGlyph({
 
       if (isMobileRef.current && orientationEnabledRef.current) {
         if (
-          orientationLastEventAtRef.current > 0 &&
-          timestamp - orientationLastEventAtRef.current > 1800
+          Math.max(orientationLastEventAtRef.current, motionLastEventAtRef.current) > 0 &&
+          timestamp - Math.max(orientationLastEventAtRef.current, motionLastEventAtRef.current) >
+            1800
         ) {
           orientationEnabledRef.current = false;
           setMobileCompassState("unavailable");
@@ -434,6 +509,9 @@ export function CommunityIntroGlyph({
           handleDeviceOrientation as EventListener,
         );
       }
+      if (motionAttachedRef.current) {
+        window.removeEventListener("devicemotion", handleDeviceMotion);
+      }
 
       if (frameRef.current !== null) {
         window.cancelAnimationFrame(frameRef.current);
@@ -475,9 +553,12 @@ export function CommunityIntroGlyph({
       return;
     }
 
-    if (!orientationPermissionNeededRef.current) {
+    if (!orientationPermissionNeededRef.current && !motionPermissionNeededRef.current) {
       if (!orientationAttachedRef.current) {
         attachOrientationListenerRef.current?.();
+      }
+      if (!motionAttachedRef.current) {
+        attachMotionListenerRef.current?.();
       }
 
       if (!orientationEnabledRef.current) {
@@ -491,27 +572,47 @@ export function CommunityIntroGlyph({
     const orientationCtor = DeviceOrientationEvent as typeof DeviceOrientationEvent & {
       requestPermission?: (absolute?: boolean) => Promise<"denied" | "granted">;
     };
+    const motionCtor =
+      typeof DeviceMotionEvent !== "undefined"
+        ? (DeviceMotionEvent as typeof DeviceMotionEvent & {
+            requestPermission?: () => Promise<"denied" | "granted">;
+          })
+        : undefined;
 
-    if (typeof orientationCtor.requestPermission !== "function") {
-      setMobileCompassState("unsupported");
+    if (
+      typeof orientationCtor.requestPermission !== "function" &&
+      typeof motionCtor?.requestPermission !== "function"
+    ) {
+      attachOrientationListenerRef.current?.();
+      attachMotionListenerRef.current?.();
+      setMobileCompassState("idle");
       return;
     }
 
     try {
       setMobileCompassState("requesting");
-      let permission: "denied" | "granted";
+      let orientationPermission: "denied" | "granted" = "granted";
+      let motionPermission: "denied" | "granted" = "granted";
 
-      try {
-        permission = await orientationCtor.requestPermission(true);
-      } catch {
-        permission = await orientationCtor.requestPermission();
+      if (typeof orientationCtor.requestPermission === "function") {
+        try {
+          orientationPermission = await orientationCtor.requestPermission(true);
+        } catch {
+          orientationPermission = await orientationCtor.requestPermission();
+        }
       }
 
-      if (permission === "granted") {
+      if (typeof motionCtor?.requestPermission === "function") {
+        motionPermission = await motionCtor.requestPermission();
+      }
+
+      if (orientationPermission === "granted" || motionPermission === "granted") {
         orientationPermissionNeededRef.current = false;
+        motionPermissionNeededRef.current = false;
         orientationLastEventAtRef.current = performance.now();
         setMobileCompassState("active");
         attachOrientationListenerRef.current?.();
+        attachMotionListenerRef.current?.();
         window.setTimeout(() => {
           if (
             isMobileRef.current &&
@@ -536,6 +637,7 @@ export function CommunityIntroGlyph({
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
       onMouseMove={handleHoverStart}
+      onClick={handleMobileCompassActivation}
       onPointerDown={handleMobileCompassActivation}
       onPointerEnter={handleHoverStart}
       onPointerLeave={handleHoverEnd}
