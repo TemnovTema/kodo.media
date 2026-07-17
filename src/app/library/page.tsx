@@ -1,33 +1,34 @@
 import type { Metadata } from "next";
 import { CatalogShell } from "@/components/catalog-shell";
-import { LibraryCard } from "@/components/library-card";
-import { libraryItems } from "@/lib/content";
+import { LibraryFolderCard } from "@/components/library-folder-card";
+import { LibraryIntroGlyph } from "@/components/library-intro-glyph";
+import { libraryFolders } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Библиотека",
   description:
-    "Библиотека KODO MEDIA: скиллы, шаблоны, промты и гайды для более осмысленного вайб-кодинга.",
+    "Библиотека KODO MEDIA: открытые папки со skills, шаблонами, гайдами и системными заготовками для вайб-кодинга.",
 };
 
 export default function LibraryPage() {
   return (
     <CatalogShell
       rail="library"
-      eyebrow="library / useful payloads"
-      title="Скиллы, шаблоны, промты и гайды как рабочий архив, а не как витрина."
-      description="Композиция здесь должна вести себя спокойно: один более весомый входной объект, потом ровный каталог полезностей, где пауза между карточками так же важна, как и сами cover-сигналы."
+      eyebrow="library / open folders"
+      title="Библиотека"
+      description="Открытые папки с тем, чем мы реально кормим и собираем ИИ: вводные, шаблоны, гайды и системные заготовки."
+      introVisual={<LibraryIntroGlyph />}
+      introVisualPosition="right"
       stats={[
-        { label: "Материалов", value: String(libraryItems.length).padStart(2, "0") },
-        { label: "Категорий", value: "04" },
-        { label: "Контур", value: "skills / prompts" },
-        { label: "Режим", value: "resource archive" },
+        { label: "Папок", value: String(libraryFolders.length).padStart(2, "0") },
+        { label: "Фокус", value: "inputs / templates" },
+        { label: "Доступ", value: "open stack" },
+        { label: "Режим", value: "reference archive" },
       ]}
     >
-      <div className="-mt-2 grid gap-x-8 gap-y-12 lg:grid-cols-2">
-        {libraryItems.map((item, index) => (
-          <div key={item.slug} className={index === 0 ? "lg:col-span-2" : ""}>
-            <LibraryCard item={item} featured={index === 0} />
-          </div>
+      <div className="-mt-2 grid gap-8 xl:gap-10 lg:grid-cols-2">
+        {libraryFolders.map((folder) => (
+          <LibraryFolderCard key={folder.slug} folder={folder} />
         ))}
       </div>
     </CatalogShell>

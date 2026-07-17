@@ -7,6 +7,7 @@ type CatalogShellProps = {
   description: string;
   stats: Array<{ label: string; value: string }>;
   introVisual?: ReactNode;
+  introVisualPosition?: "left" | "right";
   children: ReactNode;
 };
 
@@ -17,8 +18,29 @@ export function CatalogShell({
   description,
   stats,
   introVisual,
+  introVisualPosition = "left",
   children,
 }: CatalogShellProps) {
+  const introText = (
+    <div className="flex min-h-[16rem] min-w-0 flex-col justify-center space-y-5 md:min-h-[18rem] xl:min-h-[24rem]">
+      <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
+        {eyebrow}
+      </p>
+      <h1 className="max-w-4xl text-balance text-[clamp(2.15rem,4.8vw,4.5rem)] leading-[0.94] tracking-[-0.07em] text-[var(--color-text)]">
+        {title}
+      </h1>
+      <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
+        {description}
+      </p>
+    </div>
+  );
+
+  const introGraphic = introVisual ? (
+    <div className="relative min-h-[16rem] min-w-0 max-w-full overflow-hidden md:min-h-[18rem] xl:min-h-[24rem]">
+      {introVisual}
+    </div>
+  ) : null;
+
   return (
     <section className="catalog-shell">
       <div className="catalog-shell__rail">
@@ -34,23 +56,17 @@ export function CatalogShell({
                 : "grid min-w-0 gap-6"
             }
           >
-            {introVisual ? (
-              <div className="relative min-h-[16rem] min-w-0 max-w-full overflow-hidden md:min-h-[18rem] xl:min-h-[24rem]">
-                {introVisual}
-              </div>
-            ) : null}
-
-            <div className="flex min-h-[16rem] min-w-0 flex-col justify-center space-y-5 md:min-h-[18rem] xl:min-h-[24rem]">
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
-                {eyebrow}
-              </p>
-              <h1 className="max-w-4xl text-balance text-[clamp(2.15rem,4.8vw,4.5rem)] leading-[0.94] tracking-[-0.07em] text-[var(--color-text)]">
-                {title}
-              </h1>
-              <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
-                {description}
-              </p>
-            </div>
+            {introVisualPosition === "right" ? (
+              <>
+                {introText}
+                {introGraphic}
+              </>
+            ) : (
+              <>
+                {introGraphic}
+                {introText}
+              </>
+            )}
           </div>
 
           <dl className="catalog-intro__stats">

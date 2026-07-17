@@ -62,6 +62,17 @@ export type LibraryItem = {
   whenToUse: string[];
 };
 
+export type LibraryFolder = {
+  slug: string;
+  kicker: string;
+  title: string;
+  summary: string;
+  items: string[];
+  count: string;
+  note: string;
+  accent: "blue" | "green" | "yellow" | "pink";
+};
+
 export type AuthorPost = {
   id: string;
   author: string;
@@ -528,6 +539,69 @@ export const diagnosticTests: DiagnosticTest[] = [
       "Критичность визуала",
       "Наличие существующей системы",
     ],
+  },
+];
+
+export const libraryFolders: LibraryFolder[] = [
+  {
+    slug: "input-stack",
+    kicker: "skills / prompts / scenarios",
+    title: "Вводные для ИИ",
+    summary:
+      "Папка со всем, что мы даём агенту до старта: skills для Codex, prompt-пакеты, роли, запреты и сценарии прохода по задаче.",
+    items: [
+      "anti-slop skills и UX-контракты",
+      "prompt-lint, ship-review и agent scenarios",
+      "редакторские рамки для image-first и redesign пайплайнов",
+    ],
+    count: "12 файлов",
+    note: "Открывают первой, когда нужно задать агенту характер работы.",
+    accent: "blue",
+  },
+  {
+    slug: "starter-templates",
+    kicker: "sites / apps / products",
+    title: "Шаблоны сборки",
+    summary:
+      "Каркасы для сайтов, приложений и других продуктов: маршруты, page maps, каталоги, utility-экраны и диагностические режимы.",
+    items: [
+      "site/app IA и route maps",
+      "архивы, рубрики, prompt-lab и тестовые сценарии",
+      "starter-структуры под media, SaaS и utility flows",
+    ],
+    count: "09 шаблонов",
+    note: "Нужны, когда проект надо собрать быстро, но не без системы.",
+    accent: "green",
+  },
+  {
+    slug: "open-guides",
+    kicker: "guides / courses / playbooks",
+    title: "Открытые гайды и курсы",
+    summary:
+      "Публичная полка с материалами, которые помогают выровнять команду: как писать сильные промты, строить пайплайны и чистить релизы.",
+    items: [
+      "prompt engineering и prompt QA",
+      "route-by-route polish и release passes",
+      "короткие курсы по vibe-coding discipline",
+    ],
+    count: "15 материалов",
+    note: "Для самостоятельного прохода и общего онбординга команды.",
+    accent: "yellow",
+  },
+  {
+    slug: "design-systems",
+    kicker: "components / tokens / systems",
+    title: "Дизайн-системы и компоненты",
+    summary:
+      "Открытые токены, component kits и системные заготовки, чтобы не рисовать интерфейс с пустого холста и не разваливать консистентность.",
+    items: [
+      "open component libraries",
+      "token maps и layout primitives",
+      "спокойные design systems под web и product UI",
+    ],
+    count: "07 наборов",
+    note: "Берут, когда надо строить не один экран, а устойчивый UI-контур.",
+    accent: "pink",
   },
 ];
 
