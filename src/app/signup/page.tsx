@@ -22,7 +22,7 @@ export default function SignUpPage() {
       </p>
       <div className="flex flex-wrap gap-3 font-mono text-[0.72rem] uppercase tracking-[0.22em]">
         <Link href="/articles" className="button-primary">
-          Открыть статьи
+          Открыть сообщество
         </Link>
         <Link href="/" className="button-secondary">
           На главную

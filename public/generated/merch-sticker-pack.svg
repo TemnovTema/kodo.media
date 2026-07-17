@@ -1,0 +1,29 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#2F2F30"/>
+  <rect x="136" y="668" width="224" height="120" fill="#6087C2"/>
+  <rect x="940" y="116" width="140" height="140" fill="#A2649D"/>
+  <rect x="816" y="662" width="220" height="122" fill="#B49F00"/>
+  <rect x="196" y="132" width="158" height="158" fill="#5B894B"/>
+  <g transform="rotate(-10 392 300)">
+    <rect x="392" y="300" width="330" height="420" rx="28" fill="#F0ECE6"/>
+    <rect x="432" y="352" width="92" height="92" fill="#6087C2"/>
+    <rect x="524" y="352" width="92" height="92" fill="#A2649D"/>
+    <rect x="616" y="352" width="66" height="92" fill="#5B894B"/>
+    <rect x="432" y="444" width="92" height="92" fill="#B49F00"/>
+    <rect x="524" y="444" width="92" height="92" fill="#111116"/>
+    <rect x="616" y="444" width="66" height="92" fill="#6087C2"/>
+    <text x="458" y="624" fill="#111116" font-size="48" font-family="Arial, Helvetica, sans-serif" letter-spacing="10">KODO</text>
+  </g>
+  <g transform="rotate(8 622 230)">
+    <rect x="622" y="230" width="230" height="230" rx="34" fill="#F0ECE6"/>
+    <circle cx="737" cy="345" r="72" stroke="#111116" stroke-width="18"/>
+    <circle cx="737" cy="345" r="42" fill="#6087C2"/>
+    <rect x="718" y="314" width="38" height="62" fill="#B49F00"/>
+  </g>
+  <g transform="rotate(14 716 472)">
+    <rect x="716" y="472" width="260" height="190" rx="30" fill="#F0ECE6"/>
+    <path d="M806 524L852 590H824L780 524H806ZM868 524H894V590H868V524ZM924 524L970 590H942L898 524H924Z" fill="#111116"/>
+    <rect x="772" y="604" width="146" height="14" fill="#A2649D"/>
+  </g>
+  <text x="156" y="820" fill="#F0ECE6" fill-opacity="0.78" font-size="28" font-family="Arial, Helvetica, sans-serif" letter-spacing="7">STICKER PACK</text>
+</svg>

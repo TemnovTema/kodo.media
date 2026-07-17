@@ -24,13 +24,13 @@ export function SiteFooter() {
         </div>
         <div className="grid gap-3 font-mono text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
           <Link href="/articles" className="hover:text-[var(--color-text)]">
-            Архив статей
+            Сообщество
           </Link>
           <Link href="/library" className="hover:text-[var(--color-text)]">
             Библиотека
           </Link>
           <Link href="/prompt-lab" className="hover:text-[var(--color-text)]">
-            Лаборатория промта
+            ПромтЛаб
           </Link>
           <Link href="/tests" className="hover:text-[var(--color-text)]">
             Диагностики

@@ -12,6 +12,12 @@ export type ArticleSection = {
   paragraphs: string[];
 };
 
+export type EngagementStats = {
+  likes: number;
+  views: number;
+  comments: number;
+};
+
 export type Article = {
   slug: string;
   title: string;
@@ -24,6 +30,7 @@ export type Article = {
   status: string;
   signal: string;
   takeaway: string;
+  engagement: EngagementStats;
   sections: ArticleSection[];
 };
 
@@ -53,6 +60,25 @@ export type LibraryItem = {
   outcome: string;
   includes: string[];
   whenToUse: string[];
+};
+
+export type AuthorPost = {
+  id: string;
+  author: string;
+  role: string;
+  avatarLabel: string;
+  message: string;
+  postedAt: string;
+  accent: "blue" | "green" | "yellow" | "pink";
+  engagement: EngagementStats;
+};
+
+export type MerchItem = {
+  id: string;
+  title: string;
+  summary: string;
+  imageSrc: string;
+  imageAlt: string;
 };
 
 export const siteStats = [
@@ -110,6 +136,49 @@ export const rubrics: Rubric[] = [
   },
 ];
 
+export const merchItems: MerchItem[] = [
+  {
+    id: "merch-tee",
+    title: "Футболка Route Zero",
+    summary: "Черная футболка с пиксельной планетой и цветовым кодом KODO.",
+    imageSrc: "/merch/kodo-tee.jpg",
+    imageAlt:
+      "Черная футболка KODO на манекене с пиксельной графикой и брендовой палитрой.",
+  },
+  {
+    id: "merch-shopper",
+    title: "Шопер Signal Carry",
+    summary: "Тёмный шопер с пиксельной траекторией и логотипом KODO.",
+    imageSrc: "/merch/kodo-shopper.jpg",
+    imageAlt:
+      "Темный шопер KODO на каменной лестнице с пиксельным маршрутом и логотипом.",
+  },
+  {
+    id: "merch-mug",
+    title: "Термокружка Build Loop",
+    summary: "Тихий dark-object с KODO-маркой для длинных сборок и ночных прогонов.",
+    imageSrc: "/generated/merch-mug.svg",
+    imageAlt:
+      "Темная брендовая термокружка KODO с цветными блоками на графичном фоне.",
+  },
+  {
+    id: "merch-notebook",
+    title: "Блокнот Prompt Field",
+    summary: "Поле для схем, промтов и разметки перед запуском следующего прохода.",
+    imageSrc: "/generated/merch-notebook.svg",
+    imageAlt:
+      "Черный блокнот KODO с эластичной лентой и брендовой геометрией на фоне.",
+  },
+  {
+    id: "merch-stickers",
+    title: "Sticker Pack KODO",
+    summary: "Набор наклеек для ноутбука, кейса и рабочего стола в языке айдентики.",
+    imageSrc: "/generated/merch-sticker-pack.svg",
+    imageAlt:
+      "Набор брендовых наклеек KODO на темной поверхности с цветными акцентами.",
+  },
+];
+
 export const articles: Article[] = [
   {
     slug: "why-vibe-coding-needs-an-editor",
@@ -125,6 +194,11 @@ export const articles: Article[] = [
     status: "Опубликовано",
     signal: "EDITORIAL LAYER",
     takeaway: "Главный риск вайб-кодинга — не в генерации, а в отсутствии структуры принятия решений.",
+    engagement: {
+      likes: 428,
+      views: 18240,
+      comments: 37,
+    },
     sections: [
       {
         title: "Скорость не заменяет последовательность",
@@ -163,6 +237,11 @@ export const articles: Article[] = [
     status: "Опубликовано",
     signal: "SYSTEM PIPELINE",
     takeaway: "Контентный продукт выигрывает от пайплайна, где бренд, IA и промты связаны заранее.",
+    engagement: {
+      likes: 316,
+      views: 14980,
+      comments: 24,
+    },
     sections: [
       {
         title: "Сначала структура, потом магия",
@@ -201,6 +280,11 @@ export const articles: Article[] = [
     status: "Опубликовано",
     signal: "FAILURE MAP",
     takeaway: "Самая частая ошибка — просить у модели форму до того, как определена функция результата.",
+    engagement: {
+      likes: 271,
+      views: 12630,
+      comments: 18,
+    },
     sections: [
       {
         title: "Роль без ответственности",
@@ -239,6 +323,11 @@ export const articles: Article[] = [
     status: "Опубликовано",
     signal: "LAYOUT DISCIPLINE",
     takeaway: "Композиция — это инфраструктура доверия к продукту.",
+    engagement: {
+      likes: 357,
+      views: 13870,
+      comments: 21,
+    },
     sections: [
       {
         title: "Компоненты не спасают слабую сетку",
@@ -277,6 +366,11 @@ export const articles: Article[] = [
     status: "Опубликовано",
     signal: "PROFILE MODEL",
     takeaway: "Разные пользователи ломаются на разных уровнях: одни в задаче, другие в критериях, третьи в итерациях.",
+    engagement: {
+      likes: 244,
+      views: 11240,
+      comments: 16,
+    },
     sections: [
       {
         title: "Оператор",
@@ -315,6 +409,11 @@ export const articles: Article[] = [
     status: "Опубликовано",
     signal: "TACTICAL UI",
     takeaway: "Если выбрать terminal-язык, его нужно провести через все уровни интерфейса, а не только через hero.",
+    engagement: {
+      likes: 198,
+      views: 9740,
+      comments: 13,
+    },
     sections: [
       {
         title: "Почему это работает",
@@ -592,6 +691,69 @@ export const libraryItems: LibraryItem[] = [
       "когда нужно привести несколько разделов к одному editorial rhythm",
       "когда хочется меньше метаться между экранами перед релизом",
     ],
+  },
+];
+
+export const authorPosts: AuthorPost[] = [
+  {
+    id: "post-01",
+    author: "Мира Белова",
+    role: "Редактор пайплайнов",
+    avatarLabel: "MB",
+    message:
+      "Самый быстрый способ испортить хороший screenflow — начать править его без заранее заданного ритма плотности. Агент это чувствует моментально и начинает расползаться по стилям.",
+    postedAt: "сегодня, 10:24",
+    accent: "pink",
+    engagement: {
+      likes: 192,
+      views: 8420,
+      comments: 14,
+    },
+  },
+  {
+    id: "post-02",
+    author: "Илья Северин",
+    role: "Frontend author",
+    avatarLabel: "ИС",
+    message:
+      "Почти любой интерфейс становится тише, если сначала убрать один блок текста, а потом спросить себя, держит ли экран смысл без него. Если да, этот блок был лишним.",
+    postedAt: "сегодня, 09:12",
+    accent: "blue",
+    engagement: {
+      likes: 148,
+      views: 7310,
+      comments: 11,
+    },
+  },
+  {
+    id: "post-03",
+    author: "Нина Окада",
+    role: "Prompt systems",
+    avatarLabel: "NO",
+    message:
+      "Хороший prompt-lint редко про «красивую формулировку». Обычно он про то, хватает ли постановке задач границ, активов и финишных критериев.",
+    postedAt: "вчера, 21:46",
+    accent: "green",
+    engagement: {
+      likes: 224,
+      views: 9650,
+      comments: 19,
+    },
+  },
+  {
+    id: "post-04",
+    author: "Тимур Хасэгава",
+    role: "Community curator",
+    avatarLabel: "TH",
+    message:
+      "Для community-раздела важнее не число карточек, а то, есть ли у пользователя ощущение живого движения: закреплённый материал, короткая лента и понятные голоса авторов.",
+    postedAt: "вчера, 17:08",
+    accent: "yellow",
+    engagement: {
+      likes: 171,
+      views: 6880,
+      comments: 9,
+    },
   },
 ];
 
