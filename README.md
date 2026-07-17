@@ -1,4 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KODO MEDIA
+
+KODO MEDIA is a dark editorial web product about vibe-coding: community posts, curated resources, prompt tooling, and diagnostic tests.
+
+This repository is already in active design/implementation, so the most useful starting points are:
+
+- `/Users/artemtemnov/Documents/kodo media/docs/design-handoff.md` — product context, route map, UI principles, and collaboration rules
+- `/Users/artemtemnov/Documents/kodo media/AGENTS.md` — short Codex-specific repo instructions
+
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Local Fugue font family
+
+## Routes
+
+- `/` — animated KODO entry screen
+- `/articles` — community feed
+- `/library` — open resource archive
+- `/prompt-lab` — prompt drafting workspace
+- `/tests` — diagnostic tests archive
+
+Dynamic detail pages also exist for articles, library entries, rubrics, and tests.
 
 ## Getting Started
 
@@ -16,18 +41,28 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Production: [https://kodo-media.vercel.app](https://kodo-media.vercel.app)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Quality Checks
 
-## Learn More
+```bash
+npm run lint
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Important Files
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `src/app/layout.tsx` — app shell, metadata, fonts, header/footer
+- `src/app/globals.css` — global tokens and shared layout styles
+- `src/lib/brand.ts` — palette and accent helpers
+- `src/lib/content.ts` — content models and seeded content
+- `src/components/catalog-shell.tsx` — shared intro shell for section pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Collaboration
+
+- For design/context handoff, use `docs/design-handoff.md`.
+- If you are delegating only one route or one block, create a short section brief from `docs/section-brief-template.md`.
+- If another Codex agent joins the project, have them read `AGENTS.md` and `docs/design-handoff.md` before editing.
 
 ## Deploy on Vercel
 
