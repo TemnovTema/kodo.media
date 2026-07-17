@@ -27,7 +27,7 @@ export function LibraryFolderCard({
           "--accent-surface": `${accent}14`,
         } as CSSProperties
       }
-      className="group relative pt-4"
+      className="group relative flex h-full flex-col pt-4"
     >
       <div className="pointer-events-none absolute inset-x-5 bottom-0 top-[4.5rem] rounded-[1.1rem] bg-[var(--accent-surface)] opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -37,7 +37,7 @@ export function LibraryFolderCard({
         </span>
       </div>
 
-      <div className="relative -mt-px overflow-hidden rounded-[1.2rem] rounded-tl-[0.4rem] border border-[var(--color-border-strong)] bg-[rgba(255,255,255,0.018)] px-5 py-6 transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:px-6 sm:py-7">
+      <div className="relative -mt-px flex flex-1 flex-col overflow-hidden rounded-[1.2rem] rounded-tl-[0.4rem] border border-[var(--color-border-strong)] bg-[rgba(255,255,255,0.018)] px-5 py-6 transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:px-6 sm:py-7">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0))]" />
         <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 bg-[var(--accent-surface)] blur-3xl" />
         <div className="pointer-events-none absolute right-5 top-5 flex items-center gap-2 font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
@@ -45,7 +45,7 @@ export function LibraryFolderCard({
           {folder.count}
         </div>
 
-        <div className="relative flex min-h-[21rem] flex-col gap-5">
+        <div className="relative flex h-full min-h-[23rem] flex-col gap-5">
           <div className="space-y-4">
             <h2 className="max-w-[14ch] text-balance text-[clamp(1.8rem,3vw,2.8rem)] leading-[0.95] tracking-[-0.06em] text-[var(--color-text)]">
               {folder.title}

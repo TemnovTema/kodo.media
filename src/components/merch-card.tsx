@@ -10,7 +10,7 @@ export function MerchCard({ item }: MerchCardProps) {
   return (
     <article
       data-merch-card
-      className="merch-card group flex min-w-0 snap-start flex-col gap-4 border-t border-[var(--color-border)] pt-4"
+      className="merch-card group flex h-full min-w-0 snap-start flex-col gap-4 border-t border-[var(--color-border)] pt-4"
     >
       <div className="relative h-[15.5rem] overflow-hidden bg-[rgba(255,255,255,0.015)]">
         <Image
@@ -22,7 +22,7 @@ export function MerchCard({ item }: MerchCardProps) {
         />
       </div>
 
-      <div className="space-y-2">
+      <div className="flex flex-1 flex-col gap-2">
         <h3 className="text-balance text-[1.28rem] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
           {item.title}
         </h3>

@@ -256,7 +256,7 @@ main :is(h1, h2, h3) {
 
 .merch-strip {
   display: flex;
-  align-items: start;
+  align-items: stretch;
   gap: 1.25rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
