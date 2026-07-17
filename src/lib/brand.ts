@@ -28,6 +28,13 @@ const testAccents: Record<string, string> = {
   "agent-stack-fit": brandPalette.green,
 };
 
+const libraryKindAccents: Record<string, string> = {
+  Скилл: brandPalette.blue,
+  Шаблон: brandPalette.green,
+  Промт: brandPalette.pink,
+  Гайд: brandPalette.yellow,
+};
+
 export function getAccentByIndex(index: number) {
   return brandAccentSequence[index % brandAccentSequence.length];
 }
@@ -46,4 +53,12 @@ export function getTestAccent(slug?: string) {
   }
 
   return testAccents[slug] ?? brandPalette.green;
+}
+
+export function getLibraryAccent(kind?: string) {
+  if (!kind) {
+    return brandPalette.blue;
+  }
+
+  return libraryKindAccents[kind] ?? brandPalette.blue;
 }

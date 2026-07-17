@@ -44,6 +44,15 @@ export const visualAssets = {
       "Тестовый раздел теперь держится на quieter cover-system: не dashboard-art, а маршрутные схемы и диагностические поля.",
     tone: "#5B894B",
   },
+  library: {
+    src: "/generated/library-cover-guides.svg",
+    alt: "Тихая dark-ui карта библиотечных материалов с маршрутными блоками и цветными связями.",
+    label: "library field",
+    title: "Resource Index",
+    description:
+      "Библиотека держится на той же quiet-editorial системе: не витрина, а полезный архив с живыми cover-сигналами.",
+    tone: "#B49F00",
+  },
   covers: {
     src: "/generated/archive-desk.png",
     alt: "Темная рабочая станция с экранами, маршрутной стеной и аналитическими заметками.",
@@ -168,6 +177,73 @@ const testVisuals: Record<string, VisualAsset> = {
   },
 };
 
+const libraryVisuals: Record<string, VisualAsset> = {
+  "design-taste-frontend": {
+    src: "/generated/library-cover-skills.svg",
+    alt: "Темная библиотечная обложка с модульными skill-плитами, bracket-маркерами и синими акцентами.",
+    label: "skill visual",
+    title: "Skill Stack",
+    description: "Скиллы как живая библиотека модулей и правил сборки.",
+    tone: "#6087C2",
+  },
+  "image-to-code-pipeline": {
+    src: "/generated/library-cover-skills.svg",
+    alt: "Темная библиотечная обложка с модульными skill-плитами, bracket-маркерами и синими акцентами.",
+    label: "skill visual",
+    title: "Image Pipeline",
+    description: "Пайплайн image-first как набор жёстко связанных стадий.",
+    tone: "#6087C2",
+  },
+  "image-first-brief-template": {
+    src: "/generated/library-cover-templates.svg",
+    alt: "Тихая dark-ui обложка с многослойными шаблонными листами, направляющими и зелёными маркерами.",
+    label: "template visual",
+    title: "Brief Sheets",
+    description: "Шаблоны как набор заготовок и направляющих, а не как generic forms.",
+    tone: "#5B894B",
+  },
+  "media-ia-template": {
+    src: "/generated/library-cover-templates.svg",
+    alt: "Тихая dark-ui обложка с многослойными шаблонными листами, направляющими и зелёными маркерами.",
+    label: "template visual",
+    title: "Route Sheets",
+    description: "Архитектурные шаблоны для контентных маршрутов и режимов.",
+    tone: "#5B894B",
+  },
+  "prompt-lint-pass": {
+    src: "/generated/library-cover-prompts.svg",
+    alt: "Минималистичная dark-ui обложка с окном промта, цветными линиями правок и курсором в языке KODO.",
+    label: "prompt visual",
+    title: "Prompt Audit",
+    description: "Промты как инструмент аудита, а не просто текстовый старт.",
+    tone: "#A2649D",
+  },
+  "ship-review-pass": {
+    src: "/generated/library-cover-prompts.svg",
+    alt: "Минималистичная dark-ui обложка с окном промта, цветными линиями правок и курсором в языке KODO.",
+    label: "prompt visual",
+    title: "Release Prompt",
+    description: "Финальные review-pass промты для зачистки перед релизом.",
+    tone: "#A2649D",
+  },
+  "prompt-lab-setup-guide": {
+    src: "/generated/library-cover-guides.svg",
+    alt: "Тихая dark-ui карта библиотечных материалов с маршрутными блоками и цветными связями.",
+    label: "guide visual",
+    title: "Utility Guide",
+    description: "Гайды как маршрутные карты: короткие, практичные, без избыточного шума.",
+    tone: "#B49F00",
+  },
+  "release-route-guide": {
+    src: "/generated/library-cover-guides.svg",
+    alt: "Тихая dark-ui карта библиотечных материалов с маршрутными блоками и цветными связями.",
+    label: "guide visual",
+    title: "Polish Route",
+    description: "Полировка проекта как последовательность проходов по режимам и маршрутам.",
+    tone: "#B49F00",
+  },
+};
+
 export function getRubricVisualAsset(slug?: string) {
   if (!slug) {
     return visualAssets.covers;
@@ -190,4 +266,12 @@ export function getTestVisualAsset(slug?: string) {
   }
 
   return testVisuals[slug] ?? visualAssets.tests;
+}
+
+export function getLibraryVisualAsset(slug?: string) {
+  if (!slug) {
+    return visualAssets.library;
+  }
+
+  return libraryVisuals[slug] ?? visualAssets.library;
 }

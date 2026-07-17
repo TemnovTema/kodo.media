@@ -1,0 +1,32 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1120" fill="#08080B"/>
+  <rect x="1" y="1" width="1598" height="1118" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  <g opacity="0.12">
+    <path d="M188 214H1412" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M188 906H1412" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M286 136V986" stroke="rgba(255,255,255,0.06)"/>
+    <path d="M1314 136V986" stroke="rgba(255,255,255,0.06)"/>
+  </g>
+  <rect x="318" y="350" width="170" height="118" fill="rgba(96,135,194,0.05)" stroke="#6087C2" stroke-width="2"/>
+  <rect x="350" y="392" width="90" height="12" fill="rgba(243,238,232,0.94)"/>
+  <rect x="350" y="426" width="112" height="8" fill="rgba(243,238,232,0.22)"/>
+  <rect x="604" y="208" width="206" height="126" fill="rgba(91,137,75,0.05)" stroke="#5B894B" stroke-width="2"/>
+  <rect x="636" y="252" width="106" height="12" fill="rgba(243,238,232,0.94)"/>
+  <rect x="636" y="286" width="132" height="8" fill="rgba(243,238,232,0.22)"/>
+  <rect x="604" y="582" width="206" height="126" fill="rgba(180,159,0,0.05)" stroke="#B49F00" stroke-width="2"/>
+  <rect x="636" y="626" width="96" height="12" fill="rgba(243,238,232,0.94)"/>
+  <rect x="636" y="660" width="142" height="8" fill="rgba(243,238,232,0.22)"/>
+  <rect x="928" y="350" width="170" height="118" fill="rgba(162,100,157,0.05)" stroke="#A2649D" stroke-width="2"/>
+  <rect x="960" y="392" width="88" height="12" fill="rgba(243,238,232,0.94)"/>
+  <rect x="960" y="426" width="102" height="8" fill="rgba(243,238,232,0.22)"/>
+  <path d="M488 409H550V271H604" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M488 409H550V645H604" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M810 271H870V409H928" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M810 645H870V409H928" stroke="#F3EEE8" stroke-width="6"/>
+  <circle cx="550" cy="409" r="10" fill="#6087C2"/>
+  <circle cx="550" cy="271" r="10" fill="#5B894B"/>
+  <circle cx="550" cy="645" r="10" fill="#B49F00"/>
+  <circle cx="870" cy="409" r="10" fill="#A2649D"/>
+  <path d="M318 808H456" stroke="#B49F00" stroke-width="4"/>
+  <path d="M318 840H548" stroke="rgba(243,238,232,0.16)" stroke-width="2"/>
+</svg>

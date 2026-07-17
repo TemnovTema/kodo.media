@@ -1,0 +1,49 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1120" fill="#08080B"/>
+  <rect x="1" y="1" width="1598" height="1118" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  <g opacity="0.12">
+    <path d="M198 214H1402" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M198 904H1402" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M284 134V986" stroke="rgba(255,255,255,0.06)"/>
+    <path d="M1316 134V986" stroke="rgba(255,255,255,0.06)"/>
+  </g>
+  <g transform="translate(358 248)">
+    <rect x="0" y="72" width="216" height="414" fill="rgba(96,135,194,0.06)" stroke="#6087C2" stroke-width="2"/>
+    <rect x="0" y="72" width="216" height="18" fill="#6087C2"/>
+    <rect x="38" y="144" width="110" height="14" fill="rgba(243,238,232,0.94)"/>
+    <rect x="38" y="182" width="84" height="10" fill="rgba(243,238,232,0.34)"/>
+    <rect x="38" y="210" width="126" height="10" fill="rgba(243,238,232,0.18)"/>
+    <rect x="38" y="298" width="54" height="54" stroke="#6087C2" stroke-width="2"/>
+    <rect x="108" y="298" width="54" height="54" stroke="rgba(243,238,232,0.22)" stroke-width="2"/>
+    <rect x="0" y="0" width="216" height="16" fill="#6087C2"/>
+  </g>
+  <g transform="translate(692 184)">
+    <rect x="0" y="72" width="216" height="542" fill="rgba(91,137,75,0.04)" stroke="#5B894B" stroke-width="2"/>
+    <rect x="0" y="72" width="216" height="18" fill="#5B894B"/>
+    <rect x="38" y="138" width="116" height="14" fill="rgba(243,238,232,0.94)"/>
+    <rect x="38" y="176" width="98" height="10" fill="rgba(243,238,232,0.34)"/>
+    <rect x="38" y="204" width="140" height="10" fill="rgba(243,238,232,0.18)"/>
+    <path d="M38 300H178" stroke="rgba(243,238,232,0.18)" stroke-width="2"/>
+    <path d="M38 338H178" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+    <path d="M38 376H144" stroke="rgba(243,238,232,0.12)" stroke-width="2"/>
+    <rect x="0" y="0" width="216" height="16" fill="#5B894B"/>
+  </g>
+  <g transform="translate(1026 308)">
+    <rect x="0" y="72" width="216" height="354" fill="rgba(162,100,157,0.05)" stroke="#A2649D" stroke-width="2"/>
+    <rect x="0" y="72" width="216" height="18" fill="#A2649D"/>
+    <rect x="38" y="146" width="108" height="14" fill="rgba(243,238,232,0.94)"/>
+    <rect x="38" y="184" width="82" height="10" fill="rgba(243,238,232,0.34)"/>
+    <rect x="38" y="212" width="132" height="10" fill="rgba(243,238,232,0.18)"/>
+    <rect x="0" y="0" width="216" height="16" fill="#A2649D"/>
+  </g>
+  <g opacity="0.95">
+    <path d="M296 560H344" stroke="#B49F00" stroke-width="4"/>
+    <path d="M1256 560H1304" stroke="#B49F00" stroke-width="4"/>
+    <path d="M586 560H644" stroke="#6087C2" stroke-width="4"/>
+    <path d="M950 560H1008" stroke="#5B894B" stroke-width="4"/>
+  </g>
+  <g opacity="0.86">
+    <path d="M302 808H460" stroke="rgba(243,238,232,0.18)" stroke-width="2"/>
+    <path d="M302 838H536" stroke="rgba(243,238,232,0.12)" stroke-width="2"/>
+  </g>
+</svg>

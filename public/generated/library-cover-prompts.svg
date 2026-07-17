@@ -1,0 +1,29 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1120" fill="#08080B"/>
+  <rect x="1" y="1" width="1598" height="1118" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  <g opacity="0.12">
+    <path d="M184 222H1416" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M184 900H1416" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M288 136V986" stroke="rgba(255,255,255,0.06)"/>
+    <path d="M1312 136V986" stroke="rgba(255,255,255,0.06)"/>
+  </g>
+  <rect x="354" y="256" width="892" height="530" fill="rgba(243,238,232,0.02)" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+  <rect x="354" y="256" width="892" height="24" fill="rgba(243,238,232,0.05)"/>
+  <circle cx="382" cy="268" r="5" fill="#A2649D"/>
+  <circle cx="404" cy="268" r="5" fill="#6087C2"/>
+  <circle cx="426" cy="268" r="5" fill="#5B894B"/>
+  <rect x="438" y="336" width="148" height="16" fill="rgba(243,238,232,0.94)"/>
+  <rect x="438" y="382" width="282" height="10" fill="rgba(243,238,232,0.24)"/>
+  <rect x="438" y="418" width="244" height="10" fill="rgba(243,238,232,0.16)"/>
+  <rect x="438" y="500" width="210" height="14" fill="#A2649D"/>
+  <rect x="666" y="500" width="124" height="14" fill="rgba(243,238,232,0.16)"/>
+  <path d="M438 580H1060" stroke="rgba(243,238,232,0.18)" stroke-width="2"/>
+  <path d="M438 620H980" stroke="rgba(243,238,232,0.12)" stroke-width="2"/>
+  <path d="M438 660H926" stroke="rgba(243,238,232,0.1)" stroke-width="2"/>
+  <path d="M1092 350H1166" stroke="#5B894B" stroke-width="8"/>
+  <path d="M1092 350L1124 382L1182 318" stroke="#5B894B" stroke-width="8"/>
+  <path d="M1092 464H1182" stroke="#B49F00" stroke-width="10"/>
+  <path d="M1092 552L1182 642" stroke="#6087C2" stroke-width="8"/>
+  <path d="M1092 642L1182 552" stroke="#6087C2" stroke-width="8"/>
+  <rect x="438" y="724" width="88" height="4" fill="#A2649D"/>
+</svg>

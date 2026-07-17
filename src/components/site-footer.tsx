@@ -26,6 +26,9 @@ export function SiteFooter() {
           <Link href="/articles" className="hover:text-[var(--color-text)]">
             Архив статей
           </Link>
+          <Link href="/library" className="hover:text-[var(--color-text)]">
+            Библиотека
+          </Link>
           <Link href="/prompt-lab" className="hover:text-[var(--color-text)]">
             Лаборатория промта
           </Link>

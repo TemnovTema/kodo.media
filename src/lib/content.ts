@@ -43,6 +43,18 @@ export type DiagnosticTest = {
   checkpoints: string[];
 };
 
+export type LibraryItem = {
+  slug: string;
+  title: string;
+  summary: string;
+  kind: "Скилл" | "Шаблон" | "Промт" | "Гайд";
+  target: string;
+  format: string;
+  outcome: string;
+  includes: string[];
+  whenToUse: string[];
+};
+
 export const siteStats = [
   { label: "Рубрики", value: "04" },
   { label: "Форматы", value: "06" },
@@ -420,6 +432,169 @@ export const diagnosticTests: DiagnosticTest[] = [
   },
 ];
 
+export const libraryItems: LibraryItem[] = [
+  {
+    slug: "design-taste-frontend",
+    title: "Design Taste Frontend",
+    summary:
+      "Анти-slop skill для экранов, где нужно держать композицию, воздух и image-led логику, а не добивать пустоту типографикой.",
+    kind: "Скилл",
+    target: "Codex / frontend surfaces",
+    format: "Skill contract",
+    outcome: "Чище layout, жёстче арт-дирекшн",
+    includes: [
+      "правила против generic hero-паттернов",
+      "bias в сторону image-layer и spacing discipline",
+      "ограничения на безопасные шаблонные UI-решения",
+    ],
+    whenToUse: [
+      "когда агент начал заполнять экран текстом вместо визуальных якорей",
+      "когда нужен entry-surface, который не выглядит как AI landing page",
+      "когда важно сохранить сильный editorial/dev tone без переусложнения",
+    ],
+  },
+  {
+    slug: "image-to-code-pipeline",
+    title: "Image-to-Code Pipeline",
+    summary:
+      "Режим, в котором визуал утверждается сначала картинками, а уже потом переводится в код. Особенно полезен для важных entry-screen и брендовых страниц.",
+    kind: "Скилл",
+    target: "Image-first builds",
+    format: "Workflow skill",
+    outcome: "Меньше визуальных догадок в коде",
+    includes: [
+      "порядок image -> audit -> implementation",
+      "контроль того, чтобы код не уходил в собственную стилистику",
+      "жёсткое разделение между mood direction и production UI",
+    ],
+    whenToUse: [
+      "когда важнее сначала утвердить визуальный язык, чем сразу писать JSX",
+      "когда геройская секция или обложки должны попасть в бренд с первого прохода",
+      "когда проект визуально чувствительный и не терпит нейрослопа",
+    ],
+  },
+  {
+    slug: "image-first-brief-template",
+    title: "Шаблон image-first брифа",
+    summary:
+      "Каркас брифа для страниц, где сначала задаются визуальные роли, а уже потом copy, CTA и логика сборки.",
+    kind: "Шаблон",
+    target: "Brand + page direction",
+    format: "Reusable brief",
+    outcome: "Сильнее visual anchors и меньше случайных арт-решений",
+    includes: [
+      "роли секционных изображений и cover-system",
+      "ограничения по стилистике, плотности и палитре",
+      "ожидаемые режимы композиции для hero, archive и utility pages",
+    ],
+    whenToUse: [
+      "когда проекту нужен отдельный image-direction слой",
+      "когда дизайнерского Figma-файла нет, а визуал всё равно должен быть осмысленным",
+      "когда несколько агентов работают над одним брендовым направлением",
+    ],
+  },
+  {
+    slug: "media-ia-template",
+    title: "Шаблон IA для контентного продукта",
+    summary:
+      "Быстрый каркас для сайтов, где есть главная, каталог, рубрики, лаборатории, тесты и другие режимы контента, а не один лендинг.",
+    kind: "Шаблон",
+    target: "Media / catalog products",
+    format: "Route map",
+    outcome: "Меньше хаоса в сущностях и навигации",
+    includes: [
+      "список базовых маршрутов и типов сущностей",
+      "разделение на entry, reading, utility и diagnostic modes",
+      "правила, где нужен вау-эффект, а где тишина и воздух",
+    ],
+    whenToUse: [
+      "когда проект уже больше, чем одна промо-страница",
+      "когда важно не перепутать контентные режимы между собой",
+      "когда надо быстро объяснить агенту архитектуру сайта до кода",
+    ],
+  },
+  {
+    slug: "prompt-lint-pass",
+    title: "Prompt Lint Pass",
+    summary:
+      "Промт для короткого редакторского аудита: проверяет роль, контекст, ограничения, критерии завершенности и визуальные запреты.",
+    kind: "Промт",
+    target: "Prompt QA",
+    format: "Review prompt",
+    outcome: "Сильнее постановка задачи перед запуском агента",
+    includes: [
+      "проверку на пустую роль и размытый scope",
+      "поиск конфликтующих ограничений",
+      "сигналы о том, где агенту не хватит контекста или активов",
+    ],
+    whenToUse: [
+      "перед отправкой длинного production-промта в Codex или ChatGPT",
+      "когда результат выглядит случайным, хотя формально задача описана",
+      "когда хочется понять, что именно в постановке сломано",
+    ],
+  },
+  {
+    slug: "ship-review-pass",
+    title: "Ship Review Pass",
+    summary:
+      "Короткий финальный prompt для предрелизной проверки: layout, пустое пространство, рабочие ссылки, адаптив и визуальный мусор.",
+    kind: "Промт",
+    target: "Pre-release audit",
+    format: "QA prompt",
+    outcome: "Чище последний проход перед деплоем",
+    includes: [
+      "проверку на dead links и случайные заглушки",
+      "проверку visual density и лишнего текста",
+      "сигналы для mobile-pass и cleanup по маршрутам",
+    ],
+    whenToUse: [
+      "перед коммитом или Vercel deploy",
+      "когда проект уже собран, но хочется снять последний мусор",
+      "когда агент доделывал страницу в несколько итераций и мог оставить хвосты",
+    ],
+  },
+  {
+    slug: "prompt-lab-setup-guide",
+    title: "Гайд по сборке Prompt Lab",
+    summary:
+      "Набор правил для utility-экранов, где интерфейс должен помогать писать, а не шуметь: одно поле, короткие подсказки, нулевая перегрузка.",
+    kind: "Гайд",
+    target: "Utility screens",
+    format: "Implementation guide",
+    outcome: "Меньше декоративности в практических экранах",
+    includes: [
+      "правила для тихих utility-layouts",
+      "границы между helpful hints и лишним текстом",
+      "подход к voice input, validation и empty-state без перегруза",
+    ],
+    whenToUse: [
+      "когда делаешь экран для практики, а не для шоукейса",
+      "когда хочется убрать почти всё, кроме главного действия",
+      "когда интерфейс должен работать как инструмент, а не как постер",
+    ],
+  },
+  {
+    slug: "release-route-guide",
+    title: "Гайд по route-by-route полировке",
+    summary:
+      "Последовательность, в которой имеет смысл чистить проект: entry-screen, каталоги, utility pages, diagnostics, mobile pass и только потом deploy.",
+    kind: "Гайд",
+    target: "Polish workflow",
+    format: "Cleanup sequence",
+    outcome: "Меньше хаотичных правок в финале",
+    includes: [
+      "порядок прохода по маршрутам и типам страниц",
+      "разделение между visual issues и structural issues",
+      "правило, какие страницы можно делать эффектными, а какие нет",
+    ],
+    whenToUse: [
+      "когда проект растёт и правки начинают конфликтовать друг с другом",
+      "когда нужно привести несколько разделов к одному editorial rhythm",
+      "когда хочется меньше метаться между экранами перед релизом",
+    ],
+  },
+];
+
 export function getRubricBySlug(slug: string) {
   return rubrics.find((rubric) => rubric.slug === slug);
 }
@@ -434,4 +609,8 @@ export function getArticlesByRubric(slug: string) {
 
 export function getTestBySlug(slug: string) {
   return diagnosticTests.find((test) => test.slug === slug);
+}
+
+export function getLibraryItemBySlug(slug: string) {
+  return libraryItems.find((item) => item.slug === slug);
 }

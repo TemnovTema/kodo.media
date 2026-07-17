@@ -1,0 +1,35 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1120" fill="#08080B"/>
+  <rect x="1" y="1" width="1598" height="1118" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  <g opacity="0.12">
+    <path d="M196 216H1404" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M196 904H1404" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M286 136V986" stroke="rgba(255,255,255,0.06)"/>
+    <path d="M1314 136V986" stroke="rgba(255,255,255,0.06)"/>
+  </g>
+  <g transform="translate(396 272)">
+    <rect x="0" y="44" width="376" height="488" fill="rgba(243,238,232,0.02)" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+    <rect x="0" y="44" width="376" height="18" fill="#5B894B"/>
+    <rect x="46" y="120" width="134" height="14" fill="rgba(243,238,232,0.94)"/>
+    <rect x="46" y="160" width="218" height="10" fill="rgba(243,238,232,0.24)"/>
+    <rect x="46" y="194" width="178" height="10" fill="rgba(243,238,232,0.16)"/>
+    <rect x="46" y="278" width="98" height="12" fill="#5B894B"/>
+    <rect x="46" y="326" width="282" height="2" fill="rgba(243,238,232,0.18)"/>
+    <rect x="46" y="360" width="254" height="2" fill="rgba(243,238,232,0.12)"/>
+    <rect x="46" y="394" width="220" height="2" fill="rgba(243,238,232,0.1)"/>
+  </g>
+  <g transform="translate(654 204)">
+    <rect x="0" y="44" width="376" height="488" fill="rgba(243,238,232,0.02)" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+    <rect x="0" y="44" width="376" height="18" fill="#6087C2"/>
+    <rect x="44" y="118" width="126" height="14" fill="rgba(243,238,232,0.94)"/>
+    <rect x="44" y="158" width="208" height="10" fill="rgba(243,238,232,0.24)"/>
+    <rect x="44" y="192" width="176" height="10" fill="rgba(243,238,232,0.16)"/>
+    <rect x="44" y="286" width="68" height="68" stroke="#6087C2" stroke-width="2"/>
+    <rect x="128" y="286" width="68" height="68" stroke="rgba(243,238,232,0.22)" stroke-width="2"/>
+    <rect x="44" y="414" width="272" height="2" fill="rgba(243,238,232,0.18)"/>
+  </g>
+  <g opacity="0.9">
+    <path d="M324 792H458" stroke="#5B894B" stroke-width="4"/>
+    <path d="M1136 252H1270" stroke="#6087C2" stroke-width="4"/>
+  </g>
+</svg>
