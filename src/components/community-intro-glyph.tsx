@@ -18,8 +18,8 @@ const ROTATION_DAMPING = 1.08;
 const STOP_THRESHOLD = 2.25;
 const RETURN_RATE = 0.72;
 const RETURN_THRESHOLD = 0.18;
-const ORIENTATION_FOLLOW = 5.4;
-const ORIENTATION_LIMIT = 22;
+const ORIENTATION_FOLLOW = 6.2;
+const ORIENTATION_LIMIT = 32;
 
 const compassMarks = [
   { x: 160, y: 48, color: yellow, label: "N", size: 16, swap: "O" },
@@ -38,6 +38,14 @@ type MotionState = {
   clock: number;
   phase: number;
 };
+
+type MobileCompassState =
+  | "idle"
+  | "requesting"
+  | "active"
+  | "unsupported"
+  | "unavailable"
+  | "denied";
 
 type PersonProps = {
   bodyColor: string;
@@ -176,6 +184,71 @@ function CompassMarkLabel({
   );
 }
 
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function normalizeDegrees(value: number) {
+  let normalized = value % 360;
+
+  if (normalized < 0) {
+    normalized += 360;
+  }
+
+  return normalized;
+}
+
+function shortestAngleDelta(from: number, to: number) {
+  return ((to - from + 540) % 360) - 180;
+}
+
+function resolveHeading(event: DeviceOrientationEvent) {
+  const iosHeading = (
+    event as DeviceOrientationEvent & {
+      webkitCompassHeading?: number;
+    }
+  ).webkitCompassHeading;
+
+  if (typeof iosHeading === "number" && Number.isFinite(iosHeading)) {
+    return normalizeDegrees(iosHeading);
+  }
+
+  if (typeof event.alpha === "number" && Number.isFinite(event.alpha)) {
+    return normalizeDegrees(event.alpha);
+  }
+
+  return null;
+}
+
+function resolveTilt(event: DeviceOrientationEvent) {
+  const gamma = typeof event.gamma === "number" ? event.gamma : null;
+  const beta = typeof event.beta === "number" ? event.beta : null;
+
+  if (gamma === null && beta === null) {
+    return null;
+  }
+
+  return clamp((gamma ?? 0) * 0.82 + (beta ?? 0) * 0.08, -ORIENTATION_LIMIT, ORIENTATION_LIMIT);
+}
+
+function getMobileCompassMessage(state: MobileCompassState) {
+  switch (state) {
+    case "requesting":
+      return "разрешаем доступ к компасу";
+    case "active":
+      return "компас привязан к положению телефона";
+    case "unsupported":
+      return "браузер не отдаёт compass-сенсор";
+    case "unavailable":
+      return "сенсор не отвечает";
+    case "denied":
+      return "доступ к motion/compass отклонён";
+    case "idle":
+    default:
+      return "коснитесь знака, чтобы включить компас";
+  }
+}
+
 export function CommunityIntroGlyph({
   className = "",
 }: CommunityIntroGlyphProps) {
@@ -191,7 +264,11 @@ export function CommunityIntroGlyph({
   const orientationPermissionNeededRef = useRef(false);
   const orientationAttachedRef = useRef(false);
   const orientationTargetRef = useRef(0);
+  const orientationZeroRef = useRef<number | null>(null);
+  const orientationLastEventAtRef = useRef(0);
   const attachOrientationListenerRef = useRef<(() => void) | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileCompassState, setMobileCompassState] = useState<MobileCompassState>("idle");
   const [motion, setMotion] = useState<MotionState>({
     angle: 0,
     clock: 0,
@@ -202,11 +279,14 @@ export function CommunityIntroGlyph({
     const coarseQuery = window.matchMedia("(hover: none) and (pointer: coarse)");
     const updateMobileState = () => {
       isMobileRef.current = coarseQuery.matches;
+      setIsMobile(coarseQuery.matches);
 
       if (!isMobileRef.current) {
         orientationTargetRef.current = 0;
         orientationEnabledRef.current = false;
         orientationPermissionNeededRef.current = false;
+        orientationZeroRef.current = null;
+        setMobileCompassState("idle");
       }
     };
 
@@ -215,15 +295,28 @@ export function CommunityIntroGlyph({
         return;
       }
 
-      const gamma = typeof event.gamma === "number" ? event.gamma : 0;
-      const beta = typeof event.beta === "number" ? event.beta : 0;
-      const target = Math.max(
-        -ORIENTATION_LIMIT,
-        Math.min(ORIENTATION_LIMIT, gamma * 0.82 + beta * 0.08),
-      );
+      const heading = resolveHeading(event);
+      const tilt = resolveTilt(event);
+      let target: number | null = null;
+
+      if (heading !== null) {
+        if (orientationZeroRef.current === null) {
+          orientationZeroRef.current = heading;
+        }
+
+        target = shortestAngleDelta(orientationZeroRef.current, heading);
+      } else if (tilt !== null) {
+        target = tilt;
+      }
+
+      if (target === null) {
+        return;
+      }
 
       orientationEnabledRef.current = true;
       orientationTargetRef.current = target;
+      orientationLastEventAtRef.current = performance.now();
+      setMobileCompassState("active");
 
       if (frameRef.current === null && stepRef.current) {
         const now = performance.now();
@@ -238,7 +331,11 @@ export function CommunityIntroGlyph({
         return;
       }
 
+      orientationZeroRef.current = null;
       window.addEventListener("deviceorientation", handleDeviceOrientation, {
+        passive: true,
+      });
+      window.addEventListener("deviceorientationabsolute", handleDeviceOrientation as EventListener, {
         passive: true,
       });
       orientationAttachedRef.current = true;
@@ -254,9 +351,15 @@ export function CommunityIntroGlyph({
 
       if (typeof orientationCtor.requestPermission === "function") {
         orientationPermissionNeededRef.current = true;
+        setMobileCompassState(isMobileRef.current ? "idle" : "unsupported");
       } else {
         attachOrientationListenerRef.current?.();
+        if (isMobileRef.current) {
+          setMobileCompassState("idle");
+        }
       }
+    } else if (isMobileRef.current) {
+      setMobileCompassState("unsupported");
     }
 
     const step = (timestamp: number) => {
@@ -266,7 +369,15 @@ export function CommunityIntroGlyph({
       lastFrameRef.current = timestamp;
 
       if (isMobileRef.current && orientationEnabledRef.current) {
-        const delta = orientationTargetRef.current - angleRef.current;
+        if (
+          orientationLastEventAtRef.current > 0 &&
+          timestamp - orientationLastEventAtRef.current > 1800
+        ) {
+          orientationEnabledRef.current = false;
+          setMobileCompassState("unavailable");
+        }
+
+        const delta = shortestAngleDelta(angleRef.current, orientationTargetRef.current);
 
         angleRef.current += delta * Math.min(1, dt * ORIENTATION_FOLLOW);
       } else if (velocityRef.current > 0) {
@@ -318,6 +429,10 @@ export function CommunityIntroGlyph({
       coarseQuery.removeEventListener("change", updateMobileState);
       if (orientationAttachedRef.current) {
         window.removeEventListener("deviceorientation", handleDeviceOrientation);
+        window.removeEventListener(
+          "deviceorientationabsolute",
+          handleDeviceOrientation as EventListener,
+        );
       }
 
       if (frameRef.current !== null) {
@@ -356,27 +471,61 @@ export function CommunityIntroGlyph({
   };
 
   const handleMobileCompassActivation = async () => {
-    if (!isMobileRef.current || !orientationPermissionNeededRef.current) {
+    if (!isMobileRef.current) {
+      return;
+    }
+
+    if (!orientationPermissionNeededRef.current) {
+      if (!orientationAttachedRef.current) {
+        attachOrientationListenerRef.current?.();
+      }
+
+      if (!orientationEnabledRef.current) {
+        setMobileCompassState("unavailable");
+        triggerCompass();
+      }
+
       return;
     }
 
     const orientationCtor = DeviceOrientationEvent as typeof DeviceOrientationEvent & {
-      requestPermission?: () => Promise<"denied" | "granted">;
+      requestPermission?: (absolute?: boolean) => Promise<"denied" | "granted">;
     };
 
     if (typeof orientationCtor.requestPermission !== "function") {
+      setMobileCompassState("unsupported");
       return;
     }
 
     try {
-      const permission = await orientationCtor.requestPermission();
+      setMobileCompassState("requesting");
+      let permission: "denied" | "granted";
+
+      try {
+        permission = await orientationCtor.requestPermission(true);
+      } catch {
+        permission = await orientationCtor.requestPermission();
+      }
 
       if (permission === "granted") {
         orientationPermissionNeededRef.current = false;
+        orientationLastEventAtRef.current = performance.now();
+        setMobileCompassState("active");
         attachOrientationListenerRef.current?.();
+        window.setTimeout(() => {
+          if (
+            isMobileRef.current &&
+            !orientationEnabledRef.current &&
+            mobileCompassState !== "denied"
+          ) {
+            setMobileCompassState("unavailable");
+          }
+        }, 1400);
+      } else {
+        setMobileCompassState("denied");
       }
     } catch {
-      // Ignore permission errors; the compass will remain in the non-sensor mode.
+      setMobileCompassState("denied");
     }
   };
 
@@ -505,6 +654,20 @@ export function CommunityIntroGlyph({
             values="0.72;1;0.72"
           />
         </g>
+        {isMobile ? (
+          <text
+            x="160"
+            y="292"
+            fill="rgba(243, 238, 232, 0.44)"
+            fontFamily="var(--font-fugue-mono), monospace"
+            fontSize="9"
+            fontWeight="500"
+            letterSpacing="0.14em"
+            textAnchor="middle"
+          >
+            {getMobileCompassMessage(mobileCompassState)}
+          </text>
+        ) : null}
       </svg>
     </div>
   );
