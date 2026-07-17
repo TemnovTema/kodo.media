@@ -1,0 +1,38 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#4D434B"/>
+  <rect x="100" y="100" width="1400" height="800" fill="#17161A" stroke="rgba(255,255,255,0.16)"/>
+  <text x="150" y="190" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="30" letter-spacing="8">COVER SYSTEM / ARTICLES / RUBRICS</text>
+  <rect x="170" y="250" width="280" height="520" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <rect x="420" y="210" width="320" height="560" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <rect x="730" y="280" width="300" height="490" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <rect x="1050" y="220" width="330" height="550" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <rect x="170" y="250" width="280" height="80" fill="#A2649D"/>
+  <rect x="170" y="330" width="200" height="70" fill="#5B894B"/>
+  <rect x="280" y="500" width="170" height="90" fill="#6087C2"/>
+  <rect x="170" y="590" width="280" height="80" fill="#B49F00"/>
+  <rect x="420" y="210" width="200" height="90" fill="#6087C2"/>
+  <rect x="620" y="210" width="120" height="90" fill="#B49F00"/>
+  <rect x="420" y="300" width="320" height="110" fill="#17161A"/>
+  <rect x="420" y="410" width="230" height="90" fill="#A2649D"/>
+  <rect x="650" y="410" width="90" height="90" fill="#5B894B"/>
+  <rect x="500" y="580" width="240" height="130" fill="#5B894B"/>
+  <rect x="730" y="280" width="300" height="85" fill="#B49F00"/>
+  <rect x="730" y="365" width="190" height="105" fill="#A2649D"/>
+  <rect x="920" y="365" width="110" height="105" fill="#6087C2"/>
+  <rect x="790" y="590" width="240" height="100" fill="#6087C2"/>
+  <rect x="1050" y="220" width="170" height="110" fill="#5B894B"/>
+  <rect x="1220" y="220" width="160" height="110" fill="#B49F00"/>
+  <rect x="1050" y="330" width="330" height="120" fill="#17161A"/>
+  <rect x="1090" y="560" width="290" height="120" fill="#A2649D"/>
+  <text x="194" y="722" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="700" letter-spacing="-12">ISSUE</text>
+  <text x="458" y="378" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="138" font-weight="700" letter-spacing="-12">KODO</text>
+  <text x="762" y="666" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="108" font-weight="700" letter-spacing="-8">FIELD</text>
+  <text x="1082" y="438" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="126" font-weight="700" letter-spacing="-10">NOTE</text>
+  <text x="190" y="292" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">01 / DISPATCHES</text>
+  <text x="450" y="262" fill="#17161A" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">02 / BUILDER NOTES</text>
+  <text x="760" y="332" fill="#17161A" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">03 / PROMPT FORENSICS</text>
+  <text x="1082" y="292" fill="#17161A" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">04 / SIGNAL TESTS</text>
+  <path d="M170 820H1380" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M170 820V860H560" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M560 860H1380" stroke="#6087C2" stroke-width="6"/>
+</svg>

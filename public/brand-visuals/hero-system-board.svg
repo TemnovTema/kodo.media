@@ -1,0 +1,44 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#4D434B"/>
+  <rect x="96" y="96" width="1408" height="808" rx="8" fill="#17161A" stroke="rgba(255,255,255,0.16)"/>
+  <path d="M208 248H612V316H208V248Z" fill="#A2649D"/>
+  <path d="M612 248H888V316H612V248Z" fill="#5B894B"/>
+  <path d="M888 248H1128V316H888V248Z" fill="#6087C2"/>
+  <path d="M1128 248H1392V316H1128V248Z" fill="#B49F00"/>
+  <path d="M210 348H420V700H210V348Z" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <path d="M460 348H1000V700H460V348Z" fill="#201E23" stroke="rgba(255,255,255,0.15)"/>
+  <path d="M1040 348H1390V700H1040V348Z" fill="#201E23" stroke="rgba(255,255,255,0.15)"/>
+  <path d="M1094 384H1336V454H1094V384Z" fill="#6087C2"/>
+  <path d="M1094 454H1260V524H1094V454Z" fill="#1F1D22"/>
+  <path d="M1260 454H1336V524H1260V454Z" fill="#A2649D"/>
+  <path d="M1094 524H1218V594H1094V524Z" fill="#B49F00"/>
+  <path d="M1218 524H1336V594H1218V524Z" fill="#5B894B"/>
+  <path d="M1094 594H1336V664H1094V594Z" fill="#A2649D"/>
+  <path d="M220 744H1390V792H220V744Z" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <path d="M220 792H1390V820H220V792Z" fill="#6087C2"/>
+  <path d="M420 700V744H576" stroke="#F3EEE8" stroke-width="8"/>
+  <path d="M576 744V792H754" stroke="#F3EEE8" stroke-width="8"/>
+  <path d="M900 316V396H1054" stroke="#F3EEE8" stroke-width="8"/>
+  <path d="M1054 396V454H1094" stroke="#F3EEE8" stroke-width="8"/>
+  <path d="M1000 700H1174V664" stroke="#F3EEE8" stroke-width="8"/>
+  <path d="M270 570H360" stroke="#F3EEE8" stroke-width="4"/>
+  <path d="M270 610H360" stroke="#F3EEE8" stroke-width="4"/>
+  <path d="M270 650H332" stroke="#F3EEE8" stroke-width="4"/>
+  <path d="M482 516H952" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+  <path d="M482 560H952" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+  <path d="M482 604H952" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+  <path d="M482 648H952" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+  <text x="210" y="190" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">ENTRY / ISSUE 01 / KODO MEDIA</text>
+  <text x="210" y="418" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="180" font-weight="700" letter-spacing="-18">KODO</text>
+  <text x="480" y="430" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="24" letter-spacing="4">A SITE ABOUT VIBE CODING, AGENTS, ROUTES, PROMPTS</text>
+  <text x="480" y="478" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="24" letter-spacing="4">AND HOW HUMAN EDITORIAL CONTROL HOLDS THE WHOLE SYSTEM TOGETHER.</text>
+  <text x="226" y="428" fill="#6087C2" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">01</text>
+  <text x="226" y="470" fill="#5B894B" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">02</text>
+  <text x="226" y="512" fill="#B49F00" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">03</text>
+  <text x="226" y="554" fill="#A2649D" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="6">04</text>
+  <text x="1112" y="838" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="44" letter-spacing="8">ROUTE ZERO</text>
+  <path d="M146 128H1454" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <path d="M146 872H1454" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <path d="M146 128V872" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <path d="M1454 128V872" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+</svg>

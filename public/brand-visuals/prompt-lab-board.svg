@@ -1,0 +1,35 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#4D434B"/>
+  <rect x="102" y="102" width="1396" height="796" fill="#17161A" stroke="rgba(255,255,255,0.16)"/>
+  <text x="160" y="188" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="30" letter-spacing="8">PROMPT LAB / CONSTRAINT BOARD</text>
+  <rect x="180" y="258" width="520" height="520" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <rect x="738" y="258" width="662" height="520" fill="#1F1D22" stroke="rgba(255,255,255,0.15)"/>
+  <rect x="220" y="304" width="440" height="90" fill="#A2649D"/>
+  <rect x="220" y="424" width="180" height="94" fill="#6087C2"/>
+  <rect x="420" y="424" width="240" height="94" fill="#5B894B"/>
+  <rect x="220" y="548" width="280" height="94" fill="#B49F00"/>
+  <rect x="520" y="548" width="140" height="94" fill="#A2649D"/>
+  <rect x="778" y="300" width="280" height="86" fill="#1F1D22" stroke="#F3EEE8" stroke-width="4"/>
+  <rect x="1080" y="300" width="280" height="86" fill="#1F1D22" stroke="#F3EEE8" stroke-width="4"/>
+  <rect x="778" y="440" width="280" height="86" fill="#1F1D22" stroke="#F3EEE8" stroke-width="4"/>
+  <rect x="1080" y="440" width="280" height="86" fill="#1F1D22" stroke="#F3EEE8" stroke-width="4"/>
+  <rect x="928" y="590" width="280" height="104" fill="#6087C2"/>
+  <path d="M400 394V424" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M540 394V424" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M290 518V548" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M590 518V548" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M1058 343H1080" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M918 526V590H1068" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M1220 526V590H1068" stroke="#F3EEE8" stroke-width="6"/>
+  <text x="250" y="362" fill="#17161A" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="700" letter-spacing="-4">CONTEXT</text>
+  <text x="254" y="487" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" letter-spacing="-3">ASSETS</text>
+  <text x="455" y="487" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" letter-spacing="-3">LIMITS</text>
+  <text x="250" y="612" fill="#17161A" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" letter-spacing="-3">CHECKS</text>
+  <text x="548" y="612" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" letter-spacing="-3">VOICE</text>
+  <text x="822" y="354" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="4">01 / USER TASK</text>
+  <text x="1124" y="354" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="4">02 / OUTPUT FORMAT</text>
+  <text x="822" y="494" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="4">03 / WHAT EXISTS</text>
+  <text x="1124" y="494" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="4">04 / WHAT TO AVOID</text>
+  <text x="976" y="654" fill="#17161A" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" letter-spacing="-4">OUTPUT</text>
+  <text x="182" y="840" fill="#F3EEE8" font-family="Arial, Helvetica, sans-serif" font-size="42" letter-spacing="6">PROMPTS WORK BETTER WHEN THEY ARE ROUTED, CONSTRAINED, AND CHECKABLE.</text>
+</svg>
