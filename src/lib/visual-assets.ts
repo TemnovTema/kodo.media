@@ -36,12 +36,12 @@ export const visualAssets = {
     tone: "#A2649D",
   },
   tests: {
-    src: "/generated/tests-radar-board.png",
-    alt: "Темная диагностическая панель с радарами, карточками профилей и графиками сигналов.",
-    label: "profile scan",
-    title: "Signal Matrix",
+    src: "/generated/test-cover-stack-fit.svg",
+    alt: "Минималистичная dark-ui схема маршрутов с четырьмя узлами и цветными связями в языке KODO.",
+    label: "route map",
+    title: "Stack Decision",
     description:
-      "Тестовый режим теперь опирается на полноценный диагностический визуал, а не только на текстовые блоки.",
+      "Тестовый раздел теперь держится на quieter cover-system: не dashboard-art, а маршрутные схемы и диагностические поля.",
     tone: "#5B894B",
   },
   covers: {
@@ -81,11 +81,11 @@ const rubricVisuals: Record<string, VisualAsset> = {
     tone: "#B49F00",
   },
   "signal-tests": {
-    src: "/generated/tests-radar-board.png",
-    alt: "Тихая dark-ui панель диагностики с радарами, профилями и матрицей сигналов.",
+    src: "/generated/test-cover-profile.svg",
+    alt: "Три профильных модуля на темном поле с кругами сканирования и брендовой цветовой системой KODO.",
     label: "test visual",
-    title: "Profile Matrix",
-    description: "Диагностика как система профилей и измеряемых маршрутов.",
+    title: "Profile Field",
+    description: "Диагностика как набор режимов и архетипов, а не как generic dashboard.",
     tone: "#5B894B",
   },
 };
@@ -142,14 +142,28 @@ const articleVisuals: Record<string, VisualAsset> = {
 };
 
 const testVisuals: Record<string, VisualAsset> = {
-  "vibe-coding-profile": rubricVisuals["signal-tests"],
-  "prompt-lint": rubricVisuals["prompt-forensics"],
+  "vibe-coding-profile": {
+    src: "/generated/test-cover-profile.svg",
+    alt: "Три профильных модуля на темном поле с кругами сканирования и брендовой цветовой системой KODO.",
+    label: "profile visual",
+    title: "Profile Field",
+    description: "Профили пользователя как тихая cover-system из модулей и сканирующих колец.",
+    tone: "#5B894B",
+  },
+  "prompt-lint": {
+    src: "/generated/test-cover-prompt-lint.svg",
+    alt: "Минималистичное dark-ui окно промта с пометками, check-mark и цветными правками в языке KODO.",
+    label: "lint visual",
+    title: "Prompt Review",
+    description: "Проверка промта как редакторская правка, а не как технический dashboard.",
+    tone: "#A2649D",
+  },
   "agent-stack-fit": {
-    src: "/generated/archive-desk.png",
-    alt: "Темная редакционная станция с картой связей и аналитическими экранами.",
+    src: "/generated/test-cover-stack-fit.svg",
+    alt: "Тихая dark-ui карта маршрутов с узлами, связями и брендовой палитрой KODO.",
     label: "stack visual",
-    title: "Pipeline Atlas",
-    description: "Выбор пайплайна через карту режимов и cover-system.",
+    title: "Route Map",
+    description: "Выбор пайплайна через маршрутную схему, а не через абстрактный tech-art.",
     tone: "#5B894B",
   },
 };

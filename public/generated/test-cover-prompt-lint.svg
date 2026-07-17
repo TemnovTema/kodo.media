@@ -1,0 +1,38 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1120" fill="#08080B"/>
+  <rect x="1" y="1" width="1598" height="1118" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  <g opacity="0.12">
+    <path d="M178 224H1422" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M178 898H1422" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M276 136V986" stroke="rgba(255,255,255,0.06)"/>
+    <path d="M1324 136V986" stroke="rgba(255,255,255,0.06)"/>
+  </g>
+  <rect x="308" y="248" width="768" height="470" fill="rgba(243,238,232,0.02)" stroke="rgba(243,238,232,0.14)" stroke-width="2"/>
+  <rect x="308" y="248" width="768" height="28" fill="rgba(243,238,232,0.05)"/>
+  <circle cx="336" cy="262" r="5" fill="#A2649D"/>
+  <circle cx="358" cy="262" r="5" fill="#6087C2"/>
+  <circle cx="380" cy="262" r="5" fill="#5B894B"/>
+  <rect x="380" y="334" width="280" height="16" fill="rgba(243,238,232,0.94)"/>
+  <rect x="380" y="382" width="222" height="10" fill="rgba(243,238,232,0.32)"/>
+  <rect x="380" y="418" width="312" height="10" fill="rgba(243,238,232,0.18)"/>
+  <rect x="380" y="512" width="190" height="14" fill="#A2649D"/>
+  <rect x="592" y="512" width="106" height="14" fill="rgba(243,238,232,0.18)"/>
+  <path d="M380 588H846" stroke="rgba(243,238,232,0.16)" stroke-width="2"/>
+  <path d="M380 624H804" stroke="rgba(243,238,232,0.12)" stroke-width="2"/>
+  <path d="M380 660H712" stroke="rgba(243,238,232,0.1)" stroke-width="2"/>
+  <g opacity="0.92">
+    <path d="M1138 314V676" stroke="#A2649D" stroke-width="4"/>
+    <path d="M1138 314H1206" stroke="#A2649D" stroke-width="4"/>
+    <path d="M1138 676H1206" stroke="#A2649D" stroke-width="4"/>
+    <path d="M1242 362L1296 416L1388 312" stroke="#5B894B" stroke-width="10" stroke-linecap="square"/>
+    <path d="M1214 540L1396 540" stroke="#B49F00" stroke-width="12"/>
+    <path d="M1214 596L1318 700" stroke="#6087C2" stroke-width="8"/>
+    <path d="M1214 700L1318 596" stroke="#6087C2" stroke-width="8"/>
+  </g>
+  <g opacity="0.85">
+    <path d="M272 772H1184" stroke="rgba(243,238,232,0.12)" stroke-width="2"/>
+    <rect x="304" y="806" width="176" height="4" fill="#A2649D"/>
+    <rect x="304" y="838" width="226" height="2" fill="rgba(243,238,232,0.18)"/>
+    <rect x="304" y="868" width="204" height="2" fill="rgba(243,238,232,0.12)"/>
+  </g>
+</svg>
