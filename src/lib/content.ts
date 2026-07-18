@@ -114,6 +114,14 @@ export type ContentComment = {
   likes: number;
 };
 
+export type SocialNetwork = "telegram" | "github" | "linkedin";
+
+export type ProfileSocialLink = {
+  network: SocialNetwork;
+  href: string;
+  label: string;
+};
+
 export type CommunityProfile = {
   slug: string;
   name: string;
@@ -124,8 +132,25 @@ export type CommunityProfile = {
   focus: string[];
   location: string;
   joined: string;
+  followersCount: number;
+  followingCount: number;
+  followerSlugs: string[];
+  followingSlugs: string[];
+  socials: ProfileSocialLink[];
   photoSrc?: string;
   photoPosition?: string;
+};
+
+export type DirectMessage = {
+  id: string;
+  authorSlug: string;
+  message: string;
+  sentAt: string;
+};
+
+export type DirectConversation = {
+  participantSlug: string;
+  messages: DirectMessage[];
 };
 
 export type MerchItem = {
@@ -1139,6 +1164,15 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Редакционные системы", "Product direction", "Agent workflows"],
     location: "Калининград",
     joined: "в KODO с 2026",
+    followersCount: 312,
+    followingCount: 46,
+    followerSlugs: ["grace-hopper", "alan-kay", "radia-perlman", "margaret-hamilton"],
+    followingSlugs: ["grace-hopper", "alan-kay", "radia-perlman"],
+    socials: [
+      { network: "telegram", href: "https://t.me/kodo_media", label: "@kodo_media" },
+      { network: "github", href: "https://github.com/TemnovTema/kodo.media", label: "kodo.media" },
+      { network: "linkedin", href: "https://www.linkedin.com/company/kodo-media/", label: "KODO MEDIA" },
+    ],
   },
   {
     slug: "grace-hopper",
@@ -1150,6 +1184,15 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Content systems", "Editorial QA", "Product voice"],
     location: "Москва",
     joined: "в KODO с 2025",
+    followersCount: 286,
+    followingCount: 72,
+    followerSlugs: ["dennis-ritchie", "alan-kay", "radia-perlman"],
+    followingSlugs: ["dennis-ritchie", "margaret-hamilton"],
+    socials: [
+      { network: "telegram", href: "https://t.me/kodo_editorial", label: "@kodo_editorial" },
+      { network: "github", href: "https://github.com/TemnovTema/kodo.media", label: "editorial" },
+      { network: "linkedin", href: "https://www.linkedin.com/company/kodo-media/", label: "KODO MEDIA" },
+    ],
     photoSrc: "/profile-portraits/grace-hopper.png",
     photoPosition: "center 34%",
   },
@@ -1163,6 +1206,15 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Frontend systems", "GSAP motion", "Interface density"],
     location: "Санкт-Петербург",
     joined: "в KODO с 2026",
+    followersCount: 194,
+    followingCount: 58,
+    followerSlugs: ["dennis-ritchie", "grace-hopper", "margaret-hamilton"],
+    followingSlugs: ["dennis-ritchie", "radia-perlman"],
+    socials: [
+      { network: "telegram", href: "https://t.me/kodo_frontend", label: "@kodo_frontend" },
+      { network: "github", href: "https://github.com/TemnovTema/kodo.media", label: "frontend" },
+      { network: "linkedin", href: "https://www.linkedin.com/company/kodo-media/", label: "KODO MEDIA" },
+    ],
     photoSrc: "/profile-portraits/alan-kay.png",
     photoPosition: "center 34%",
   },
@@ -1176,6 +1228,15 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Prompt design", "Evaluation", "Agent context"],
     location: "Токио / удалённо",
     joined: "в KODO с 2025",
+    followersCount: 238,
+    followingCount: 66,
+    followerSlugs: ["dennis-ritchie", "grace-hopper", "alan-kay"],
+    followingSlugs: ["grace-hopper", "margaret-hamilton"],
+    socials: [
+      { network: "telegram", href: "https://t.me/kodo_prompts", label: "@kodo_prompts" },
+      { network: "github", href: "https://github.com/TemnovTema/kodo.media", label: "prompt-lab" },
+      { network: "linkedin", href: "https://www.linkedin.com/company/kodo-media/", label: "KODO MEDIA" },
+    ],
   },
   {
     slug: "margaret-hamilton",
@@ -1187,6 +1248,80 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Community design", "Formats", "Editorial programming"],
     location: "Берлин",
     joined: "в KODO с 2026",
+    followersCount: 167,
+    followingCount: 39,
+    followerSlugs: ["dennis-ritchie", "radia-perlman"],
+    followingSlugs: ["dennis-ritchie", "grace-hopper"],
+    socials: [
+      { network: "telegram", href: "https://t.me/kodo_community", label: "@kodo_community" },
+      { network: "github", href: "https://github.com/TemnovTema/kodo.media", label: "community" },
+      { network: "linkedin", href: "https://www.linkedin.com/company/kodo-media/", label: "KODO MEDIA" },
+    ],
+  },
+];
+
+export const directConversations: DirectConversation[] = [
+  {
+    participantSlug: "grace-hopper",
+    messages: [
+      {
+        id: "dm-grace-01",
+        authorSlug: "grace-hopper",
+        message: "Собрала короткую схему для редакторского прохода. Посмотри, не перегружен ли стартовый шаг.",
+        sentAt: "сегодня, 10:42",
+      },
+      {
+        id: "dm-grace-02",
+        authorSlug: "dennis-ritchie",
+        message: "Старт читается. Я бы оставил один критерий готовности, а остальные вынес в следующий проход.",
+        sentAt: "сегодня, 10:56",
+      },
+    ],
+  },
+  {
+    participantSlug: "alan-kay",
+    messages: [
+      {
+        id: "dm-alan-01",
+        authorSlug: "alan-kay",
+        message: "Проверил мобильный экран. После удаления второго текста маршрут стал заметно чище.",
+        sentAt: "вчера, 18:16",
+      },
+      {
+        id: "dm-alan-02",
+        authorSlug: "dennis-ritchie",
+        message: "Хорошо. Зафиксируй это как правило для карточек, а не как частное исключение.",
+        sentAt: "вчера, 18:23",
+      },
+    ],
+  },
+  {
+    participantSlug: "radia-perlman",
+    messages: [
+      {
+        id: "dm-radia-01",
+        authorSlug: "radia-perlman",
+        message: "Добавила финальные критерии в prompt-lint. Теперь он точнее отделяет работающий контекст от красивой формулировки.",
+        sentAt: "вчера, 14:08",
+      },
+    ],
+  },
+  {
+    participantSlug: "margaret-hamilton",
+    messages: [
+      {
+        id: "dm-margaret-01",
+        authorSlug: "margaret-hamilton",
+        message: "На следующую неделю собрала короткий план обсуждений. В нём достаточно пауз между материалами.",
+        sentAt: "понедельник, 12:30",
+      },
+      {
+        id: "dm-margaret-02",
+        authorSlug: "dennis-ritchie",
+        message: "Принято. Закрепим одну точку входа и оставим остальное в живой ленте.",
+        sentAt: "понедельник, 12:48",
+      },
+    ],
   },
 ];
 
@@ -1477,6 +1612,21 @@ export function getAuthorPostById(id: string) {
 
 export function getCommunityProfileBySlug(slug: string) {
   return communityProfiles.find((profile) => profile.slug === slug);
+}
+
+export function getProfileConnections(
+  profile: CommunityProfile,
+  kind: "followers" | "following",
+) {
+  const slugs = kind === "followers" ? profile.followerSlugs : profile.followingSlugs;
+
+  return slugs
+    .map((slug) => getCommunityProfileBySlug(slug))
+    .filter((connection): connection is CommunityProfile => Boolean(connection));
+}
+
+export function getDirectConversationByProfile(slug: string) {
+  return directConversations.find((conversation) => conversation.participantSlug === slug);
 }
 
 export function getAuthorPostsByProfile(slug: string) {

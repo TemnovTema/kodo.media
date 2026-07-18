@@ -3,10 +3,13 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { CommunityProfile } from "@/lib/content";
 import { AuthorPostCard } from "@/components/author-post-card";
+import { ProfileActions } from "@/components/profile-actions";
+import { ProfileConnections } from "@/components/profile-connections";
 import {
   defaultProfileAvatarSrc,
   ProfileAvatar,
 } from "@/components/profile-avatar";
+import { ProfileSocialLinks } from "@/components/profile-social-links";
 import { brandPalette } from "@/lib/brand";
 import { getAuthorPostsByProfile } from "@/lib/content";
 
@@ -88,6 +91,10 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
               ))}
             </div>
 
+            {!isCurrentUser ? <ProfileActions profile={profile} /> : null}
+
+            <ProfileSocialLinks profile={profile} />
+
             <dl className="grid gap-4 border-t border-[var(--color-border)] pt-5 sm:grid-cols-3">
               {[
                 ["Постов", String(posts.length).padStart(2, "0")],
@@ -102,6 +109,8 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
                 </div>
               ))}
             </dl>
+
+            <ProfileConnections profile={profile} />
           </div>
         </div>
       </section>
