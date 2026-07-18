@@ -40,7 +40,7 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
               src={portraitSrc}
               alt={hasProfilePhoto ? `Портрет: ${profile.name}` : "Стандартный аватар KODO"}
               fill
-              priority
+              loading="eager"
               sizes="(min-width: 1280px) 34vw, 100vw"
               className={
                 hasProfilePhoto

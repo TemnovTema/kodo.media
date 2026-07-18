@@ -1126,40 +1126,40 @@ export const libraryItems: LibraryItem[] = [
   },
 ];
 
-export const currentProfileSlug = "artem-temnov";
+export const currentProfileSlug = "dennis-ritchie";
 
 export const communityProfiles: CommunityProfile[] = [
   {
-    slug: "artem-temnov",
-    name: "Артём Темнов",
-    role: "Основатель KODO MEDIA",
-    avatarLabel: "AT",
+    slug: "dennis-ritchie",
+    name: "Деннис Ритчи",
+    role: "Системный архитектор",
+    avatarLabel: "DR",
     accent: "yellow",
     bio: "Собирает KODO MEDIA как живую редакционную среду для тех, кто работает с агентами не ради демо, а ради устойчивых продуктов.",
     focus: ["Редакционные системы", "Product direction", "Agent workflows"],
     location: "Калининград",
     joined: "в KODO с 2026",
-    photoSrc: "/profile-portraits/artem-temnov.png",
-    photoPosition: "center",
+    photoSrc: "/profile-portraits/dennis-ritchie.png",
+    photoPosition: "center 34%",
   },
   {
-    slug: "mira-belova",
-    name: "Мира Белова",
-    role: "Редактор пайплайнов",
-    avatarLabel: "MB",
+    slug: "grace-hopper",
+    name: "Грейс Хоппер",
+    role: "Архитектор языков",
+    avatarLabel: "GH",
     accent: "pink",
     bio: "Собирает редакционные контуры для команд, которые хотят выпускать больше, не размывая язык продукта и логику интерфейсов.",
     focus: ["Content systems", "Editorial QA", "Product voice"],
     location: "Москва",
     joined: "в KODO с 2025",
-    photoSrc: "/profile-portraits/mira-belova.png",
-    photoPosition: "center",
+    photoSrc: "/profile-portraits/grace-hopper.png",
+    photoPosition: "center 34%",
   },
   {
-    slug: "ilya-severin",
-    name: "Илья Северин",
-    role: "Frontend author",
-    avatarLabel: "ИС",
+    slug: "alan-kay",
+    name: "Алан Кэй",
+    role: "Автор интерфейсов",
+    avatarLabel: "AK",
     accent: "blue",
     bio: "Пишет и собирает интерфейсы с агентами, сохраняя в них композицию, ритм и ясные границы между системой и декором.",
     focus: ["Frontend systems", "GSAP motion", "Interface density"],
@@ -1167,10 +1167,10 @@ export const communityProfiles: CommunityProfile[] = [
     joined: "в KODO с 2026",
   },
   {
-    slug: "nina-okada",
-    name: "Нина Окада",
-    role: "Prompt systems",
-    avatarLabel: "NO",
+    slug: "radia-perlman",
+    name: "Радия Перлман",
+    role: "Инженер связей",
+    avatarLabel: "RP",
     accent: "green",
     bio: "Проектирует prompt-системы, где у задачи есть контекст, ограничения и понятный финиш, а не только уверенный тон.",
     focus: ["Prompt design", "Evaluation", "Agent context"],
@@ -1178,10 +1178,10 @@ export const communityProfiles: CommunityProfile[] = [
     joined: "в KODO с 2025",
   },
   {
-    slug: "timur-hasegawa",
-    name: "Тимур Хасэгава",
-    role: "Community curator",
-    avatarLabel: "TH",
+    slug: "margaret-hamilton",
+    name: "Маргарет Хэмилтон",
+    role: "Инженер надёжности",
+    avatarLabel: "MH",
     accent: "yellow",
     bio: "Настраивает ритм сообщества: помогает материалам, заметкам и людям встречаться без ощущения бесконечной ленты.",
     focus: ["Community design", "Formats", "Editorial programming"],
@@ -1193,7 +1193,7 @@ export const communityProfiles: CommunityProfile[] = [
 export const authorPosts: AuthorPost[] = [
   {
     id: "post-00",
-    authorSlug: "artem-temnov",
+    authorSlug: "dennis-ritchie",
     message:
       "Хочу, чтобы KODO оставался рабочей средой, а не витриной про ИИ. Поэтому здесь важнее последовательность маршрутов, чем количество эффектов на одном экране.",
     postedAt: "сегодня, 11:08",
@@ -1206,7 +1206,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-00b",
-    authorSlug: "artem-temnov",
+    authorSlug: "dennis-ritchie",
     message:
       "Профиль в продукте нужен не для статуса. Он должен быстро объяснять: кто этот человек, в каком режиме он работает и почему его заметки стоит читать.",
     postedAt: "вчера, 18:32",
@@ -1219,7 +1219,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-01",
-    authorSlug: "mira-belova",
+    authorSlug: "grace-hopper",
     message:
       "Самый быстрый способ испортить хороший screenflow — начать править его без заранее заданного ритма плотности. Агент это чувствует моментально и начинает расползаться по стилям.",
     postedAt: "сегодня, 10:24",
@@ -1232,7 +1232,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-02",
-    authorSlug: "ilya-severin",
+    authorSlug: "alan-kay",
     message:
       "Почти любой интерфейс становится тише, если сначала убрать один блок текста, а потом спросить себя, держит ли экран смысл без него. Если да, этот блок был лишним.",
     postedAt: "сегодня, 09:12",
@@ -1245,7 +1245,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-03",
-    authorSlug: "nina-okada",
+    authorSlug: "radia-perlman",
     message:
       "Хороший prompt-lint редко про «красивую формулировку». Обычно он про то, хватает ли постановке задач границ, активов и финишных критериев.",
     postedAt: "вчера, 21:46",
@@ -1258,7 +1258,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-04",
-    authorSlug: "timur-hasegawa",
+    authorSlug: "margaret-hamilton",
     message:
       "Для community-раздела важнее не число карточек, а то, есть ли у пользователя ощущение живого движения: закреплённый материал, короткая лента и понятные голоса авторов.",
     postedAt: "вчера, 17:08",
@@ -1275,7 +1275,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-001",
     postId: "post-00",
-    authorSlug: "mira-belova",
+    authorSlug: "grace-hopper",
     message:
       "Да, это хорошо считывается и по ленте: когда у материала есть место в маршруте, он не выглядит как ещё один независимый блок контента.",
     postedAt: "сегодня, 11:16",
@@ -1284,7 +1284,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-002",
     postId: "post-00",
-    authorSlug: "ilya-severin",
+    authorSlug: "alan-kay",
     message:
       "Для интерфейса это ещё и вопрос ограничений. Чем раньше они зафиксированы, тем меньше агент начинает компенсировать пустоту визуальным шумом.",
     postedAt: "сегодня, 11:22",
@@ -1293,7 +1293,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-003",
     postId: "post-00b",
-    authorSlug: "timur-hasegawa",
+    authorSlug: "margaret-hamilton",
     message:
       "Контекст автора особенно важен в коротком формате. Одно и то же предложение читается иначе, когда понимаешь, из какой практики оно появилось.",
     postedAt: "вчера, 18:49",
@@ -1302,7 +1302,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-004",
     postId: "post-00b",
-    authorSlug: "nina-okada",
+    authorSlug: "radia-perlman",
     message:
       "И это хороший повод показывать не только роль, но и фокус. Он сразу задаёт рамку, в которой заметка становится полезной.",
     postedAt: "вчера, 19:04",
@@ -1311,7 +1311,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-005",
     postId: "post-01",
-    authorSlug: "artem-temnov",
+    authorSlug: "dennis-ritchie",
     message:
       "Точно. Ритм плотности стоит задавать ещё до того, как появляется первая карточка. Иначе дизайн потом приходится выправлять не решением, а бесконечными исключениями.",
     postedAt: "сегодня, 10:41",
@@ -1320,7 +1320,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-006",
     postId: "post-01",
-    authorSlug: "nina-okada",
+    authorSlug: "radia-perlman",
     message:
       "В промтах это работает так же: без общего ритма модель начинает воспринимать каждый следующий экран как отдельную задачу.",
     postedAt: "сегодня, 10:54",
@@ -1329,7 +1329,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-007",
     postId: "post-02",
-    authorSlug: "mira-belova",
+    authorSlug: "grace-hopper",
     message:
       "Хорошее правило для редакторской проверки: если после удаления блок не оставляет пустоты в смысле, он почти наверняка был декорацией.",
     postedAt: "сегодня, 09:34",
@@ -1338,7 +1338,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-008",
     postId: "post-02",
-    authorSlug: "timur-hasegawa",
+    authorSlug: "margaret-hamilton",
     message:
       "Это заметно и в сообществе. Короткая лента держится не количеством модулей, а понятными голосами и паузами между ними.",
     postedAt: "сегодня, 09:48",
@@ -1347,7 +1347,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-009",
     postId: "post-03",
-    authorSlug: "ilya-severin",
+    authorSlug: "alan-kay",
     message:
       "Финишные критерии часто забывают именно в задачах на интерфейс. От этого потом появляются красивые экраны без реального маршрута пользователя.",
     postedAt: "вчера, 22:02",
@@ -1356,7 +1356,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-010",
     postId: "post-03",
-    authorSlug: "artem-temnov",
+    authorSlug: "dennis-ritchie",
     message:
       "Именно. Критерий «собралось» не равен критерию «готово». Нужен ещё взгляд на смысл, мобильный режим и связность с остальными страницами.",
     postedAt: "вчера, 22:11",
@@ -1365,7 +1365,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-011",
     postId: "post-04",
-    authorSlug: "mira-belova",
+    authorSlug: "grace-hopper",
     message:
       "Закреплённый материал здесь работает как редакционная точка входа. Он не обязан быть самым громким, но обязан объяснять, куда дальше идти.",
     postedAt: "вчера, 17:22",
@@ -1374,7 +1374,7 @@ export const communityComments: CommunityComment[] = [
   {
     id: "comment-012",
     postId: "post-04",
-    authorSlug: "nina-okada",
+    authorSlug: "radia-perlman",
     message:
       "А понятные профили помогают удержать не только материал, но и контекст. Пользователь видит, кто говорит и какую практику приносит в обсуждение.",
     postedAt: "вчера, 17:36",
@@ -1385,21 +1385,21 @@ export const communityComments: CommunityComment[] = [
 const contentCommentTemplates: Record<ContentCommentKind, ContentComment[]> = {
   article: [
     {
-      authorSlug: "mira-belova",
+      authorSlug: "grace-hopper",
       message:
         "Хорошо, что вывод не остаётся на уровне общего наблюдения: его можно прямо перенести в следующий редакционный или продуктовый проход.",
       postedAt: "сегодня, 12:04",
       likes: 17,
     },
     {
-      authorSlug: "ilya-severin",
+      authorSlug: "alan-kay",
       message:
         "Забираю этот принцип в рабочий контур. Особенно полезно, когда нужно объяснить команде, почему быстрый экран ещё не означает цельный продукт.",
       postedAt: "сегодня, 12:18",
       likes: 13,
     },
     {
-      authorSlug: "nina-okada",
+      authorSlug: "radia-perlman",
       message:
         "Здесь хорошо видна граница между красивой формулировкой и рабочим ограничением. Именно она обычно решает, получится ли повторить результат.",
       postedAt: "вчера, 20:16",
@@ -1408,21 +1408,21 @@ const contentCommentTemplates: Record<ContentCommentKind, ContentComment[]> = {
   ],
   library: [
     {
-      authorSlug: "nina-okada",
+      authorSlug: "radia-perlman",
       message:
         "Сохраняю в свой рабочий набор. Ценность такого ресурса в том, что он задаёт границы до начала сборки, а не чинит их в конце.",
       postedAt: "сегодня, 12:32",
       likes: 24,
     },
     {
-      authorSlug: "ilya-severin",
+      authorSlug: "alan-kay",
       message:
         "Полезно, что здесь есть конкретный режим применения. Без него библиотека быстро превращается в список ссылок, к которому никто не возвращается.",
       postedAt: "сегодня, 11:46",
       likes: 16,
     },
     {
-      authorSlug: "artem-temnov",
+      authorSlug: "dennis-ritchie",
       message:
         "Добавил бы это в стартовый пакет для следующего проекта: меньше времени уходит на объяснение очевидных вещей и больше — на само решение.",
       postedAt: "вчера, 19:27",
@@ -1431,14 +1431,14 @@ const contentCommentTemplates: Record<ContentCommentKind, ContentComment[]> = {
   ],
   test: [
     {
-      authorSlug: "timur-hasegawa",
+      authorSlug: "margaret-hamilton",
       message:
         "Хороший тест оставляет после себя не ярлык, а следующий шаг. Здесь это как раз читается: результат можно превратить в более точный режим работы.",
       postedAt: "сегодня, 10:58",
       likes: 18,
     },
     {
-      authorSlug: "mira-belova",
+      authorSlug: "grace-hopper",
       message:
         "Нравится, что проверка не пытается оценить человека целиком. Она берёт один рабочий слой и делает его видимым — этого уже достаточно для полезного вывода.",
       postedAt: "вчера, 18:11",
@@ -1447,14 +1447,14 @@ const contentCommentTemplates: Record<ContentCommentKind, ContentComment[]> = {
   ],
   rubric: [
     {
-      authorSlug: "artem-temnov",
+      authorSlug: "dennis-ritchie",
       message:
         "Сильная рубрика держится не количеством выпусков, а повторяемым вопросом, на который каждый материал отвечает по-своему.",
       postedAt: "сегодня, 09:44",
       likes: 20,
     },
     {
-      authorSlug: "timur-hasegawa",
+      authorSlug: "margaret-hamilton",
       message:
         "Эта подборка хорошо работает как точка входа: видно, чего ждать от материалов и с какого можно начать без долгого разогрева.",
       postedAt: "вчера, 16:38",
