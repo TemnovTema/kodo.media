@@ -3,7 +3,10 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { CommunityProfile } from "@/lib/content";
 import { AuthorPostCard } from "@/components/author-post-card";
-import { ProfileAvatar } from "@/components/profile-avatar";
+import {
+  defaultProfileAvatarSrc,
+  ProfileAvatar,
+} from "@/components/profile-avatar";
 import { brandPalette } from "@/lib/brand";
 import { getAuthorPostsByProfile } from "@/lib/content";
 
@@ -22,6 +25,8 @@ const accentMap = {
 export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps) {
   const accent = accentMap[profile.accent];
   const posts = getAuthorPostsByProfile(profile.slug);
+  const hasProfilePhoto = Boolean(profile.photoSrc);
+  const portraitSrc = profile.photoSrc ?? defaultProfileAvatarSrc;
 
   return (
     <div className="page-stack">
@@ -31,19 +36,19 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
       >
         <div className="grid gap-7 xl:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1.28fr)] xl:gap-12">
           <div className="relative min-h-[22rem] overflow-hidden border border-[var(--color-border-strong)] bg-[var(--color-panel)] sm:min-h-[28rem]">
-            {profile.photoSrc ? (
-              <Image
-                src={profile.photoSrc}
-                alt={`Портрет: ${profile.name}`}
-                fill
-                priority
-                sizes="(min-width: 1280px) 34vw, 100vw"
-                className="object-cover saturate-[0.82]"
-                style={{ objectPosition: profile.photoPosition }}
-              />
-            ) : (
-              <div className="absolute inset-0 bg-[linear-gradient(145deg,var(--accent),rgba(8,8,11,0.96)_72%)]" />
-            )}
+            <Image
+              src={portraitSrc}
+              alt={hasProfilePhoto ? `Портрет: ${profile.name}` : "Стандартный аватар KODO"}
+              fill
+              priority
+              sizes="(min-width: 1280px) 34vw, 100vw"
+              className={
+                hasProfilePhoto
+                  ? "object-cover saturate-[0.82]"
+                  : "object-contain p-8 saturate-[0.82]"
+              }
+              style={hasProfilePhoto ? { objectPosition: profile.photoPosition } : undefined}
+            />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,11,0.02),rgba(8,8,11,0.78))]" />
             <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4">
               <ProfileAvatar profile={profile} className="h-16 w-16" sizes="64px" />
