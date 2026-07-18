@@ -60,7 +60,11 @@ export function AuthorPostCard({ post }: AuthorPostCardProps) {
       </p>
 
       <div className="mt-auto border-t border-[var(--color-border)] pt-4">
-        <EngagementStats engagement={post.engagement} compact />
+        <EngagementStats
+          engagement={post.engagement}
+          compact
+          commentsHref={`/posts/${post.id}/comments`}
+        />
       </div>
     </article>
   );

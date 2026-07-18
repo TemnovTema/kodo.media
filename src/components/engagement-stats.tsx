@@ -1,8 +1,10 @@
+import Link from "next/link";
 import type { EngagementStats as EngagementStatsType } from "@/lib/content";
 
 type EngagementStatsProps = {
   engagement: EngagementStatsType;
   compact?: boolean;
+  commentsHref?: string;
 };
 
 type StatIconProps = {
@@ -14,7 +16,7 @@ function formatCount(value: number) {
 }
 
 function StatIcon({ kind }: StatIconProps) {
-  const className = "h-[0.8rem] w-[0.8rem] shrink-0 text-[var(--color-text-soft)]";
+  const className = "h-[0.8rem] w-[0.8rem] shrink-0 text-current";
 
   if (kind === "likes") {
     return (
@@ -73,10 +75,18 @@ function StatIcon({ kind }: StatIconProps) {
 export function EngagementStats({
   engagement,
   compact = false,
+  commentsHref,
 }: EngagementStatsProps) {
   const baseClass = compact
     ? "font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
     : "font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]";
+
+  const commentStat = (
+    <span className="inline-flex items-center gap-2">
+      <span>{formatCount(engagement.comments)}</span>
+      <StatIcon kind="comments" />
+    </span>
+  );
 
   return (
     <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${baseClass}`}>
@@ -94,13 +104,19 @@ export function EngagementStats({
         <span>{formatCount(engagement.views)}</span>
         <StatIcon kind="views" />
       </span>
-      <span
-        aria-label={`${formatCount(engagement.comments)} комментариев`}
-        className="inline-flex items-center gap-2"
-      >
-        <span>{formatCount(engagement.comments)}</span>
-        <StatIcon kind="comments" />
-      </span>
+      {commentsHref ? (
+        <Link
+          href={commentsHref}
+          aria-label={`Открыть комментарии: ${formatCount(engagement.comments)}`}
+          className="inline-flex min-h-9 items-center transition-colors hover:text-[var(--color-text)]"
+        >
+          {commentStat}
+        </Link>
+      ) : (
+        <span aria-label={`${formatCount(engagement.comments)} комментариев`}>
+          {commentStat}
+        </span>
+      )}
     </div>
   );
 }

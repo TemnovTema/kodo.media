@@ -96,6 +96,15 @@ export type AuthorPost = {
   engagement: EngagementStats;
 };
 
+export type CommunityComment = {
+  id: string;
+  postId: string;
+  authorSlug: string;
+  message: string;
+  postedAt: string;
+  likes: number;
+};
+
 export type CommunityProfile = {
   slug: string;
   name: string;
@@ -1251,6 +1260,117 @@ export const authorPosts: AuthorPost[] = [
   },
 ];
 
+export const communityComments: CommunityComment[] = [
+  {
+    id: "comment-001",
+    postId: "post-00",
+    authorSlug: "mira-belova",
+    message:
+      "Да, это хорошо считывается и по ленте: когда у материала есть место в маршруте, он не выглядит как ещё один независимый блок контента.",
+    postedAt: "сегодня, 11:16",
+    likes: 28,
+  },
+  {
+    id: "comment-002",
+    postId: "post-00",
+    authorSlug: "ilya-severin",
+    message:
+      "Для интерфейса это ещё и вопрос ограничений. Чем раньше они зафиксированы, тем меньше агент начинает компенсировать пустоту визуальным шумом.",
+    postedAt: "сегодня, 11:22",
+    likes: 19,
+  },
+  {
+    id: "comment-003",
+    postId: "post-00b",
+    authorSlug: "timur-hasegawa",
+    message:
+      "Контекст автора особенно важен в коротком формате. Одно и то же предложение читается иначе, когда понимаешь, из какой практики оно появилось.",
+    postedAt: "вчера, 18:49",
+    likes: 22,
+  },
+  {
+    id: "comment-004",
+    postId: "post-00b",
+    authorSlug: "nina-okada",
+    message:
+      "И это хороший повод показывать не только роль, но и фокус. Он сразу задаёт рамку, в которой заметка становится полезной.",
+    postedAt: "вчера, 19:04",
+    likes: 16,
+  },
+  {
+    id: "comment-005",
+    postId: "post-01",
+    authorSlug: "artem-temnov",
+    message:
+      "Точно. Ритм плотности стоит задавать ещё до того, как появляется первая карточка. Иначе дизайн потом приходится выправлять не решением, а бесконечными исключениями.",
+    postedAt: "сегодня, 10:41",
+    likes: 31,
+  },
+  {
+    id: "comment-006",
+    postId: "post-01",
+    authorSlug: "nina-okada",
+    message:
+      "В промтах это работает так же: без общего ритма модель начинает воспринимать каждый следующий экран как отдельную задачу.",
+    postedAt: "сегодня, 10:54",
+    likes: 17,
+  },
+  {
+    id: "comment-007",
+    postId: "post-02",
+    authorSlug: "mira-belova",
+    message:
+      "Хорошее правило для редакторской проверки: если после удаления блок не оставляет пустоты в смысле, он почти наверняка был декорацией.",
+    postedAt: "сегодня, 09:34",
+    likes: 24,
+  },
+  {
+    id: "comment-008",
+    postId: "post-02",
+    authorSlug: "timur-hasegawa",
+    message:
+      "Это заметно и в сообществе. Короткая лента держится не количеством модулей, а понятными голосами и паузами между ними.",
+    postedAt: "сегодня, 09:48",
+    likes: 14,
+  },
+  {
+    id: "comment-009",
+    postId: "post-03",
+    authorSlug: "ilya-severin",
+    message:
+      "Финишные критерии часто забывают именно в задачах на интерфейс. От этого потом появляются красивые экраны без реального маршрута пользователя.",
+    postedAt: "вчера, 22:02",
+    likes: 26,
+  },
+  {
+    id: "comment-010",
+    postId: "post-03",
+    authorSlug: "artem-temnov",
+    message:
+      "Именно. Критерий «собралось» не равен критерию «готово». Нужен ещё взгляд на смысл, мобильный режим и связность с остальными страницами.",
+    postedAt: "вчера, 22:11",
+    likes: 33,
+  },
+  {
+    id: "comment-011",
+    postId: "post-04",
+    authorSlug: "mira-belova",
+    message:
+      "Закреплённый материал здесь работает как редакционная точка входа. Он не обязан быть самым громким, но обязан объяснять, куда дальше идти.",
+    postedAt: "вчера, 17:22",
+    likes: 21,
+  },
+  {
+    id: "comment-012",
+    postId: "post-04",
+    authorSlug: "nina-okada",
+    message:
+      "А понятные профили помогают удержать не только материал, но и контекст. Пользователь видит, кто говорит и какую практику приносит в обсуждение.",
+    postedAt: "вчера, 17:36",
+    likes: 18,
+  },
+];
+
 export function getRubricBySlug(slug: string) {
   return rubrics.find((rubric) => rubric.slug === slug);
 }
@@ -1259,12 +1379,20 @@ export function getArticleBySlug(slug: string) {
   return articles.find((article) => article.slug === slug);
 }
 
+export function getAuthorPostById(id: string) {
+  return authorPosts.find((post) => post.id === id);
+}
+
 export function getCommunityProfileBySlug(slug: string) {
   return communityProfiles.find((profile) => profile.slug === slug);
 }
 
 export function getAuthorPostsByProfile(slug: string) {
   return authorPosts.filter((post) => post.authorSlug === slug);
+}
+
+export function getCommunityCommentsByPost(postId: string) {
+  return communityComments.filter((comment) => comment.postId === postId);
 }
 
 export function getArticlesByRubric(slug: string) {

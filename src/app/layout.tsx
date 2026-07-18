@@ -43,6 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
+      data-scroll-behavior="smooth"
       className={`${fugue.variable} ${fugueHeadline.variable} ${fugueMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
