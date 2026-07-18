@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
+import { ContentCommentSection } from "@/components/content-comment-section";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { LibraryMetaTags } from "@/components/library-meta-tags";
 import { TasteSkillArticle } from "@/components/taste-skill-article";
@@ -223,6 +224,8 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
           )}
         </div>
       </div>
+
+      <ContentCommentSection kind="library" slug={item.slug} />
     </div>
   );
 }

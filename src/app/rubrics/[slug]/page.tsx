@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleCard } from "@/components/article-card";
+import { ContentCommentSection } from "@/components/content-comment-section";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { SectionHeading } from "@/components/section-heading";
 import {
@@ -97,6 +98,8 @@ export default async function RubricPage({ params }: RubricPageProps) {
           ))}
         </div>
       </section>
+
+      <ContentCommentSection kind="rubric" slug={rubric.slug} />
     </div>
   );
 }

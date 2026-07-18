@@ -105,6 +105,15 @@ export type CommunityComment = {
   likes: number;
 };
 
+export type ContentCommentKind = "article" | "library" | "test" | "rubric";
+
+export type ContentComment = {
+  authorSlug: string;
+  message: string;
+  postedAt: string;
+  likes: number;
+};
+
 export type CommunityProfile = {
   slug: string;
   name: string;
@@ -1371,6 +1380,87 @@ export const communityComments: CommunityComment[] = [
   },
 ];
 
+const contentCommentTemplates: Record<ContentCommentKind, ContentComment[]> = {
+  article: [
+    {
+      authorSlug: "mira-belova",
+      message:
+        "Хорошо, что вывод не остаётся на уровне общего наблюдения: его можно прямо перенести в следующий редакционный или продуктовый проход.",
+      postedAt: "сегодня, 12:04",
+      likes: 17,
+    },
+    {
+      authorSlug: "ilya-severin",
+      message:
+        "Забираю этот принцип в рабочий контур. Особенно полезно, когда нужно объяснить команде, почему быстрый экран ещё не означает цельный продукт.",
+      postedAt: "сегодня, 12:18",
+      likes: 13,
+    },
+    {
+      authorSlug: "nina-okada",
+      message:
+        "Здесь хорошо видна граница между красивой формулировкой и рабочим ограничением. Именно она обычно решает, получится ли повторить результат.",
+      postedAt: "вчера, 20:16",
+      likes: 21,
+    },
+  ],
+  library: [
+    {
+      authorSlug: "nina-okada",
+      message:
+        "Сохраняю в свой рабочий набор. Ценность такого ресурса в том, что он задаёт границы до начала сборки, а не чинит их в конце.",
+      postedAt: "сегодня, 12:32",
+      likes: 24,
+    },
+    {
+      authorSlug: "ilya-severin",
+      message:
+        "Полезно, что здесь есть конкретный режим применения. Без него библиотека быстро превращается в список ссылок, к которому никто не возвращается.",
+      postedAt: "сегодня, 11:46",
+      likes: 16,
+    },
+    {
+      authorSlug: "artem-temnov",
+      message:
+        "Добавил бы это в стартовый пакет для следующего проекта: меньше времени уходит на объяснение очевидных вещей и больше — на само решение.",
+      postedAt: "вчера, 19:27",
+      likes: 29,
+    },
+  ],
+  test: [
+    {
+      authorSlug: "timur-hasegawa",
+      message:
+        "Хороший тест оставляет после себя не ярлык, а следующий шаг. Здесь это как раз читается: результат можно превратить в более точный режим работы.",
+      postedAt: "сегодня, 10:58",
+      likes: 18,
+    },
+    {
+      authorSlug: "mira-belova",
+      message:
+        "Нравится, что проверка не пытается оценить человека целиком. Она берёт один рабочий слой и делает его видимым — этого уже достаточно для полезного вывода.",
+      postedAt: "вчера, 18:11",
+      likes: 15,
+    },
+  ],
+  rubric: [
+    {
+      authorSlug: "artem-temnov",
+      message:
+        "Сильная рубрика держится не количеством выпусков, а повторяемым вопросом, на который каждый материал отвечает по-своему.",
+      postedAt: "сегодня, 09:44",
+      likes: 20,
+    },
+    {
+      authorSlug: "timur-hasegawa",
+      message:
+        "Эта подборка хорошо работает как точка входа: видно, чего ждать от материалов и с какого можно начать без долгого разогрева.",
+      postedAt: "вчера, 16:38",
+      likes: 14,
+    },
+  ],
+};
+
 export function getRubricBySlug(slug: string) {
   return rubrics.find((rubric) => rubric.slug === slug);
 }
@@ -1393,6 +1483,16 @@ export function getAuthorPostsByProfile(slug: string) {
 
 export function getCommunityCommentsByPost(postId: string) {
   return communityComments.filter((comment) => comment.postId === postId);
+}
+
+export function getContentComments(kind: ContentCommentKind, slug: string) {
+  const templates = contentCommentTemplates[kind];
+  const index = [...slug].reduce(
+    (value, character) => (value * 31 + character.codePointAt(0)!) >>> 0,
+    7,
+  ) % templates.length;
+
+  return [templates[index]];
 }
 
 export function getArticlesByRubric(slug: string) {

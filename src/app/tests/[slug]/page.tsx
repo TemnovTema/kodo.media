@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ContentCommentSection } from "@/components/content-comment-section";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { SectionHeading } from "@/components/section-heading";
 import { diagnosticTests, getTestBySlug } from "@/lib/content";
@@ -108,6 +109,8 @@ export default async function TestPage({ params }: TestPageProps) {
           </section>
         </div>
       </div>
+
+      <ContentCommentSection kind="test" slug={test.slug} />
     </div>
   );
 }

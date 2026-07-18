@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleCard } from "@/components/article-card";
+import { ContentCommentSection } from "@/components/content-comment-section";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { SectionHeading } from "@/components/section-heading";
 import { getRubricVisualAsset } from "@/lib/visual-assets";
@@ -175,6 +176,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
         </section>
       ) : null}
+
+      <ContentCommentSection kind="article" slug={article.slug} />
     </div>
   );
 }
