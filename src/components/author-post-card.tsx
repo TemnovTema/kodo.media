@@ -31,7 +31,7 @@ export function AuthorPostCard({ post }: AuthorPostCardProps) {
   return (
     <article
       style={{ "--accent": accent } as CSSProperties}
-      className="flex h-full flex-col gap-5 border-t border-[var(--color-border)] pt-5"
+      className="flex h-full flex-col gap-5"
     >
       <div className="flex items-start gap-4">
         <Link

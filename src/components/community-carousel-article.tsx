@@ -22,7 +22,7 @@ export function CommunityCarouselArticle({
     <article
       style={{ "--accent": accent } as CSSProperties}
       data-community-card
-      className="community-card group flex min-w-0 snap-start flex-col gap-3 border-t border-[var(--color-border)] pt-4"
+      className="community-card group flex min-w-0 snap-start flex-col gap-3"
     >
       <div className="relative h-[9rem] overflow-hidden bg-[rgba(255,255,255,0.012)]">
         <Image
@@ -45,10 +45,10 @@ export function CommunityCarouselArticle({
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-balance text-[1.32rem] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
+        <h3 className="min-h-[3.9rem] text-balance text-[1.32rem] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
           <Link
             href={`/articles/${article.slug}`}
-            className="line-clamp-4 transition-colors hover:text-[var(--accent)]"
+            className="line-clamp-3 transition-colors hover:text-[var(--accent)]"
           >
             {article.title}
           </Link>
