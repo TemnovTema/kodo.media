@@ -1139,8 +1139,8 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Редакционные системы", "Product direction", "Agent workflows"],
     location: "Калининград",
     joined: "в KODO с 2026",
-    photoSrc: "/article-covers/cover2.jpg",
-    photoPosition: "82% center",
+    photoSrc: "/profile-portraits/artem-temnov.png",
+    photoPosition: "center",
   },
   {
     slug: "mira-belova",
@@ -1152,6 +1152,8 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Content systems", "Editorial QA", "Product voice"],
     location: "Москва",
     joined: "в KODO с 2025",
+    photoSrc: "/profile-portraits/mira-belova.png",
+    photoPosition: "center",
   },
   {
     slug: "ilya-severin",
