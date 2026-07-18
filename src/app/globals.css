@@ -226,9 +226,7 @@ main :is(h1, h2, h3) {
   gap: 1.25rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  padding-inline: 1rem;
   padding-bottom: 0.5rem;
-  scroll-padding-inline: 1rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -248,9 +246,7 @@ main :is(h1, h2, h3) {
   gap: 1.25rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  padding-inline: 1rem;
   padding-bottom: 0.5rem;
-  scroll-padding-inline: 1rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
