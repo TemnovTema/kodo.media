@@ -1,7 +1,10 @@
 import type { CSSProperties } from "react";
-import type { AuthorPost } from "@/lib/content";
+import Link from "next/link";
+import { currentProfileSlug, type AuthorPost } from "@/lib/content";
 import { EngagementStats } from "@/components/engagement-stats";
 import { brandPalette } from "@/lib/brand";
+import { getCommunityProfileBySlug } from "@/lib/content";
+import { ProfileAvatar } from "@/components/profile-avatar";
 
 type AuthorPostCardProps = {
   post: AuthorPost;
@@ -16,6 +19,14 @@ const accentMap = {
 
 export function AuthorPostCard({ post }: AuthorPostCardProps) {
   const accent = accentMap[post.accent];
+  const profile = getCommunityProfileBySlug(post.authorSlug);
+
+  if (!profile) {
+    return null;
+  }
+
+  const profileHref =
+    profile.slug === currentProfileSlug ? "/profile" : `/profile/${profile.slug}`;
 
   return (
     <article
@@ -23,16 +34,23 @@ export function AuthorPostCard({ post }: AuthorPostCardProps) {
       className="flex h-full flex-col gap-5 border-t border-[var(--color-border)] pt-5"
     >
       <div className="flex items-start gap-4">
-        <div className="flex h-12 w-12 flex-none items-center justify-center border border-[var(--accent)] bg-[rgba(255,255,255,0.02)] font-mono text-[0.76rem] uppercase tracking-[0.16em] text-[var(--color-text)]">
-          {post.avatarLabel}
-        </div>
+        <Link
+          href={profileHref}
+          aria-label={`Открыть профиль: ${profile.name}`}
+          className="transition-transform duration-200 hover:-translate-y-0.5"
+        >
+          <ProfileAvatar profile={profile} className="h-12 w-12" sizes="48px" />
+        </Link>
 
         <div className="space-y-1">
-          <p className="text-sm leading-6 text-[var(--color-text)] md:text-base">
-            {post.author}
-          </p>
+          <Link
+            href={profileHref}
+            className="text-sm leading-6 text-[var(--color-text)] transition-colors hover:text-[var(--accent)] md:text-base"
+          >
+            {profile.name}
+          </Link>
           <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-            {post.role} / {post.postedAt}
+            {profile.role} / {post.postedAt}
           </p>
         </div>
       </div>

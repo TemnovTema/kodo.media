@@ -89,13 +89,25 @@ export type LibraryFolder = {
 
 export type AuthorPost = {
   id: string;
-  author: string;
-  role: string;
-  avatarLabel: string;
+  authorSlug: string;
   message: string;
   postedAt: string;
   accent: "blue" | "green" | "yellow" | "pink";
   engagement: EngagementStats;
+};
+
+export type CommunityProfile = {
+  slug: string;
+  name: string;
+  role: string;
+  avatarLabel: string;
+  accent: "blue" | "green" | "yellow" | "pink";
+  bio: string;
+  focus: string[];
+  location: string;
+  joined: string;
+  photoSrc?: string;
+  photoPosition?: string;
 };
 
 export type MerchItem = {
@@ -1096,12 +1108,98 @@ export const libraryItems: LibraryItem[] = [
   },
 ];
 
-export const authorPosts: AuthorPost[] = [
+export const currentProfileSlug = "artem-temnov";
+
+export const communityProfiles: CommunityProfile[] = [
   {
-    id: "post-01",
-    author: "Мира Белова",
+    slug: "artem-temnov",
+    name: "Артём Темнов",
+    role: "Основатель KODO MEDIA",
+    avatarLabel: "AT",
+    accent: "yellow",
+    bio: "Собирает KODO MEDIA как живую редакционную среду для тех, кто работает с агентами не ради демо, а ради устойчивых продуктов.",
+    focus: ["Редакционные системы", "Product direction", "Agent workflows"],
+    location: "Калининград",
+    joined: "в KODO с 2026",
+    photoSrc: "/article-covers/cover2.jpg",
+    photoPosition: "82% center",
+  },
+  {
+    slug: "mira-belova",
+    name: "Мира Белова",
     role: "Редактор пайплайнов",
     avatarLabel: "MB",
+    accent: "pink",
+    bio: "Собирает редакционные контуры для команд, которые хотят выпускать больше, не размывая язык продукта и логику интерфейсов.",
+    focus: ["Content systems", "Editorial QA", "Product voice"],
+    location: "Москва",
+    joined: "в KODO с 2025",
+  },
+  {
+    slug: "ilya-severin",
+    name: "Илья Северин",
+    role: "Frontend author",
+    avatarLabel: "ИС",
+    accent: "blue",
+    bio: "Пишет и собирает интерфейсы с агентами, сохраняя в них композицию, ритм и ясные границы между системой и декором.",
+    focus: ["Frontend systems", "GSAP motion", "Interface density"],
+    location: "Санкт-Петербург",
+    joined: "в KODO с 2026",
+  },
+  {
+    slug: "nina-okada",
+    name: "Нина Окада",
+    role: "Prompt systems",
+    avatarLabel: "NO",
+    accent: "green",
+    bio: "Проектирует prompt-системы, где у задачи есть контекст, ограничения и понятный финиш, а не только уверенный тон.",
+    focus: ["Prompt design", "Evaluation", "Agent context"],
+    location: "Токио / удалённо",
+    joined: "в KODO с 2025",
+  },
+  {
+    slug: "timur-hasegawa",
+    name: "Тимур Хасэгава",
+    role: "Community curator",
+    avatarLabel: "TH",
+    accent: "yellow",
+    bio: "Настраивает ритм сообщества: помогает материалам, заметкам и людям встречаться без ощущения бесконечной ленты.",
+    focus: ["Community design", "Formats", "Editorial programming"],
+    location: "Берлин",
+    joined: "в KODO с 2026",
+  },
+];
+
+export const authorPosts: AuthorPost[] = [
+  {
+    id: "post-00",
+    authorSlug: "artem-temnov",
+    message:
+      "Хочу, чтобы KODO оставался рабочей средой, а не витриной про ИИ. Поэтому здесь важнее последовательность маршрутов, чем количество эффектов на одном экране.",
+    postedAt: "сегодня, 11:08",
+    accent: "yellow",
+    engagement: {
+      likes: 236,
+      views: 10480,
+      comments: 18,
+    },
+  },
+  {
+    id: "post-00b",
+    authorSlug: "artem-temnov",
+    message:
+      "Профиль в продукте нужен не для статуса. Он должен быстро объяснять: кто этот человек, в каком режиме он работает и почему его заметки стоит читать.",
+    postedAt: "вчера, 18:32",
+    accent: "yellow",
+    engagement: {
+      likes: 154,
+      views: 7420,
+      comments: 12,
+    },
+  },
+  {
+    id: "post-01",
+    authorSlug: "mira-belova",
     message:
       "Самый быстрый способ испортить хороший screenflow — начать править его без заранее заданного ритма плотности. Агент это чувствует моментально и начинает расползаться по стилям.",
     postedAt: "сегодня, 10:24",
@@ -1114,9 +1212,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-02",
-    author: "Илья Северин",
-    role: "Frontend author",
-    avatarLabel: "ИС",
+    authorSlug: "ilya-severin",
     message:
       "Почти любой интерфейс становится тише, если сначала убрать один блок текста, а потом спросить себя, держит ли экран смысл без него. Если да, этот блок был лишним.",
     postedAt: "сегодня, 09:12",
@@ -1129,9 +1225,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-03",
-    author: "Нина Окада",
-    role: "Prompt systems",
-    avatarLabel: "NO",
+    authorSlug: "nina-okada",
     message:
       "Хороший prompt-lint редко про «красивую формулировку». Обычно он про то, хватает ли постановке задач границ, активов и финишных критериев.",
     postedAt: "вчера, 21:46",
@@ -1144,9 +1238,7 @@ export const authorPosts: AuthorPost[] = [
   },
   {
     id: "post-04",
-    author: "Тимур Хасэгава",
-    role: "Community curator",
-    avatarLabel: "TH",
+    authorSlug: "timur-hasegawa",
     message:
       "Для community-раздела важнее не число карточек, а то, есть ли у пользователя ощущение живого движения: закреплённый материал, короткая лента и понятные голоса авторов.",
     postedAt: "вчера, 17:08",
@@ -1165,6 +1257,14 @@ export function getRubricBySlug(slug: string) {
 
 export function getArticleBySlug(slug: string) {
   return articles.find((article) => article.slug === slug);
+}
+
+export function getCommunityProfileBySlug(slug: string) {
+  return communityProfiles.find((profile) => profile.slug === slug);
+}
+
+export function getAuthorPostsByProfile(slug: string) {
+  return authorPosts.filter((post) => post.authorSlug === slug);
 }
 
 export function getArticlesByRubric(slug: string) {

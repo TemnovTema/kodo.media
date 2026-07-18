@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import {
+  demoSessionEvent,
+  demoSessionStorageKey,
+} from "@/lib/demo-session";
 
 const navItems = [
   { href: "/articles", label: "Сообщество", mobileLabel: "Статьи" },
@@ -11,6 +16,7 @@ const navItems = [
 ];
 
 const authItem = { href: "/login", label: "Авторизироваться" };
+const profileItem = { href: "/profile", label: "Профиль" };
 
 function isActive(pathname: string, href: string) {
   if (href === "/") {
@@ -22,7 +28,22 @@ function isActive(pathname: string, href: string) {
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const authActive = isActive(pathname, authItem.href);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const accountItem = isAuthenticated ? profileItem : authItem;
+  const accountActive = isActive(pathname, accountItem.href);
+
+  useEffect(() => {
+    const syncSession = () => {
+      setIsAuthenticated(
+        window.localStorage.getItem(demoSessionStorageKey) === "active",
+      );
+    };
+
+    syncSession();
+    window.addEventListener(demoSessionEvent, syncSession);
+
+    return () => window.removeEventListener(demoSessionEvent, syncSession);
+  }, []);
 
   return (
     <header className="relative z-20 bg-[var(--color-bg)]">
@@ -41,15 +62,15 @@ export function SiteHeader() {
             />
           </Link>
           <Link
-            href={authItem.href}
-            aria-label={authItem.label}
+            href={accountItem.href}
+            aria-label={accountItem.label}
             className={`inline-flex min-h-10 items-center bg-[var(--color-brand-yellow)] px-3 font-mono text-[0.6rem] font-medium uppercase tracking-[0.08em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] lg:hidden md:bg-transparent md:px-0 md:text-[0.72rem] md:font-normal md:tracking-[0.24em] md:hover:bg-transparent ${
-              authActive
+              accountActive
                 ? "md:text-[var(--color-text)]"
                 : "md:text-[var(--color-text-muted)] md:hover:text-[var(--color-text-soft)]"
             }`}
           >
-            Вход
+            {isAuthenticated ? "Профиль" : "Вход"}
           </Link>
         </div>
         <nav
@@ -86,14 +107,14 @@ export function SiteHeader() {
         </nav>
         <div className="hidden lg:flex lg:justify-end">
           <Link
-            href={authItem.href}
+            href={accountItem.href}
             className={`inline-flex min-h-10 items-center font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
-              authActive
+              accountActive
                 ? "text-[var(--color-text)]"
                 : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
             }`}
           >
-            Авторизироваться
+            {accountItem.label}
           </Link>
         </div>
       </div>

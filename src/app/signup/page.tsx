@@ -1,32 +1,43 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DemoAccessForm } from "@/components/demo-access-form";
 
 export const metadata: Metadata = {
   title: "Создать аккаунт",
-  description: "Маршрут создания аккаунта KODO MEDIA.",
+  description: "Создание демонстрационного доступа KODO MEDIA.",
 };
 
 export default function SignUpPage() {
   return (
-    <section className="panel mx-auto max-w-3xl space-y-6">
-      <p className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-[var(--color-brand-green)]">
-        account / signup
-      </p>
-      <h1 className="text-balance text-[clamp(2.4rem,5vw,4.6rem)] uppercase leading-[0.94] tracking-[-0.08em] text-[var(--color-text)]">
-        Создание аккаунта будет следующим шагом продукта.
-      </h1>
-      <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
-        Экран регистрации пока оставлен как точка входа в будущий личный кабинет.
-        Когда подключим реальную авторизацию, этот маршрут станет первым шагом
-        для сохранения материалов, тестов и истории работы с промтами.
-      </p>
-      <div className="flex flex-wrap gap-3 font-mono text-[0.72rem] uppercase tracking-[0.22em]">
-        <Link href="/articles" className="button-primary">
-          Открыть сообщество
-        </Link>
-        <Link href="/" className="button-secondary">
-          На главную
-        </Link>
+    <section className="grid gap-10 border-t border-[var(--color-border)] pt-5 xl:grid-cols-[minmax(0,0.9fr)_minmax(24rem,0.72fr)] xl:items-start">
+      <div className="space-y-7 py-2 xl:pt-8">
+        <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-brand-green)]">
+          account / create
+        </p>
+        <div className="space-y-5">
+          <h1 className="max-w-4xl text-balance text-[clamp(2.7rem,5.7vw,5.6rem)] leading-[0.9] tracking-[-0.075em] text-[var(--color-text)]">
+            Создать аккаунт
+          </h1>
+          <p className="max-w-xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg md:leading-9">
+            Настоящую регистрацию подключим вместе с серверной частью. Пока
+            форма создаёт только локальный демонстрационный доступ и переводит
+            в профиль, не сохраняя введённые данные.
+          </p>
+        </div>
+
+        <div className="max-w-xl border-t border-[var(--color-border)] pt-5 text-sm leading-7 text-[var(--color-text-soft)]">
+          Уже есть аккаунт?{" "}
+          <Link
+            href="/login"
+            className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-text)] underline decoration-[var(--color-brand-green)] underline-offset-4 transition-colors hover:text-[var(--color-brand-green)]"
+          >
+            Войти
+          </Link>
+        </div>
+      </div>
+
+      <div className="border border-[var(--color-border-strong)] bg-[var(--color-panel)] p-5 sm:p-7">
+        <DemoAccessForm mode="signup" />
       </div>
     </section>
   );
