@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { MerchItem } from "@/lib/content";
+import { CarouselControls } from "@/components/carousel-controls";
 import { MerchCard } from "@/components/merch-card";
 
 type MerchShelfProps = {
@@ -85,26 +86,18 @@ export function MerchShelf({ items }: MerchShelfProps) {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-end gap-2">
-        <button
-          type="button"
-          onClick={() => scrollByPage(-1)}
-          disabled={!canScrollPrev}
-          aria-label="Прокрутить мерч назад"
-          className="inline-flex h-10 w-10 items-center justify-center border border-[var(--color-border)] font-mono text-[0.82rem] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[rgba(255,255,255,0.03)] disabled:cursor-default disabled:opacity-35 disabled:hover:border-[var(--color-border)] disabled:hover:bg-transparent"
-        >
-          ←
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollByPage(1)}
-          disabled={!canScrollNext}
-          aria-label="Прокрутить мерч вперёд"
-          className="inline-flex h-10 w-10 items-center justify-center border border-[var(--color-border)] font-mono text-[0.82rem] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[rgba(255,255,255,0.03)] disabled:cursor-default disabled:opacity-35 disabled:hover:border-[var(--color-border)] disabled:hover:bg-transparent"
-        >
-          →
-        </button>
+    <div className="space-y-6">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-6 gap-y-3">
+        <h2 className="max-w-3xl text-balance text-[clamp(1.9rem,3.2vw,3rem)] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
+          Мерч KODO
+        </h2>
+        <CarouselControls
+          canScrollPrev={canScrollPrev}
+          canScrollNext={canScrollNext}
+          onScrollPrev={() => scrollByPage(-1)}
+          onScrollNext={() => scrollByPage(1)}
+          label="Навигация по мерчу KODO"
+        />
       </div>
 
       <div ref={trackRef} className="merch-strip" aria-label="Мерч KODO">
