@@ -43,14 +43,13 @@ export function SiteHeader() {
           <Link
             href={authItem.href}
             aria-label={authItem.label}
-            className={`inline-flex min-h-9 items-center bg-[var(--color-text)] px-2 font-mono text-[0.55rem] uppercase tracking-[0.08em] text-[var(--color-accent-contrast)] transition-colors hover:bg-white lg:hidden md:min-h-10 md:bg-transparent md:px-0 md:text-[0.72rem] md:tracking-[0.24em] md:hover:bg-transparent ${
+            className={`inline-flex min-h-9 items-center bg-[var(--color-brand-yellow)] px-2.5 font-mono text-[0.55rem] font-medium uppercase tracking-[0.08em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] lg:hidden md:min-h-10 md:bg-transparent md:px-0 md:text-[0.72rem] md:font-normal md:tracking-[0.24em] md:hover:bg-transparent ${
               authActive
                 ? "md:text-[var(--color-text)]"
                 : "md:text-[var(--color-text-muted)] md:hover:text-[var(--color-text-soft)]"
             }`}
           >
-            <span className="md:hidden">Вход</span>
-            <span className="hidden md:inline">Авторизироваться</span>
+            Вход
           </Link>
         </div>
         <nav
