@@ -26,8 +26,8 @@ export function SiteHeader() {
 
   return (
     <header className="relative z-20 bg-[var(--color-bg)]">
-      <div className="mx-auto flex w-full max-w-[1560px] items-center gap-1.5 px-3 py-2 md:grid md:grid-cols-1 md:gap-2 md:px-8 md:py-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-        <div className="flex shrink-0 items-center gap-1.5 md:min-h-10 md:justify-between lg:min-h-0 lg:justify-start">
+      <div className="mx-auto grid w-full max-w-[1560px] grid-cols-1 gap-1.5 px-3 py-2 md:gap-2 md:px-8 md:py-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+        <div className="flex min-h-10 items-center justify-between lg:min-h-0 lg:justify-start">
           <Link href="/" aria-label="KODO" className="group inline-flex items-center">
             {/* Use the raw PNG here to avoid the broken next/image fallback seen in the header. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -36,14 +36,14 @@ export function SiteHeader() {
               alt=""
               width={1116}
               height={271}
-              className="h-auto w-9 md:w-[72px]"
+              className="h-auto w-12 md:w-[72px]"
               draggable="false"
             />
           </Link>
           <Link
             href={authItem.href}
             aria-label={authItem.label}
-            className={`inline-flex min-h-9 items-center bg-[var(--color-brand-yellow)] px-2.5 font-mono text-[0.55rem] font-medium uppercase tracking-[0.08em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] lg:hidden md:min-h-10 md:bg-transparent md:px-0 md:text-[0.72rem] md:font-normal md:tracking-[0.24em] md:hover:bg-transparent ${
+            className={`inline-flex min-h-10 items-center bg-[var(--color-brand-yellow)] px-3 font-mono text-[0.6rem] font-medium uppercase tracking-[0.08em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] lg:hidden md:bg-transparent md:px-0 md:text-[0.72rem] md:font-normal md:tracking-[0.24em] md:hover:bg-transparent ${
               authActive
                 ? "md:text-[var(--color-text)]"
                 : "md:text-[var(--color-text-muted)] md:hover:text-[var(--color-text-soft)]"
@@ -54,7 +54,7 @@ export function SiteHeader() {
         </div>
         <nav
           aria-label="Основная навигация"
-          className="flex min-w-0 flex-1 items-center justify-between whitespace-nowrap md:flex-none md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-2"
+          className="flex w-full min-w-0 items-center justify-between whitespace-nowrap md:w-auto md:flex-none md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-2"
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
@@ -64,7 +64,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                className={`inline-flex min-h-9 items-center font-mono text-[0.55rem] uppercase tracking-[0.04em] transition-colors md:min-h-10 md:text-[0.72rem] md:tracking-[0.24em] ${
+                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors md:text-[0.72rem] md:tracking-[0.24em] ${
                   active
                     ? "text-[var(--color-text)]"
                     : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
