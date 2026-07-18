@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { brandPalette } from "@/lib/brand";
 
 type LibraryIntroGlyphProps = {
@@ -10,219 +7,205 @@ type LibraryIntroGlyphProps = {
 export function LibraryIntroGlyph({
   className = "",
 }: LibraryIntroGlyphProps) {
-  const [hovered, setHovered] = useState(false);
-  const [pagePhase, setPagePhase] = useState(0);
-
-  useEffect(() => {
-    if (!hovered) {
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setPagePhase((value) => (value + 1) % 6);
-    }, 180);
-
-    return () => window.clearInterval(interval);
-  }, [hovered]);
-
-  const pageSwing = hovered ? 6 + (pagePhase % 3) * 1.8 : 0;
-  const lineShift = hovered ? (pagePhase % 4) * 1.2 : 0;
-
   return (
     <div
       aria-hidden="true"
-      className={`absolute inset-0 ${className}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => {
-        setHovered(false);
-        setPagePhase(0);
-      }}
-      onPointerEnter={() => setHovered(true)}
-      onPointerLeave={() => {
-        setHovered(false);
-        setPagePhase(0);
-      }}
+      className={`library-intro-glyph absolute inset-0 ${className}`}
     >
+      <style>{`
+        @keyframes library-book-riffle {
+          0%, 62%, 100% {
+            transform: translateX(0) translateY(0) rotate(0deg);
+          }
+          20% {
+            transform: translateX(7px) translateY(-5px) rotate(2deg);
+          }
+          42% {
+            transform: translateX(2px) translateY(-1px) rotate(0.5deg);
+          }
+        }
+
+        .library-intro-glyph .library-book {
+          transform-box: fill-box;
+          transform-origin: center bottom;
+        }
+
+        .library-intro-glyph:hover .library-book {
+          animation: library-book-riffle 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .library-intro-glyph:hover .library-book--two {
+          animation-delay: 120ms;
+        }
+
+        .library-intro-glyph:hover .library-book--three {
+          animation-delay: 240ms;
+        }
+
+        .library-intro-glyph:hover .library-book--four {
+          animation-delay: 360ms;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .library-intro-glyph:hover .library-book {
+            animation: none;
+          }
+        }
+      `}</style>
       <svg
         viewBox="0 0 320 320"
         className="h-full w-full"
         fill="none"
         preserveAspectRatio="xMidYMid meet"
       >
-        <g transform="translate(0 2)">
-          <line
-            x1="56"
-            y1="246"
-            x2="264"
-            y2="246"
-            stroke="rgba(243, 238, 232, 0.14)"
-            strokeWidth="2"
-          />
-
-          <g opacity="0.92">
+        <g transform="translate(0 4)">
+          <g className="library-book library-book--one">
             <rect
-              x="70"
-              y="182"
-              width="34"
-              height="64"
-              rx="8"
+              x="62"
+              y="184"
+              width="38"
+              height="62"
+              rx="5"
               fill="rgba(96, 135, 194, 0.12)"
               stroke={brandPalette.blue}
               strokeWidth="2"
             />
-            <line x1="81" y1="194" x2="81" y2="236" stroke={brandPalette.blue} strokeWidth="1.6" />
-            <line x1="92" y1="194" x2="92" y2="236" stroke="rgba(243, 238, 232, 0.15)" strokeWidth="1.4" />
+            <line
+              x1="74"
+              y1="197"
+              x2="74"
+              y2="234"
+              stroke={brandPalette.blue}
+              strokeWidth="1.6"
+            />
+            <line
+              x1="84"
+              y1="197"
+              x2="84"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.3)"
+              strokeWidth="1.2"
+            />
+            <line
+              x1="92"
+              y1="197"
+              x2="92"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.14)"
+              strokeWidth="1.2"
+            />
+          </g>
 
+          <g className="library-book library-book--two">
             <rect
-              x="216"
+              x="108"
               y="170"
               width="38"
               height="76"
-              rx="8"
-              fill="rgba(91, 137, 75, 0.1)"
+              rx="5"
+              fill="rgba(162, 100, 157, 0.13)"
+              stroke={brandPalette.pink}
+              strokeWidth="2"
+            />
+            <line
+              x1="120"
+              y1="183"
+              x2="120"
+              y2="234"
+              stroke={brandPalette.pink}
+              strokeWidth="1.6"
+            />
+            <line
+              x1="130"
+              y1="183"
+              x2="130"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.32)"
+              strokeWidth="1.2"
+            />
+            <line
+              x1="138"
+              y1="183"
+              x2="138"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.14)"
+              strokeWidth="1.2"
+            />
+          </g>
+
+          <g className="library-book library-book--three">
+            <rect
+              x="154"
+              y="156"
+              width="38"
+              height="90"
+              rx="5"
+              fill="rgba(180, 159, 0, 0.12)"
+              stroke={brandPalette.yellow}
+              strokeWidth="2"
+            />
+            <line
+              x1="166"
+              y1="169"
+              x2="166"
+              y2="234"
+              stroke={brandPalette.yellow}
+              strokeWidth="1.6"
+            />
+            <line
+              x1="176"
+              y1="169"
+              x2="176"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.32)"
+              strokeWidth="1.2"
+            />
+            <line
+              x1="184"
+              y1="169"
+              x2="184"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.14)"
+              strokeWidth="1.2"
+            />
+          </g>
+
+          <g className="library-book library-book--four">
+            <rect
+              x="200"
+              y="142"
+              width="38"
+              height="104"
+              rx="5"
+              fill="rgba(91, 137, 75, 0.12)"
               stroke={brandPalette.green}
               strokeWidth="2"
             />
-            <line x1="227" y1="182" x2="227" y2="236" stroke={brandPalette.green} strokeWidth="1.6" />
-            <line x1="239" y1="182" x2="239" y2="236" stroke="rgba(243, 238, 232, 0.15)" strokeWidth="1.4" />
-          </g>
-
-          <g transform="translate(160 164)">
-            <g
-              style={{
-                transform: hovered ? "translateY(-4px)" : "translateY(0px)",
-                transformOrigin: "160px 164px",
-                transition: "transform 680ms cubic-bezier(0.22, 1, 0.36, 1)",
-              }}
-            >
-              <rect
-                x="-18"
-                y="52"
-                width="36"
-                height="12"
-                rx="4"
-                fill="rgba(243, 238, 232, 0.08)"
-                stroke="rgba(243, 238, 232, 0.16)"
-                strokeWidth="1.4"
-              />
-
-              <g
-                style={{
-                  transform: hovered ? "rotate(-20deg)" : "rotate(-3deg)",
-                  transformOrigin: "0px 52px",
-                  transition: "transform 780ms cubic-bezier(0.22, 1, 0.36, 1)",
-                }}
-              >
-                <path
-                  d="M 0 50 L -58 26 L -58 -44 L 0 -22 Z"
-                  fill="rgba(162, 100, 157, 0.18)"
-                  stroke={brandPalette.pink}
-                  strokeWidth="2.2"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M 0 46 L -46 24 L -46 -36 L 0 -17 Z"
-                  fill="rgba(243, 238, 232, 0.9)"
-                  stroke="rgba(243, 238, 232, 0.22)"
-                  strokeWidth="1.3"
-                  strokeLinejoin="round"
-                  style={{
-                    transform: hovered ? `rotate(${-pageSwing}deg)` : "rotate(0deg)",
-                    transformOrigin: "0px 46px",
-                    transition: "transform 680ms cubic-bezier(0.22, 1, 0.36, 1)",
-                  }}
-                />
-                {[0, 1, 2].map((index) => (
-                  <line
-                    key={`left-line-${index}`}
-                    x1={-34}
-                    y1={-15 + index * 13}
-                    x2={-10 + lineShift + index * 1.6}
-                    y2={-12 + index * 12}
-                    stroke="rgba(77, 67, 75, 0.34)"
-                    strokeWidth="1.3"
-                    strokeLinecap="round"
-                  />
-                ))}
-              </g>
-
-              <g
-                style={{
-                  transform: hovered ? "rotate(20deg)" : "rotate(3deg)",
-                  transformOrigin: "0px 52px",
-                  transition: "transform 780ms cubic-bezier(0.22, 1, 0.36, 1)",
-                }}
-              >
-                <path
-                  d="M 0 50 L 58 26 L 58 -44 L 0 -22 Z"
-                  fill="rgba(180, 159, 0, 0.16)"
-                  stroke={brandPalette.yellow}
-                  strokeWidth="2.2"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M 0 46 L 46 24 L 46 -36 L 0 -17 Z"
-                  fill="rgba(243, 238, 232, 0.9)"
-                  stroke="rgba(243, 238, 232, 0.22)"
-                  strokeWidth="1.3"
-                  strokeLinejoin="round"
-                  style={{
-                    transform: hovered ? `rotate(${pageSwing}deg)` : "rotate(0deg)",
-                    transformOrigin: "0px 46px",
-                    transition: "transform 680ms cubic-bezier(0.22, 1, 0.36, 1)",
-                  }}
-                />
-                {[0, 1, 2].map((index) => (
-                  <line
-                    key={`right-line-${index}`}
-                    x1={10 - lineShift - index * 1.6}
-                    y1={-12 + index * 12}
-                    x2={34}
-                    y2={-15 + index * 13}
-                    stroke="rgba(77, 67, 75, 0.34)"
-                    strokeWidth="1.3"
-                    strokeLinecap="round"
-                  />
-                ))}
-              </g>
-
-              <path
-                d="M 0 50 L 0 -22"
-                stroke="rgba(243, 238, 232, 0.24)"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-              />
-            </g>
-          </g>
-
-          <g opacity="0.88">
-            <rect
-              x="116"
-              y="208"
-              width="88"
-              height="22"
-              rx="8"
-              fill="rgba(243, 238, 232, 0.03)"
-              stroke="rgba(243, 238, 232, 0.12)"
-              strokeWidth="1.4"
+            <line
+              x1="212"
+              y1="155"
+              x2="212"
+              y2="234"
+              stroke={brandPalette.green}
+              strokeWidth="1.6"
             />
-            <rect x="130" y="214" width="16" height="10" fill={`${brandPalette.blue}AA`} />
-            <rect x="152" y="214" width="16" height="10" fill={`${brandPalette.pink}AA`} />
-            <rect x="174" y="214" width="16" height="10" fill={`${brandPalette.yellow}AA`} />
+            <line
+              x1="222"
+              y1="155"
+              x2="222"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.32)"
+              strokeWidth="1.2"
+            />
+            <line
+              x1="230"
+              y1="155"
+              x2="230"
+              y2="234"
+              stroke="rgba(243, 238, 232, 0.14)"
+              strokeWidth="1.2"
+            />
           </g>
-
-          <text
-            x="160"
-            y="286"
-            fill="rgba(243, 238, 232, 0.5)"
-            fontFamily="var(--font-fugue-mono), monospace"
-            fontSize="11"
-            fontWeight="500"
-            letterSpacing="0.22em"
-            textAnchor="middle"
-          >
-            open archive
-          </text>
         </g>
       </svg>
     </div>

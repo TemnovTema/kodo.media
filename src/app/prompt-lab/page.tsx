@@ -18,12 +18,6 @@ export default function PromptLabPage() {
       description="Собери задачу до запуска: тип продукта, ограничения, визуальные запреты и формат результата."
       introVisual={<PromptLabIntroGlyph />}
       introVisualPosition="right"
-      stats={[
-        { label: "Режим", value: "working draft" },
-        { label: "Быстрых сценариев", value: "06" },
-        { label: "Вставок", value: "06" },
-        { label: "Фокус", value: "clarity before run" },
-      ]}
     >
       <PromptLabEditor />
     </CatalogShell>

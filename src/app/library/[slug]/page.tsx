@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import { EditorialVisual } from "@/components/editorial-visual";
-import { SectionHeading } from "@/components/section-heading";
 import { getLibraryAccent } from "@/lib/brand";
 import { getLibraryItemBySlug, libraryItems } from "@/lib/content";
 import { getLibraryVisualAsset } from "@/lib/visual-assets";
@@ -11,6 +10,12 @@ import { getLibraryVisualAsset } from "@/lib/visual-assets";
 type LibraryItemPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+const readingSections = [
+  { id: "payload", label: "Состав" },
+  { id: "when-to-use", label: "Применение" },
+  { id: "outcome", label: "Результат" },
+];
 
 export async function generateStaticParams() {
   return libraryItems.map((item) => ({
@@ -51,9 +56,9 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
           <span className="vertical-rail-label">library</span>
         </div>
 
-        <div className="space-y-10">
-          <section className="page-hero grid gap-8 border-b border-[var(--color-border)] pb-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
-            <div className="space-y-6">
+        <div className="max-w-5xl space-y-10">
+          <header className="page-hero max-w-4xl space-y-6 border-b border-[var(--color-border)] pb-10">
+            <div className="space-y-5">
               <Link
                 href="/library"
                 className="inline-flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
@@ -61,93 +66,113 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
                 <span aria-hidden="true">←</span>
                 В библиотеку
               </Link>
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
-                library / {item.kind.toLowerCase()}
+              <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                Библиотека / {item.kind}
               </p>
-              <h1 className="text-balance text-[clamp(2.2rem,5vw,4.6rem)] leading-[0.94] tracking-[-0.07em] text-[var(--color-text)]">
+              <h1 className="max-w-4xl text-balance text-[clamp(2.2rem,5vw,4.6rem)] leading-[0.94] tracking-[-0.07em] text-[var(--color-text)]">
                 {item.title}
               </h1>
-              <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
+              <p className="max-w-3xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
                 {item.summary}
               </p>
-              <div className="grid gap-4 border-t border-[var(--color-border)] pt-5 sm:grid-cols-2">
-                {[
-                  ["Тип", item.kind],
-                  ["Контур", item.target],
-                  ["Формат", item.format],
-                  ["Эффект", item.outcome],
-                ].map(([label, value]) => (
-                  <div key={label} className="space-y-2">
-                    <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-                      {label}
-                    </p>
-                    <p className="text-sm leading-7 text-[var(--color-text-soft)]">{value}</p>
-                  </div>
-                ))}
+              <div className="flex flex-wrap gap-x-6 gap-y-3 border-t border-[var(--color-border)] pt-5 font-mono text-[0.64rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
+                <span>{item.format}</span>
+                <span>{item.target}</span>
               </div>
             </div>
+          </header>
 
-            <EditorialVisual
-              asset={getLibraryVisualAsset(item.slug)}
-              variant="minimal"
-              className="min-h-[260px] md:min-h-[340px]"
-              imageClassName="object-cover object-center"
-              priority
-            />
-          </section>
+          <div className="grid gap-8 lg:grid-cols-[10rem_minmax(0,44rem)] lg:gap-14">
+            <aside className="border-y border-[var(--color-border)] py-4 lg:sticky lg:top-28 lg:self-start lg:border-y-0 lg:border-r lg:py-0 lg:pr-6">
+              <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                В материале
+              </p>
+              <nav
+                aria-label="Разделы материала"
+                className="mt-4 flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-3"
+              >
+                {readingSections.map((section, index) => (
+                  <a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    className="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+                  >
+                    {String(index + 1).padStart(2, "0")} {section.label}
+                  </a>
+                ))}
+              </nav>
+            </aside>
 
-          <section className="space-y-6">
-            <SectionHeading
-              label="Inside / payload"
-              title="Что лежит внутри"
-              description="Короткий состав ресурса: какие сигналы, ограничения и рабочие куски он приносит в пайплайн."
-            />
-            <div className="border-y border-[var(--color-border)]">
-              {item.includes.map((entry, index) => (
-                <div
-                  key={entry}
-                  className="grid gap-3 border-b border-[var(--color-border)] py-5 last:border-b-0 md:grid-cols-[90px_1fr]"
-                >
-                  <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-                    item 0{index + 1}
-                  </span>
-                  <p className="max-w-2xl text-sm leading-7 text-[var(--color-text-soft)] md:text-base">
-                    {entry}
+            <article className="space-y-14 lg:pt-1">
+              <EditorialVisual
+                asset={getLibraryVisualAsset(item.slug)}
+                variant="minimal"
+                className="min-h-[220px] md:min-h-[300px]"
+                imageClassName="object-cover object-center"
+                priority
+              />
+
+              <section id="payload" className="scroll-mt-32 space-y-6">
+                <div className="space-y-3">
+                  <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                    01 / состав
+                  </p>
+                  <h2 className="text-balance text-[clamp(1.8rem,3vw,2.7rem)] leading-[0.98] tracking-[-0.06em] text-[var(--color-text)]">
+                    Что входит в ресурс
+                  </h2>
+                </div>
+                <ol className="border-y border-[var(--color-border)]">
+                  {item.includes.map((entry, index) => (
+                    <li
+                      key={entry}
+                      className="grid gap-4 border-b border-[var(--color-border)] py-5 last:border-b-0 sm:grid-cols-[3rem_minmax(0,1fr)]"
+                    >
+                      <span className="font-mono text-[0.66rem] tracking-[0.16em] text-[var(--color-text-muted)]">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-base leading-8 text-[var(--color-text-soft)]">{entry}</p>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+
+              <section id="when-to-use" className="scroll-mt-32 space-y-6">
+                <div className="space-y-3">
+                  <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                    02 / применение
+                  </p>
+                  <h2 className="text-balance text-[clamp(1.8rem,3vw,2.7rem)] leading-[0.98] tracking-[-0.06em] text-[var(--color-text)]">
+                    Когда использовать
+                  </h2>
+                </div>
+                <div className="space-y-4">
+                  {item.whenToUse.map((entry) => (
+                    <p
+                      key={entry}
+                      className="border-l border-[var(--color-border-strong)] pl-5 text-base leading-8 text-[var(--color-text-soft)]"
+                    >
+                      {entry}
+                    </p>
+                  ))}
+                </div>
+              </section>
+
+              <section
+                id="outcome"
+                className="scroll-mt-32 border border-[var(--color-border-strong)] p-6 sm:p-8"
+                style={{ "--accent": accent } as CSSProperties}
+              >
+                <div className="space-y-5 border-l-2 border-[var(--accent)] pl-5">
+                  <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                    03 / результат
+                  </p>
+                  <p className="max-w-2xl text-xl leading-8 tracking-[-0.025em] text-[var(--color-text)] md:text-2xl">
+                    {item.outcome}
                   </p>
                 </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="grid gap-8 lg:grid-cols-2">
-            <div className="space-y-4 border-t border-[var(--color-border)] pt-4">
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
-                when to use
-              </p>
-              <div className="space-y-4">
-                {item.whenToUse.map((entry) => (
-                  <p key={entry} className="max-w-2xl text-sm leading-7 text-[var(--color-text-soft)] md:text-base">
-                    {entry}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div
-              className="space-y-4 border-t border-[var(--color-border)] pt-4"
-              style={{ "--accent": accent } as CSSProperties}
-            >
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
-                expected effect
-              </p>
-              <p className="max-w-2xl text-sm leading-7 text-[var(--color-text-soft)] md:text-base">
-                {item.outcome}. Этот ресурс полезен не как абстрактная теория, а как
-                конкретный проход, который можно встроить в реальную работу с
-                агентом уже на следующей итерации.
-              </p>
-              <div className="h-px w-24 bg-[var(--accent)]" aria-hidden="true" />
-            </div>
-          </section>
+              </section>
+            </article>
+          </div>
         </div>
       </div>
     </div>

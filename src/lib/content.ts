@@ -68,8 +68,8 @@ export type LibraryFolder = {
   title: string;
   summary: string;
   items: string[];
+  resourceSlugs: string[];
   count: string;
-  note: string;
   accent: "blue" | "green" | "yellow" | "pink";
 };
 
@@ -545,7 +545,7 @@ export const diagnosticTests: DiagnosticTest[] = [
 export const libraryFolders: LibraryFolder[] = [
   {
     slug: "input-stack",
-    kicker: "skills / prompts / scenarios",
+    kicker: "навыки / промты / сценарии",
     title: "Вводные для ИИ",
     summary:
       "Папка со всем, что мы даём агенту до старта: skills для Codex, prompt-пакеты, роли, запреты и сценарии прохода по задаче.",
@@ -554,13 +554,13 @@ export const libraryFolders: LibraryFolder[] = [
       "prompt-lint, ship-review и agent scenarios",
       "редакторские рамки для image-first и redesign пайплайнов",
     ],
-    count: "12 файлов",
-    note: "Открывают первой, когда нужно задать агенту характер работы.",
+    resourceSlugs: ["prompt-lint-pass", "ship-review-pass"],
+    count: "02 ресурса",
     accent: "blue",
   },
   {
     slug: "starter-templates",
-    kicker: "sites / apps / products",
+    kicker: "сайты / приложения / продукты",
     title: "Шаблоны сборки",
     summary:
       "Каркасы для сайтов, приложений и других продуктов: маршруты, page maps, каталоги, utility-экраны и диагностические режимы.",
@@ -569,13 +569,13 @@ export const libraryFolders: LibraryFolder[] = [
       "архивы, рубрики, prompt-lab и тестовые сценарии",
       "starter-структуры под media, SaaS и utility flows",
     ],
-    count: "09 шаблонов",
-    note: "Нужны, когда проект надо собрать быстро, но не без системы.",
+    resourceSlugs: ["image-first-brief-template", "media-ia-template"],
+    count: "02 ресурса",
     accent: "green",
   },
   {
     slug: "open-guides",
-    kicker: "guides / courses / playbooks",
+    kicker: "гайды / курсы / методики",
     title: "Открытые гайды и курсы",
     summary:
       "Публичная полка с материалами, которые помогают выровнять команду: как писать сильные промты, строить пайплайны и чистить релизы.",
@@ -584,13 +584,13 @@ export const libraryFolders: LibraryFolder[] = [
       "route-by-route polish и release passes",
       "короткие курсы по vibe-coding discipline",
     ],
-    count: "15 материалов",
-    note: "Для самостоятельного прохода и общего онбординга команды.",
+    resourceSlugs: ["prompt-lab-setup-guide", "release-route-guide"],
+    count: "02 ресурса",
     accent: "yellow",
   },
   {
     slug: "design-systems",
-    kicker: "components / tokens / systems",
+    kicker: "компоненты / токены / системы",
     title: "Дизайн-системы и компоненты",
     summary:
       "Открытые токены, component kits и системные заготовки, чтобы не рисовать интерфейс с пустого холста и не разваливать консистентность.",
@@ -599,8 +599,8 @@ export const libraryFolders: LibraryFolder[] = [
       "token maps и layout primitives",
       "спокойные design systems под web и product UI",
     ],
-    count: "07 наборов",
-    note: "Берут, когда надо строить не один экран, а устойчивый UI-контур.",
+    resourceSlugs: ["design-taste-frontend", "image-to-code-pipeline"],
+    count: "02 ресурса",
     accent: "pink",
   },
 ];
@@ -849,4 +849,15 @@ export function getTestBySlug(slug: string) {
 
 export function getLibraryItemBySlug(slug: string) {
   return libraryItems.find((item) => item.slug === slug);
+}
+
+export function getLibraryFolderBySlug(slug: string) {
+  return libraryFolders.find((folder) => folder.slug === slug);
+}
+
+export function getLibraryItemsBySlugs(slugs: string[]) {
+  return slugs.flatMap((slug) => {
+    const item = getLibraryItemBySlug(slug);
+    return item ? [item] : [];
+  });
 }

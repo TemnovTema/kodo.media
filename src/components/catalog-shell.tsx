@@ -5,7 +5,7 @@ type CatalogShellProps = {
   eyebrow: string;
   title: string;
   description: string;
-  stats: Array<{ label: string; value: string }>;
+  stats?: Array<{ label: string; value: string }>;
   introVisual?: ReactNode;
   introVisualPosition?: "left" | "right";
   children: ReactNode;
@@ -69,18 +69,20 @@ export function CatalogShell({
             )}
           </div>
 
-          <dl className="catalog-intro__stats">
-            {stats.map((stat) => (
-              <div key={stat.label} className="space-y-2">
-                <dt className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
-                  {stat.label}
-                </dt>
-                <dd className="text-sm leading-7 text-[var(--color-text)] md:text-base">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          {stats?.length ? (
+            <dl className="catalog-intro__stats">
+              {stats.map((stat) => (
+                <div key={stat.label} className="space-y-2">
+                  <dt className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+                    {stat.label}
+                  </dt>
+                  <dd className="text-sm leading-7 text-[var(--color-text)] md:text-base">
+                    {stat.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
         </header>
 
         {children}

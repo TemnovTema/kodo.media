@@ -19,12 +19,6 @@ export default function LibraryPage() {
       description="Открытые папки с тем, чем мы реально кормим и собираем ИИ: вводные, шаблоны, гайды и системные заготовки."
       introVisual={<LibraryIntroGlyph />}
       introVisualPosition="right"
-      stats={[
-        { label: "Папок", value: String(libraryFolders.length).padStart(2, "0") },
-        { label: "Фокус", value: "inputs / templates" },
-        { label: "Доступ", value: "open stack" },
-        { label: "Режим", value: "reference archive" },
-      ]}
     >
       <div className="-mt-2 grid gap-8 xl:gap-10 lg:grid-cols-2">
         {libraryFolders.map((folder) => (
