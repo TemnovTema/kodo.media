@@ -87,8 +87,8 @@ export function MerchShelf({ items }: MerchShelfProps) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-6 gap-y-3 px-4">
-        <h2 className="max-w-3xl text-balance text-[clamp(1.9rem,3.2vw,3rem)] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-3 gap-y-3 px-4 sm:gap-x-6">
+        <h2 className="whitespace-nowrap text-[clamp(1.25rem,3.2vw,3rem)] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
           Мерч KODO
         </h2>
         <CarouselControls

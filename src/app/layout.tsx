@@ -56,7 +56,7 @@ export default function RootLayout({
         <div className="relative min-h-screen overflow-x-hidden">
           <div className="noise-overlay" aria-hidden="true" />
           <SiteHeader />
-          <main id="content" className="relative z-10 mx-auto w-full max-w-[1560px] px-4 pb-12 pt-4 md:px-8">
+          <main id="content" className="site-frame relative z-10 pb-12 pt-4">
             {children}
           </main>
           <SiteFooter />

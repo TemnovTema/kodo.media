@@ -3,7 +3,7 @@ import Link from "next/link";
 export function SiteFooter() {
   return (
     <footer className="relative z-10 mt-16 border-t border-[var(--color-border)] bg-[var(--color-panel-strong)]/80">
-      <div className="mx-auto grid w-full max-w-[1560px] gap-8 px-4 py-8 md:px-8 lg:grid-cols-[1.3fr_0.7fr]">
+      <div className="site-frame grid gap-8 py-8 lg:grid-cols-[1.3fr_0.7fr]">
         <div className="space-y-4">
           <div className="flex flex-wrap items-end gap-x-4 gap-y-1">
             <span className="brand-badge" aria-hidden="true" />

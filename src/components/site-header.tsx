@@ -47,7 +47,7 @@ export function SiteHeader() {
 
   return (
     <header className="relative z-20 bg-[var(--color-bg)]">
-      <div className="mx-auto grid w-full max-w-[1560px] grid-cols-1 gap-1.5 px-3 py-2 md:gap-2 md:px-8 md:py-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+      <div className="site-frame grid grid-cols-1 gap-1.5 py-2 md:gap-2 md:py-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
         <div className="flex min-h-10 items-center justify-between lg:min-h-0 lg:justify-start">
           <Link href="/" aria-label="KODO" className="group inline-flex items-center">
             {/* Use the raw PNG here to avoid the broken next/image fallback seen in the header. */}
