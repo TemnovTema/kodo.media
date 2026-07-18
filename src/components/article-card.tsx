@@ -30,7 +30,9 @@ export function ArticleCard({
     >
       <div
         className={`relative overflow-hidden bg-[rgba(255,255,255,0.012)] ${
-          priority ? "min-h-[20rem] xl:min-h-full" : "min-h-[16rem] sm:min-h-[18rem] lg:min-h-[19rem]"
+          priority
+            ? "min-h-[17rem] sm:min-h-[20rem] xl:min-h-full"
+            : "min-h-[14rem] sm:min-h-[18rem] lg:min-h-[19rem]"
         }`}
       >
         <Image
@@ -72,11 +74,11 @@ export function ArticleCard({
           {article.excerpt}
         </p>
 
-        <div className="mt-auto flex items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span>{article.publishedAt}</span>
           <Link
             href={`/articles/${article.slug}`}
-            className="inline-flex items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)]"
+            className="inline-flex min-h-11 items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)] md:min-h-0"
           >
             Читать
             <span aria-hidden="true">→</span>

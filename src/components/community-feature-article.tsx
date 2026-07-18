@@ -23,7 +23,7 @@ export function CommunityFeatureArticle({
       style={{ "--accent": accent } as CSSProperties}
       className="grid gap-6 border-t border-[var(--color-border)] pt-5 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] xl:items-end"
     >
-      <div className="relative min-h-[21rem] overflow-hidden bg-[rgba(255,255,255,0.012)] xl:min-h-full">
+      <div className="relative min-h-[17rem] overflow-hidden bg-[rgba(255,255,255,0.012)] sm:min-h-[21rem] xl:min-h-full">
         <Image
           src={visual.src}
           alt={visual.alt}
@@ -65,11 +65,11 @@ export function CommunityFeatureArticle({
 
         <EngagementStats engagement={article.engagement} />
 
-        <div className="mt-auto flex items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span>{article.publishedAt}</span>
           <Link
             href={`/articles/${article.slug}`}
-            className="inline-flex items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)]"
+            className="inline-flex min-h-11 items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)] md:min-h-0"
           >
             Читать
             <span aria-hidden="true">→</span>

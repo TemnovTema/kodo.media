@@ -25,7 +25,9 @@ export function TestCard({ test, featured = false }: TestCardProps) {
     >
       <div
         className={`relative overflow-hidden bg-[rgba(255,255,255,0.012)] ${
-          featured ? "min-h-[20rem] xl:min-h-full" : "min-h-[16rem] sm:min-h-[18rem] lg:min-h-[19rem]"
+          featured
+            ? "min-h-[17rem] sm:min-h-[20rem] xl:min-h-full"
+            : "min-h-[14rem] sm:min-h-[18rem] lg:min-h-[19rem]"
         }`}
       >
         <Image
@@ -66,11 +68,11 @@ export function TestCard({ test, featured = false }: TestCardProps) {
           </p>
         </div>
 
-        <div className="mt-auto flex items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-          <span>{test.outcome}</span>
+        <div className="mt-auto flex flex-col items-start gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
+          <span className="max-w-full leading-5">{test.outcome}</span>
           <Link
             href={`/tests/${test.slug}`}
-            className="inline-flex items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)]"
+            className="inline-flex min-h-11 items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)] md:min-h-0"
           >
             Открыть
             <span aria-hidden="true">→</span>

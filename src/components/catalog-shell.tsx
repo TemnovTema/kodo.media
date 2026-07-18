@@ -22,7 +22,7 @@ export function CatalogShell({
   children,
 }: CatalogShellProps) {
   const introText = (
-    <div className="flex min-h-[16rem] min-w-0 flex-col justify-center space-y-5 md:min-h-[18rem] xl:min-h-[24rem]">
+    <div className="flex min-h-[13rem] min-w-0 flex-col justify-center space-y-5 md:min-h-[18rem] xl:min-h-[24rem]">
       <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
         {eyebrow}
       </p>
@@ -36,7 +36,7 @@ export function CatalogShell({
   );
 
   const introGraphic = introVisual ? (
-    <div className="relative min-h-[16rem] min-w-0 max-w-full overflow-hidden md:min-h-[18rem] xl:min-h-[24rem]">
+    <div className="relative min-h-[13rem] min-w-0 max-w-full overflow-hidden md:min-h-[18rem] xl:min-h-[24rem]">
       {introVisual}
     </div>
   ) : null;

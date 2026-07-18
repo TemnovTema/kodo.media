@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import { EditorialVisual } from "@/components/editorial-visual";
+import { LibraryMetaTags } from "@/components/library-meta-tags";
+import { TasteSkillArticle } from "@/components/taste-skill-article";
 import { getLibraryAccent } from "@/lib/brand";
 import { getLibraryItemBySlug, libraryItems } from "@/lib/content";
 import { getLibraryVisualAsset } from "@/lib/visual-assets";
@@ -48,6 +50,10 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
   }
 
   const accent = getLibraryAccent(item.kind);
+  const hasTasteSkillCover = item.sourceUrl?.includes(
+    "pimenov.ai/knowledge/taste-skill-anti-slop-frontend",
+  );
+  const isTasteSkill = item.slug === "taste-skill-frontend";
 
   return (
     <div className="page-stack">
@@ -57,32 +63,69 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
         </div>
 
         <div className="max-w-5xl space-y-10">
-          <header className="page-hero max-w-4xl space-y-6 border-b border-[var(--color-border)] pb-10">
+          <header
+            className={`page-hero max-w-4xl space-y-6 ${
+              isTasteSkill ? "" : "border-b border-[var(--color-border)] pb-10"
+            }`}
+          >
             <div className="space-y-5">
               <Link
-                href="/library"
-                className="inline-flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+                href={isTasteSkill ? "/library/folder/input-stack" : "/library"}
+                className="group inline-flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
               >
-                <span aria-hidden="true">←</span>
-                В библиотеку
+                <span
+                  aria-hidden="true"
+                  className="inline-block transition-transform duration-200 ease-out group-hover:-translate-x-1 group-active:-translate-x-0.5 motion-reduce:transform-none"
+                >
+                  ←
+                </span>
+                {isTasteSkill ? "Вводные для ИИ" : "В библиотеку"}
               </Link>
-              <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-                Библиотека / {item.kind}
-              </p>
+              {isTasteSkill ? null : (
+                <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                  Библиотека / {item.kind}
+                </p>
+              )}
               <h1 className="max-w-4xl text-balance text-[clamp(2.2rem,5vw,4.6rem)] leading-[0.94] tracking-[-0.07em] text-[var(--color-text)]">
                 {item.title}
               </h1>
               <p className="max-w-3xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
                 {item.summary}
               </p>
-              <div className="flex flex-wrap gap-x-6 gap-y-3 border-t border-[var(--color-border)] pt-5 font-mono text-[0.64rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
-                <span>{item.format}</span>
-                <span>{item.target}</span>
+              <div className="space-y-4">
+                <LibraryMetaTags
+                  tags={item.tags ?? [item.format, item.target]}
+                  accent={accent}
+                />
+                {!isTasteSkill && item.sourceUrl && item.sourceLabel ? (
+                  <div className="flex justify-end">
+                    <a
+                      href={item.sourceUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group inline-flex items-center gap-2 font-mono text-[0.64rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+                    >
+                      Источник: {item.sourceLabel}
+                      <span
+                        aria-hidden="true"
+                        className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none"
+                      >
+                        ↗
+                      </span>
+                    </a>
+                  </div>
+                ) : null}
               </div>
             </div>
           </header>
 
-          <div className="grid gap-8 lg:grid-cols-[10rem_minmax(0,44rem)] lg:gap-14">
+          {isTasteSkill ? (
+            <TasteSkillArticle
+              sourceUrl={item.sourceUrl}
+              repositoryUrl={item.repositoryUrl}
+            />
+          ) : (
+            <div className="grid gap-8 lg:grid-cols-[10rem_minmax(0,44rem)] lg:gap-14">
             <aside className="border-y border-[var(--color-border)] py-4 lg:sticky lg:top-28 lg:self-start lg:border-y-0 lg:border-r lg:py-0 lg:pr-6">
               <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                 В материале
@@ -108,7 +151,11 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
                 asset={getLibraryVisualAsset(item.slug)}
                 variant="minimal"
                 className="min-h-[220px] md:min-h-[300px]"
-                imageClassName="object-cover object-center"
+                imageClassName={
+                  hasTasteSkillCover
+                    ? "object-cover object-center grayscale brightness-[0.52] contrast-125 opacity-80"
+                    : "object-cover object-center"
+                }
                 priority
               />
 
@@ -172,7 +219,8 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
                 </div>
               </section>
             </article>
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

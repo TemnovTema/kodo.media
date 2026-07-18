@@ -60,6 +60,18 @@ export type LibraryItem = {
   outcome: string;
   includes: string[];
   whenToUse: string[];
+  coverSrc?: string;
+  coverAlt?: string;
+  coverPosition?: string;
+  externalUrl?: string;
+  externalKicker?: string;
+  externalWordmark?: string;
+  externalHost?: string;
+  externalCta?: string;
+  sourceUrl?: string;
+  sourceLabel?: string;
+  repositoryUrl?: string;
+  tags?: string[];
 };
 
 export type LibraryFolder = {
@@ -71,6 +83,8 @@ export type LibraryFolder = {
   resourceSlugs: string[];
   count: string;
   accent: "blue" | "green" | "yellow" | "pink";
+  sourceUrl?: string;
+  sourceLabel?: string;
 };
 
 export type AuthorPost = {
@@ -548,14 +562,14 @@ export const libraryFolders: LibraryFolder[] = [
     kicker: "навыки / промты / сценарии",
     title: "Вводные для ИИ",
     summary:
-      "Папка со всем, что мы даём агенту до старта: skills для Codex, prompt-пакеты, роли, запреты и сценарии прохода по задаче.",
+      "Один материал о Taste Skill - открытом наборе инструкций для агентной сборки интерфейсов.",
     items: [
-      "anti-slop skills и UX-контракты",
-      "prompt-lint, ship-review и agent scenarios",
-      "редакторские рамки для image-first и redesign пайплайнов",
+      "краткий пересказ Taste Skill",
+      "правила для агентного фронтенда",
+      "ссылка на статью и репозиторий",
     ],
-    resourceSlugs: ["prompt-lint-pass", "ship-review-pass"],
-    count: "02 ресурса",
+    resourceSlugs: ["taste-skill-frontend"],
+    count: "01 материал",
     accent: "blue",
   },
   {
@@ -563,49 +577,363 @@ export const libraryFolders: LibraryFolder[] = [
     kicker: "сайты / приложения / продукты",
     title: "Шаблоны сборки",
     summary:
-      "Каркасы для сайтов, приложений и других продуктов: маршруты, page maps, каталоги, utility-экраны и диагностические режимы.",
+      "Пять открытых Next.js-шаблонов для e-commerce: от базового storefront до интеграций с Medusa, Saleor и BigCommerce.",
     items: [
-      "site/app IA и route maps",
-      "архивы, рубрики, prompt-lab и тестовые сценарии",
-      "starter-структуры под media, SaaS и utility flows",
+      "headless storefronts на Next.js",
+      "Shopify, Medusa, Saleor и BigCommerce",
+      "практические ecommerce-паттерны Vercel",
     ],
-    resourceSlugs: ["image-first-brief-template", "media-ia-template"],
-    count: "02 ресурса",
+    resourceSlugs: [
+      "nextjs-commerce",
+      "medusa-nextjs-store",
+      "saleor-commerce",
+      "bigcommerce-nextjs-starter",
+      "shirt-shop-feature-flags",
+    ],
+    count: "05 ресурсов",
     accent: "green",
+    sourceUrl: "https://vercel.com/templates/next.js?type=ecommerce",
+    sourceLabel: "Vercel Templates / Ecommerce",
   },
   {
     slug: "open-guides",
     kicker: "гайды / курсы / методики",
-    title: "Открытые гайды и курсы",
+    title: "Открытые курсы",
     summary:
-      "Публичная полка с материалами, которые помогают выровнять команду: как писать сильные промты, строить пайплайны и чистить релизы.",
+      "Внешний сайт с открытыми курсами про ИИ и AI-агентов на русском языке. KODO не переносит его материалы, а ведёт к оригинальной программе.",
     items: [
-      "prompt engineering и prompt QA",
-      "route-by-route polish и release passes",
-      "короткие курсы по vibe-coding discipline",
+      "внешний образовательный сайт",
+      "открытые курсы про ИИ",
+      "переход к оригинальной программе",
     ],
-    resourceSlugs: ["prompt-lab-setup-guide", "release-route-guide"],
-    count: "02 ресурса",
+    resourceSlugs: ["aistudy-open-courses"],
+    count: "01 сайт",
     accent: "yellow",
+    sourceUrl: "https://ai.arckep.ru/",
+    sourceLabel: "AIStudy / ai.arckep.ru",
   },
   {
     slug: "design-systems",
     kicker: "компоненты / токены / системы",
-    title: "Дизайн-системы и компоненты",
+    title: "Дизайн-системы",
     summary:
-      "Открытые токены, component kits и системные заготовки, чтобы не рисовать интерфейс с пустого холста и не разваливать консистентность.",
+      "Внешний каталог отечественных дизайн-систем. KODO не переносит его карточки и публикации, а ведёт к оригинальному сайту.",
     items: [
-      "open component libraries",
-      "token maps и layout primitives",
-      "спокойные design systems под web и product UI",
+      "внешний каталог дизайн-систем",
+      "системы и публикации на стороне источника",
+      "переход к оригинальному сайту",
     ],
-    resourceSlugs: ["design-taste-frontend", "image-to-code-pipeline"],
-    count: "02 ресурса",
+    resourceSlugs: ["design-systems-club"],
+    count: "01 сайт",
     accent: "pink",
+    sourceUrl: "https://www.designsystemsclub.ru/",
+    sourceLabel: "Design Systems Club",
   },
 ];
 
 export const libraryItems: LibraryItem[] = [
+  {
+    slug: "design-systems-club",
+    title: "Design Systems Club",
+    summary:
+      "Внешний каталог отечественных дизайн-систем. KODO не копирует карточки систем или публикации: переход ведёт прямо к первоисточнику.",
+    kind: "Гайд",
+    target: "Дизайн-системы",
+    format: "Внешний каталог",
+    outcome: "Переход к оригинальному каталогу дизайн-систем",
+    includes: [
+      "прямую ссылку на исходный каталог",
+      "явное указание внешнего источника",
+      "отсутствие скопированных карточек и публикаций в KODO",
+    ],
+    whenToUse: [
+      "когда нужен обзор отечественных дизайн-систем",
+      "когда хочется посмотреть каталог на стороне его авторов",
+      "когда важны первоисточник и актуальные материалы самого сайта",
+    ],
+    externalUrl: "https://www.designsystemsclub.ru/",
+    externalKicker: "внешний каталог дизайн-систем",
+    externalWordmark: "DESIGN\nSYSTEMS\nCLUB",
+    externalHost: "designsystemsclub.ru",
+    externalCta: "Открыть каталог",
+    sourceUrl: "https://www.designsystemsclub.ru/",
+    sourceLabel: "Design Systems Club",
+  },
+  {
+    slug: "aistudy-open-courses",
+    title: "AIStudy: открытые курсы по ИИ",
+    summary:
+      "Внешний русскоязычный сайт с открытыми курсами про ИИ и AI-агентов. Здесь нет копий уроков или конспектов: переход ведёт прямо к оригинальной программе.",
+    kind: "Гайд",
+    target: "Открытое обучение",
+    format: "Внешний каталог",
+    outcome: "Переход к оригинальному сайту AIStudy",
+    includes: [
+      "прямую ссылку на исходный сайт",
+      "явное указание внешнего авторского источника",
+      "отсутствие перенесённого учебного контента в KODO",
+    ],
+    whenToUse: [
+      "когда нужен открытый русскоязычный курс по ИИ и AI-агентам",
+      "когда хочется изучать программу на стороне её авторов",
+      "когда важнее оригинальная структура курса, а не пересказ в каталоге KODO",
+    ],
+    externalUrl: "https://ai.arckep.ru/",
+    externalKicker: "внешний каталог курсов",
+    externalWordmark: "AI\nSTUDY_",
+    externalHost: "ai.arckep.ru",
+    externalCta: "Открыть AIStudy",
+    sourceUrl: "https://ai.arckep.ru/",
+    sourceLabel: "AIStudy / ai.arckep.ru",
+  },
+  {
+    slug: "taste-skill-frontend",
+    title: "Taste Skill",
+    summary:
+      "Открытый набор Agent Skills, который задаёт агенту правила для композиции, типографики, отступов и движения до начала вёрстки.",
+    kind: "Скилл",
+    target: "Codex / Cursor / Claude Code",
+    format: "Agent Skill / v2",
+    outcome: "Интерфейс с осмысленным визуальным направлением вместо дефолтной генерации",
+    includes: [
+      "разбор брифа и карту дизайн-системы перед вёрсткой",
+      "настройки вариативности, плотности и интенсивности движения",
+      "каркасы анимации и предполётную проверку интерфейса",
+    ],
+    whenToUse: [
+      "когда нужен универсальный визуальный стандарт для нового фронтенда",
+      "когда агент начинает собирать одинаковые hero-блоки и безопасные UI-паттерны",
+      "когда команде важно хранить правила интерфейса рядом с кодом",
+    ],
+    coverSrc: "/skill-covers/pimenov-taste-skill.jpg",
+    coverAlt: "Обложка материала Taste Skill на сайте Pimenov.ai.",
+    coverPosition: "29% center",
+    sourceUrl: "https://pimenov.ai/knowledge/taste-skill-anti-slop-frontend/",
+    sourceLabel: "Pimenov.ai / Taste Skill",
+    repositoryUrl: "https://github.com/Leonxlnx/taste-skill",
+    tags: ["Agent Skill", "MIT"],
+  },
+  {
+    slug: "gpt-taste-skill",
+    title: "GPT Taste",
+    summary:
+      "Строгий вариант для GPT и Codex: сильнее направляет композицию и GSAP-анимацию, когда нужен более решительный anti-slop проход.",
+    kind: "Скилл",
+    target: "Codex / GPT",
+    format: "Agent Skill",
+    outcome: "Более смелая вёрстка и контролируемое движение без визуального шума",
+    includes: [
+      "строгие anti-slop ограничения для GPT-агентов",
+      "усиленное направление композиции и визуальной вариативности",
+      "рекомендации по GSAP-движению для интерфейсов",
+    ],
+    whenToUse: [
+      "когда основной скилл даёт слишком осторожный результат",
+      "когда задача решается именно в Codex или другом GPT-агенте",
+      "когда нужен заметный, но управляемый motion-слой",
+    ],
+    coverSrc: "/skill-covers/pimenov-taste-skill.jpg",
+    coverAlt: "Обложка материала Taste Skill на сайте Pimenov.ai.",
+    coverPosition: "13% center",
+    sourceUrl: "https://pimenov.ai/knowledge/taste-skill-anti-slop-frontend/",
+    sourceLabel: "Pimenov.ai / Taste Skill",
+  },
+  {
+    slug: "image-to-code-skill",
+    title: "Image to Code",
+    summary:
+      "Пайплайн «сначала картинка»: агент сперва собирает и разбирает визуальные референсы, а затем переводит утверждённое направление в интерфейс.",
+    kind: "Скилл",
+    target: "Image-first builds",
+    format: "Agent Skill",
+    outcome: "Меньше визуальных догадок и точнее реализация утверждённого направления",
+    includes: [
+      "маршрут image → audit → implementation",
+      "разбор референсов до начала вёрстки",
+      "передачу визуальных решений в production UI",
+    ],
+    whenToUse: [
+      "когда hero, обложка или брендовый экран должны попасть в визуальный язык с первого прохода",
+      "когда сначала нужно согласовать референс, а уже потом писать JSX",
+      "когда агент склонен придумывать оформление вместо следования утверждённому визуалу",
+    ],
+    coverSrc: "/skill-covers/pimenov-taste-skill.jpg",
+    coverAlt: "Обложка материала Taste Skill на сайте Pimenov.ai.",
+    coverPosition: "65% center",
+    sourceUrl: "https://pimenov.ai/knowledge/taste-skill-anti-slop-frontend/",
+    sourceLabel: "Pimenov.ai / Taste Skill",
+  },
+  {
+    slug: "redesign-existing-projects-skill",
+    title: "Redesign Existing Projects",
+    summary:
+      "Скилл для существующих продуктов: сначала проводит аудит интерфейса, затем последовательно правит вёрстку, отступы и визуальную иерархию.",
+    kind: "Скилл",
+    target: "Existing product UI",
+    format: "Redesign workflow",
+    outcome: "Осмысленный редизайн без замены работающего продукта на новую стилистику",
+    includes: [
+      "аудит текущего интерфейса до начала изменений",
+      "проход по типографике, отступам и иерархии",
+      "поэтапные правки вместо тотальной перерисовки",
+    ],
+    whenToUse: [
+      "когда нужно улучшить живой продукт, а не собрать новый экран с нуля",
+      "когда визуальные проблемы накопились в нескольких маршрутах",
+      "когда важно сохранить работающую структуру и поведение интерфейса",
+    ],
+    coverSrc: "/skill-covers/pimenov-taste-skill.jpg",
+    coverAlt: "Обложка материала Taste Skill на сайте Pimenov.ai.",
+    coverPosition: "90% center",
+    sourceUrl: "https://pimenov.ai/knowledge/taste-skill-anti-slop-frontend/",
+    sourceLabel: "Pimenov.ai / Taste Skill",
+  },
+  {
+    slug: "high-end-visual-design-skill",
+    title: "High-End Visual Design",
+    summary:
+      "Спокойное премиальное визуальное направление для агента: мягкий контраст, больше воздуха, выразительная типографика и сдержанная пружинная анимация.",
+    kind: "Скилл",
+    target: "Editorial / product UI",
+    format: "Visual direction",
+    outcome: "Тихий цельный интерфейс с ощущением материала, а не шаблонной SaaS-витрины",
+    includes: [
+      "правила мягкого контраста и свободной композиции",
+      "подход к типографике как к основному носителю иерархии",
+      "сдержанное движение без декоративной перегрузки",
+    ],
+    whenToUse: [
+      "когда визуальное направление уже выбрано и его нужно удержать в деталях",
+      "когда продукту нужен спокойный дорогой тон вместо агрессивного tech-оформления",
+      "когда в интерфейсе важнее воздух и ритм, чем плотность блоков",
+    ],
+    coverSrc: "/skill-covers/pimenov-taste-skill.jpg",
+    coverAlt: "Обложка материала Taste Skill на сайте Pimenov.ai.",
+    coverPosition: "52% top",
+    sourceUrl: "https://pimenov.ai/knowledge/taste-skill-anti-slop-frontend/",
+    sourceLabel: "Pimenov.ai / Taste Skill",
+  },
+  {
+    slug: "nextjs-commerce",
+    title: "Next.js Commerce",
+    summary:
+      "Базовый storefront для Shopify на Next.js App Router: серверный рендеринг, Server Components и готовая структура для headless commerce.",
+    kind: "Шаблон",
+    target: "Shopify / headless commerce",
+    format: "Next.js storefront",
+    outcome: "Быстрый старт для магазина на Shopify",
+    includes: [
+      "App Router, React Server Components и Server Actions",
+      "структуру для каталога, карточек товара, корзины и checkout",
+      "интеграцию Shopify через Storefront API",
+    ],
+    whenToUse: [
+      "когда нужен базовый storefront для Shopify без сборки архитектуры с нуля",
+      "когда важны серверный рендеринг и быстрый каталог товаров",
+      "когда команда готова подключить собственные Shopify-переменные окружения",
+    ],
+    coverSrc: "/template-covers/vercel-nextjs-commerce.png",
+    coverAlt: "Обложка шаблона Next.js Commerce из каталога Vercel.",
+    sourceUrl: "https://vercel.com/templates/other/nextjs-commerce",
+    sourceLabel: "Vercel / Next.js Commerce",
+  },
+  {
+    slug: "medusa-nextjs-store",
+    title: "Medusa Next.js Store",
+    summary:
+      "E-commerce шаблон на Next.js и Medusa с каталогом, поиском, корзиной и Stripe checkout; подойдёт для самостоятельного commerce-бэкенда.",
+    kind: "Шаблон",
+    target: "Medusa / Next.js storefront",
+    format: "E-commerce starter",
+    outcome: "Готовая связка витрины и модульного commerce-бэкенда",
+    includes: [
+      "страницы товара, коллекции и обзор каталога",
+      "корзину, checkout через Stripe и пользовательские аккаунты",
+      "Next.js App Router и Tailwind CSS",
+    ],
+    whenToUse: [
+      "когда Shopify не подходит и нужен модульный backend Medusa",
+      "когда в проекте нужны собственные коллекции, корзина и заказы",
+      "когда команда готова поднять Medusa-сервер отдельно от витрины",
+    ],
+    coverSrc: "/template-covers/vercel-medusa.png",
+    coverAlt: "Обложка шаблона Medusa Next.js Store из каталога Vercel.",
+    sourceUrl: "https://vercel.com/templates/next.js/medusa",
+    sourceLabel: "Vercel / Medusa Next.js Store",
+  },
+  {
+    slug: "saleor-commerce",
+    title: "Next.js Saleor Commerce",
+    summary:
+      "Минималистичный production-ready storefront для Saleor с GraphQL, вариантами товара, корзиной, checkout и поддержкой нескольких рынков.",
+    kind: "Шаблон",
+    target: "Saleor / GraphQL commerce",
+    format: "Production storefront",
+    outcome: "Основа для сложного headless commerce на Saleor",
+    includes: [
+      "категории, коллекции, карточки товара и варианты",
+      "корзину и checkout на Server Components и server actions",
+      "локали, каналы продаж и интеграцию с Saleor GraphQL",
+    ],
+    whenToUse: [
+      "когда storefront строится вокруг Saleor и GraphQL",
+      "когда нужны несколько регионов, языков или каналов продаж",
+      "когда важна production-структура без лишнего UI-слоя",
+    ],
+    coverSrc: "/template-covers/vercel-saleor.png",
+    coverAlt: "Обложка шаблона Next.js Saleor Commerce из каталога Vercel.",
+    sourceUrl: "https://vercel.com/templates/other/nextjs-saleor-commerce",
+    sourceLabel: "Vercel / Next.js Saleor Commerce",
+  },
+  {
+    slug: "bigcommerce-nextjs-starter",
+    title: "Next.js + BigCommerce",
+    summary:
+      "Headless storefront для BigCommerce на Next.js App Router: готовая витрина, GraphQL Storefront API и база для кастомного e-commerce интерфейса.",
+    kind: "Шаблон",
+    target: "BigCommerce / headless storefront",
+    format: "Next.js starter",
+    outcome: "Стартовая витрина для BigCommerce без монолитной темы",
+    includes: [
+      "Next.js 14 и App Router",
+      "GraphQL-доступ к товарам, корзинам и checkout",
+      "заготовку под multi-storefront сценарии",
+    ],
+    whenToUse: [
+      "когда commerce-слой уже работает на BigCommerce",
+      "когда нужен кастомный frontend поверх Storefront API",
+      "когда важны управляемая витрина и headless-подход",
+    ],
+    coverSrc: "/template-covers/vercel-bigcommerce.png",
+    coverAlt: "Обложка шаблона Next.js + BigCommerce из каталога Vercel.",
+    sourceUrl:
+      "https://vercel.com/templates/ecommerce/bigcommerce-starter-nextjs",
+    sourceLabel: "Vercel / Next.js + BigCommerce",
+  },
+  {
+    slug: "shirt-shop-feature-flags",
+    title: "Shirt Shop / Feature Flags",
+    summary:
+      "Компактный пример товарной страницы, на котором можно тестировать баннеры доставки и акции через Vercel Flags SDK и Toolbar.",
+    kind: "Шаблон",
+    target: "E-commerce experiments",
+    format: "Product page example",
+    outcome: "Быстрая проверка промо-вариантов без переписывания витрины",
+    includes: [
+      "товарную страницу на Next.js",
+      "два feature flags для сценариев с промо-баннерами",
+      "интеграцию Vercel Analytics и Flags Explorer",
+    ],
+    whenToUse: [
+      "когда нужно проверить баннер, скидку или оффер на товарной странице",
+      "когда команде нужен маленький пример для feature flags",
+      "когда важно увидеть работу вариаций до внедрения в основной магазин",
+    ],
+    coverSrc: "/template-covers/vercel-shirt-shop.png",
+    coverAlt: "Обложка шаблона Shirt Shop из каталога Vercel.",
+    sourceUrl: "https://vercel.com/templates/next.js/shirt-shop-feature-flags",
+    sourceLabel: "Vercel / Shirt Shop",
+  },
   {
     slug: "design-taste-frontend",
     title: "Design Taste Frontend",

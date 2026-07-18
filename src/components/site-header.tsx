@@ -42,7 +42,7 @@ export function SiteHeader() {
           </Link>
           <Link
             href={authItem.href}
-            className={`inline-flex min-h-8 items-center font-mono text-[0.66rem] uppercase tracking-[0.18em] transition-colors lg:hidden md:min-h-10 md:text-[0.72rem] md:tracking-[0.24em] ${
+            className={`inline-flex min-h-11 items-center font-mono text-[0.66rem] uppercase tracking-[0.18em] transition-colors lg:hidden md:min-h-10 md:text-[0.72rem] md:tracking-[0.24em] ${
               authActive
                 ? "text-[var(--color-text)]"
                 : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
@@ -53,7 +53,7 @@ export function SiteHeader() {
         </div>
         <nav
           aria-label="Основная навигация"
-          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:gap-8"
+          className="grid grid-cols-2 gap-x-4 gap-y-1 md:flex md:flex-wrap md:items-center md:justify-center md:gap-x-8 md:gap-y-2"
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
@@ -62,7 +62,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`inline-flex min-h-8 items-center font-mono text-[0.66rem] uppercase tracking-[0.18em] transition-colors md:min-h-10 md:text-[0.72rem] md:tracking-[0.24em] ${
+                className={`inline-flex min-h-11 items-center font-mono text-[0.66rem] uppercase tracking-[0.18em] transition-colors md:min-h-10 md:text-[0.72rem] md:tracking-[0.24em] ${
                   active
                     ? "text-[var(--color-text)]"
                     : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"

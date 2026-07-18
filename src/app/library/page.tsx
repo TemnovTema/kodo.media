@@ -14,9 +14,9 @@ export default function LibraryPage() {
   return (
     <CatalogShell
       rail="library"
-      eyebrow="library / open folders"
+      eyebrow="библиотека / открытые папки"
       title="Библиотека"
-      description="Открытые папки с тем, чем мы реально кормим и собираем ИИ: вводные, шаблоны, гайды и системные заготовки."
+      description="Ресурсы для работы с агентами: skills, шаблоны, внешние каталоги и системные материалы."
       introVisual={<LibraryIntroGlyph />}
       introVisualPosition="right"
     >
