@@ -1139,8 +1139,6 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Редакционные системы", "Product direction", "Agent workflows"],
     location: "Калининград",
     joined: "в KODO с 2026",
-    photoSrc: "/profile-portraits/dennis-ritchie.png",
-    photoPosition: "center 34%",
   },
   {
     slug: "grace-hopper",
@@ -1165,6 +1163,8 @@ export const communityProfiles: CommunityProfile[] = [
     focus: ["Frontend systems", "GSAP motion", "Interface density"],
     location: "Санкт-Петербург",
     joined: "в KODO с 2026",
+    photoSrc: "/profile-portraits/alan-kay.png",
+    photoPosition: "center 34%",
   },
   {
     slug: "radia-perlman",
