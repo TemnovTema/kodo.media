@@ -50,10 +50,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   return (
     <div className="page-stack">
       <div className="detail-rail-shell">
-        <div className="detail-rail-shell__rail">
-          <span className="vertical-rail-label">article</span>
-        </div>
-
         <article className="grid gap-12 xl:grid-cols-[minmax(0,1fr)_18rem]">
           <div className="space-y-12">
             <header className="page-hero space-y-8 border-b border-[var(--color-border)] pb-12">

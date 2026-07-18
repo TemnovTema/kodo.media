@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 export default function PromptLabPage() {
   return (
     <CatalogShell
-      rail="prompt lab"
       eyebrow="prompt lab / build brief"
       title="ПромтЛаб"
       description="Собери задачу до запуска: тип продукта, ограничения, визуальные запреты и формат результата."

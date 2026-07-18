@@ -26,7 +26,6 @@ export default function ArticlesPage() {
 
   return (
     <CatalogShell
-      rail="community"
       eyebrow="community / feed"
       title="Сообщество"
       description="Один закреплённый материал, лента остальных статей и короткие посты авторов."

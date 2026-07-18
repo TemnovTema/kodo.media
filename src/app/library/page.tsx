@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 export default function LibraryPage() {
   return (
     <CatalogShell
-      rail="library"
       eyebrow="библиотека / открытые папки"
       title="Библиотека"
       description="Ресурсы для работы с агентами: skills, шаблоны, внешние каталоги и системные материалы."

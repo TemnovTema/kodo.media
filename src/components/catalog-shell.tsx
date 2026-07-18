@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
 type CatalogShellProps = {
-  rail: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -12,7 +11,6 @@ type CatalogShellProps = {
 };
 
 export function CatalogShell({
-  rail,
   eyebrow,
   title,
   description,
@@ -43,10 +41,6 @@ export function CatalogShell({
 
   return (
     <section className="catalog-shell">
-      <div className="catalog-shell__rail">
-        <span className="vertical-rail-label">{rail}</span>
-      </div>
-
       <div className="catalog-shell__body min-w-0">
         <header className="catalog-intro min-w-0">
           <div

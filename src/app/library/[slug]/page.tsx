@@ -59,10 +59,6 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
   return (
     <div className="page-stack">
       <div className="detail-rail-shell">
-        <div className="detail-rail-shell__rail">
-          <span className="vertical-rail-label">library</span>
-        </div>
-
         <div className="max-w-5xl space-y-10">
           <header
             className={`page-hero max-w-4xl space-y-6 ${

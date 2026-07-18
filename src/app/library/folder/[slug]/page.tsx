@@ -52,10 +52,6 @@ export default async function LibraryFolderPage({
   return (
     <div className="page-stack">
       <div className="detail-rail-shell">
-        <div className="detail-rail-shell__rail">
-          <span className="vertical-rail-label">library</span>
-        </div>
-
         <div className="max-w-4xl space-y-8">
           <header
             className={`page-hero space-y-5 ${

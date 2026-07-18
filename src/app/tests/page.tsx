@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 export default function TestsPage() {
   return (
     <CatalogShell
-      rail="diagnostics"
       eyebrow="tests / route checks"
       title="Диагностики, которые работают как короткие ритуалы настройки."
       description="Тут важна не плотность интерфейса, а ясный маршрут: один крупный входной тест, затем более тихие соседние проходы без dashboard-мусора."

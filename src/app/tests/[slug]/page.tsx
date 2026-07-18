@@ -43,10 +43,6 @@ export default async function TestPage({ params }: TestPageProps) {
   return (
     <div className="page-stack">
       <div className="detail-rail-shell">
-        <div className="detail-rail-shell__rail">
-          <span className="vertical-rail-label">test</span>
-        </div>
-
         <div className="space-y-10">
           <section className="page-hero grid gap-8 border-b border-[var(--color-border)] pb-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
             <div className="space-y-6">
