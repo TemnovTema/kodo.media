@@ -89,7 +89,7 @@ export function EngagementStats({
   );
 
   return (
-    <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${baseClass}`}>
+    <div className={`flex flex-wrap items-center gap-x-5 gap-y-2 ${baseClass}`}>
       <span
         aria-label={`${formatCount(engagement.likes)} лайков`}
         className="inline-flex items-center gap-2"
@@ -108,7 +108,7 @@ export function EngagementStats({
         <Link
           href={commentsHref}
           aria-label={`Открыть комментарии: ${formatCount(engagement.comments)}`}
-          className="inline-flex min-h-9 items-center transition-colors hover:text-[var(--color-text)]"
+          className="inline-flex min-h-9 items-center text-[var(--color-text-soft)] transition-colors hover:text-[var(--color-text)]"
         >
           {commentStat}
         </Link>

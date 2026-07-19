@@ -49,7 +49,7 @@ export default async function RubricPage({ params }: RubricPageProps) {
 
   return (
     <div className="page-stack">
-      <section className="page-hero grid gap-8 border-b border-[var(--color-border)] pb-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
+      <section className="page-hero grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
         <div className="space-y-6">
           <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
             rubric / {rubric.slug}
@@ -60,7 +60,7 @@ export default async function RubricPage({ params }: RubricPageProps) {
           <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
             {rubric.mission}
           </p>
-          <div className="grid gap-4 border-t border-[var(--color-border)] pt-5 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             {[
               ["Сигнал", rubric.signal],
               ["Ритм", rubric.cadence],

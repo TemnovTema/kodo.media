@@ -44,7 +44,7 @@ export default async function TestPage({ params }: TestPageProps) {
     <div className="page-stack">
       <div className="detail-rail-shell">
         <div className="space-y-10">
-          <section className="page-hero grid gap-8 border-b border-[var(--color-border)] pb-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
+          <section className="page-hero grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
             <div className="space-y-6">
               <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
                 test / {test.mode.toLowerCase()}
@@ -55,7 +55,7 @@ export default async function TestPage({ params }: TestPageProps) {
               <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
                 {test.summary}
               </p>
-              <div className="grid gap-4 border-t border-[var(--color-border)] pt-5 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   ["Длительность", test.duration],
                   ["Результат", test.outcome],
@@ -87,11 +87,11 @@ export default async function TestPage({ params }: TestPageProps) {
               title="Что именно проверяет этот тест"
               description="Короткий проход по точкам, которые реально влияют на стиль работы с агентом."
             />
-            <div className="border-y border-[var(--color-border)]">
+            <div className="space-y-5">
               {test.checkpoints.map((checkpoint, index) => (
                 <div
                   key={checkpoint}
-                  className="grid gap-3 border-b border-[var(--color-border)] py-5 last:border-b-0 md:grid-cols-[90px_1fr]"
+                  className="grid gap-3 md:grid-cols-[90px_1fr]"
                 >
                   <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                     point 0{index + 1}

@@ -19,8 +19,8 @@ export function TestCard({ test, featured = false }: TestCardProps) {
       style={{ "--accent": accent } as CSSProperties}
       className={`group ${
         featured
-          ? "grid gap-6 border-t border-[var(--color-border)] pt-5 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] xl:items-end"
-          : "flex h-full flex-col gap-5 border-t border-[var(--color-border)] pt-5"
+          ? "grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] xl:items-end"
+          : "flex h-full flex-col gap-5"
       }`}
     >
       <div
@@ -68,7 +68,7 @@ export function TestCard({ test, featured = false }: TestCardProps) {
           </p>
         </div>
 
-        <div className="mt-auto flex flex-col items-start gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-auto flex flex-col items-start gap-3 pt-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
           <span className="max-w-full leading-5">{test.outcome}</span>
           <Link
             href={`/tests/${test.slug}`}

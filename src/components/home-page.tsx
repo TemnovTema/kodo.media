@@ -121,13 +121,13 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-8 border-t border-[var(--color-border)] pt-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12 lg:pt-8">
+      <section className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12">
         <h2 className="max-w-xl text-balance text-[clamp(2rem,3.7vw,3.5rem)] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)]">
           Не витрина про ИИ, а среда, в которой работа становится видимой.
         </h2>
         <ul className="grid gap-x-7 gap-y-6 sm:grid-cols-3">
           {benefits.map((benefit, index) => (
-            <li key={benefit.title} className="border-t border-[var(--color-border)] pt-4">
+            <li key={benefit.title} className="pt-1">
               <span className="font-mono text-[0.6rem] tracking-[0.16em] text-[var(--color-text-muted)]">
                 {String(index + 1).padStart(2, "0")}
               </span>
@@ -157,7 +157,7 @@ export function HomePage() {
             <Link
               key={route.href}
               href={route.href}
-              className="group grid min-h-48 grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-4 border-t border-[var(--color-border)] py-5 transition-colors hover:border-[var(--color-border-strong)]"
+              className="group grid min-h-48 grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-4 py-5 transition-colors hover:bg-[rgba(255,255,255,0.018)]"
             >
               <span
                 className="mt-1 h-3 w-3"

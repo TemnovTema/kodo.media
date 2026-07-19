@@ -19,7 +19,7 @@ export function ContentCommentSection({
   const comments = getContentComments(kind, slug);
 
   return (
-    <section className="border-t border-[var(--color-border)] pt-5">
+    <section>
       <div className="grid gap-7 xl:grid-cols-[12rem_minmax(0,1fr)] xl:gap-10">
         <div className="space-y-2">
           <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-brand-blue)]">
@@ -30,7 +30,7 @@ export function ContentCommentSection({
           </h2>
         </div>
 
-        <div>
+        <div className="space-y-6">
           {comments.map((comment) => {
             const profile = getCommunityProfileBySlug(comment.authorSlug);
 
@@ -46,7 +46,7 @@ export function ContentCommentSection({
             return (
               <article
                 key={`${slug}-${profile.slug}`}
-                className="grid gap-4 border-y border-[var(--color-border-strong)] py-5 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-5"
+                className="grid gap-4 py-2 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-5"
               >
                 <Link
                   href={profileHref}

@@ -19,7 +19,7 @@ export function MerchProductDetail({ item }: MerchProductDetailProps) {
 
   return (
     <div className="page-stack pb-8 md:pb-14">
-      <section className="grid gap-8 border-t border-[var(--color-border)] pt-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(21rem,0.85fr)] lg:gap-14 lg:pt-8">
+      <section className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(21rem,0.85fr)] lg:gap-14">
         <div className="min-w-0">
           <Link
             href="/articles"
@@ -65,7 +65,7 @@ export function MerchProductDetail({ item }: MerchProductDetailProps) {
             {item.summary}
           </p>
 
-          <div className="mt-8 border-t border-[var(--color-border)] pt-5">
+          <div className="mt-8">
             <p className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
               {item.optionLabel}
             </p>
@@ -117,13 +117,13 @@ export function MerchProductDetail({ item }: MerchProductDetailProps) {
         </div>
       </section>
 
-      <section className="grid gap-8 border-t border-[var(--color-border)] pt-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14 lg:pt-8">
+      <section className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
         <h2 className="max-w-lg text-balance text-[clamp(2rem,3.5vw,3.4rem)] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)]">
           Вещь для длинного рабочего маршрута.
         </h2>
         <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-3">
           {item.details.map((detail) => (
-            <div key={detail.label} className="border-t border-[var(--color-border)] pt-4">
+            <div key={detail.label}>
               <dt className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
                 {detail.label}
               </dt>

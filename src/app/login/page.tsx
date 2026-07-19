@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <section className="grid gap-10 border-t border-[var(--color-border)] pt-5 xl:grid-cols-[minmax(0,0.9fr)_minmax(24rem,0.72fr)] xl:items-start">
+    <section className="grid gap-10 xl:grid-cols-[minmax(0,0.9fr)_minmax(24rem,0.72fr)] xl:items-start">
       <div className="space-y-7 py-2 xl:pt-8">
         <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-brand-yellow)]">
           account / sign in
@@ -25,7 +25,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="max-w-xl border-t border-[var(--color-border)] pt-5 text-sm leading-7 text-[var(--color-text-soft)]">
+        <div className="max-w-xl pt-1 text-sm leading-7 text-[var(--color-text-soft)]">
           Нет аккаунта?{" "}
           <Link
             href="/signup"

@@ -174,7 +174,7 @@ export function PromptLabEditor() {
           </div>
         </div>
 
-        <aside className="space-y-4 border-t border-[var(--color-border)] pt-4 lg:border-t-0 lg:border-l lg:pl-5 lg:pt-0">
+        <aside className="space-y-6 pt-2 lg:pl-5 lg:pt-0">
           <div className="space-y-2">
             <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
               Скелет сильного промта
@@ -192,7 +192,7 @@ export function PromptLabEditor() {
             </ul>
           </div>
 
-          <div className="border-t border-[var(--color-border)] pt-4">
+          <div>
             <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
               Подсказка
             </p>

@@ -35,10 +35,10 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
     <div className="page-stack">
       <section
         style={{ "--accent": accent } as CSSProperties}
-        className="border-t border-[var(--color-border)] pt-5"
+        className="pt-2"
       >
         <div className="grid gap-7 xl:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1.28fr)] xl:gap-12">
-          <div className="relative min-h-[22rem] overflow-hidden border border-[var(--color-border-strong)] bg-[var(--color-panel)] sm:min-h-[28rem]">
+          <div className="relative min-h-[22rem] overflow-hidden bg-[var(--color-panel)] sm:min-h-[28rem]">
             <Image
               src={portraitSrc}
               alt={hasProfilePhoto ? `Портрет: ${profile.name}` : "Стандартный аватар KODO"}
@@ -95,7 +95,7 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
 
             <ProfileSocialLinks profile={profile} />
 
-            <dl className="grid gap-4 border-t border-[var(--color-border)] pt-5 sm:grid-cols-3">
+            <dl className="grid gap-4 sm:grid-cols-3">
               {[
                 ["Постов", String(posts.length).padStart(2, "0")],
                 ["Локация", profile.location],
@@ -117,7 +117,7 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
 
       <section className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="space-y-7">
-          <div className="border-t border-[var(--color-border)] pt-4">
+          <div>
             <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--accent)]">
               posts / {String(posts.length).padStart(2, "0")}
             </p>
@@ -134,7 +134,7 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
         </div>
 
         <aside className="xl:pt-4">
-          <div className="space-y-4 border-t border-[var(--color-border)] pt-4 xl:sticky xl:top-28">
+          <div className="space-y-4 xl:sticky xl:top-28">
             <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
               маршрут
             </p>

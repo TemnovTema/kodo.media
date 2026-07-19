@@ -25,7 +25,7 @@ export function ArticleCard({
       className={`group ${
         priority
           ? "grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] xl:items-start"
-          : "flex h-full flex-col gap-5 border-t border-[var(--color-border)] pt-5"
+          : "flex h-full flex-col gap-5"
       }`}
     >
       <div
@@ -74,7 +74,7 @@ export function ArticleCard({
           {article.excerpt}
         </p>
 
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span>{article.publishedAt}</span>
           <Link
             href={`/articles/${article.slug}`}

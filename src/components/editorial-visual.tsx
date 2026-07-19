@@ -22,7 +22,7 @@ export function EditorialVisual({
   return (
     <figure
       style={{ "--accent": asset.tone } as CSSProperties}
-      className={`group relative overflow-hidden border border-[var(--color-border)] bg-[var(--color-panel)] ${className}`}
+      className={`group relative overflow-hidden bg-[var(--color-panel)] ${className}`}
     >
       <Image
         src={asset.src}

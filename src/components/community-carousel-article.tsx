@@ -58,17 +58,18 @@ export function CommunityCarouselArticle({
         </p>
       </div>
 
-      <EngagementStats engagement={article.engagement} compact />
-
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-[var(--color-border)] pt-3 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-        <span>{article.publishedAt}</span>
-        <Link
-          href={`/articles/${article.slug}`}
-          className="inline-flex items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)]"
-        >
-          Читать
-          <span aria-hidden="true">→</span>
-        </Link>
+      <div className="mt-auto space-y-3 border-t border-[var(--color-border)] pt-3">
+        <EngagementStats engagement={article.engagement} compact />
+        <div className="flex items-center justify-between gap-3 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+          <span>{article.publishedAt}</span>
+          <Link
+            href={`/articles/${article.slug}`}
+            className="inline-flex items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)]"
+          >
+            Читать
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
       </div>
     </article>
   );

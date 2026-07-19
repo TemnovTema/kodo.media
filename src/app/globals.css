@@ -203,16 +203,12 @@ main :is(h1, h2, h3) {
 .catalog-intro {
   display: grid;
   gap: 1.5rem;
-  border-top: 1px solid var(--color-border);
-  padding-top: 1.5rem;
   padding-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .catalog-intro__stats {
   display: grid;
   gap: 1rem;
-  border-top: 1px solid var(--color-border);
-  padding-top: 1rem;
 }
 
 .detail-rail-shell {

@@ -17,8 +17,8 @@ export function LibraryResourceCard({
   const accent = getLibraryAccent(resource.kind);
 
   return (
-    <article className="group grid overflow-hidden border border-[var(--color-border-strong)] bg-[var(--color-panel)] transition-colors duration-200 hover:bg-[var(--color-panel-strong)] md:grid-cols-2">
-      <div className="relative flex min-h-[13rem] overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface-soft)] p-5 sm:p-6 md:min-h-[29rem] md:border-b-0 md:border-r md:p-8">
+    <article className="group grid overflow-hidden bg-[var(--color-panel)] transition-colors duration-200 hover:bg-[var(--color-panel-strong)] md:grid-cols-2">
+      <div className="relative flex min-h-[13rem] overflow-hidden bg-[var(--color-surface-soft)] p-5 sm:p-6 md:min-h-[29rem] md:p-8">
         {resource.coverSrc && resource.coverAlt ? (
           <>
             <Image
@@ -63,7 +63,7 @@ export function LibraryResourceCard({
             {resource.summary}
           </p>
         </div>
-        <div className="mt-8 border-t border-[var(--color-border)] pt-4 font-mono text-[0.64rem] uppercase tracking-[0.16em] md:mt-auto md:pt-5">
+        <div className="mt-8 font-mono text-[0.64rem] uppercase tracking-[0.16em] md:mt-auto">
           {isExternal && resource.externalUrl ? (
             <a
               href={resource.externalUrl}

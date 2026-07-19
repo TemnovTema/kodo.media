@@ -62,7 +62,7 @@ export function TasteSkillArticle({
           {principles.map((principle, index) => (
             <li
               key={principle.title}
-              className="grid gap-4 border-l border-[var(--color-border-strong)] pl-5 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-6"
+              className="grid gap-4 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-6"
             >
               <span className="font-mono text-[0.66rem] tracking-[0.16em] text-[var(--color-text-muted)]">
                 {String(index + 1).padStart(2, "0")}
@@ -82,7 +82,7 @@ export function TasteSkillArticle({
 
       <section
         id="install"
-        className="scroll-mt-32 border border-[var(--color-border-strong)] bg-[var(--color-panel)] p-6 sm:p-8"
+        className="scroll-mt-32 bg-[var(--color-panel)] p-6 sm:p-8"
       >
         <div className="max-w-2xl space-y-5">
           <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">

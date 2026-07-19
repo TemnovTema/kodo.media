@@ -53,11 +53,7 @@ export default async function LibraryFolderPage({
     <div className="page-stack">
       <div className="detail-rail-shell">
         <div className="max-w-4xl space-y-8">
-          <header
-            className={`page-hero space-y-5 ${
-              isInputStack ? "" : "border-b border-[var(--color-border)] pb-10"
-            }`}
-          >
+          <header className="page-hero space-y-5">
             <div className="space-y-5">
               <Link
                 href="/library"

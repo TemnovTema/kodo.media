@@ -21,7 +21,7 @@ export function CommunityCommentCard({ comment }: CommunityCommentCardProps) {
     profile.slug === currentProfileSlug ? "/profile" : `/profile/${profile.slug}`;
 
   return (
-    <article className="grid gap-4 border-t border-[var(--color-border)] py-5 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-5">
+    <article className="grid gap-4 py-2 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-5">
       <Link
         href={profileHref}
         aria-label={`Открыть профиль: ${profile.name}`}

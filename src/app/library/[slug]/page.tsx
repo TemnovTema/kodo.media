@@ -60,11 +60,7 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
     <div className="page-stack">
       <div className="detail-rail-shell">
         <div className="max-w-5xl space-y-10">
-          <header
-            className={`page-hero max-w-4xl space-y-6 ${
-              isTasteSkill ? "" : "border-b border-[var(--color-border)] pb-10"
-            }`}
-          >
+          <header className="page-hero max-w-4xl space-y-6">
             <div className="space-y-5">
               <Link
                 href={isTasteSkill ? "/library/folder/input-stack" : "/library"}
@@ -123,7 +119,7 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
             />
           ) : (
             <div className="grid gap-8 lg:grid-cols-[10rem_minmax(0,44rem)] lg:gap-14">
-            <aside className="border-y border-[var(--color-border)] py-4 lg:sticky lg:top-28 lg:self-start lg:border-y-0 lg:border-r lg:py-0 lg:pr-6">
+            <aside className="py-2 lg:sticky lg:top-28 lg:self-start lg:py-0 lg:pr-6">
               <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                 В материале
               </p>
@@ -165,11 +161,11 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
                     Что входит в ресурс
                   </h2>
                 </div>
-                <ol className="border-y border-[var(--color-border)]">
+                <ol className="space-y-5">
                   {item.includes.map((entry, index) => (
                     <li
                       key={entry}
-                      className="grid gap-4 border-b border-[var(--color-border)] py-5 last:border-b-0 sm:grid-cols-[3rem_minmax(0,1fr)]"
+                      className="grid gap-4 sm:grid-cols-[3rem_minmax(0,1fr)]"
                     >
                       <span className="font-mono text-[0.66rem] tracking-[0.16em] text-[var(--color-text-muted)]">
                         {String(index + 1).padStart(2, "0")}
@@ -193,7 +189,7 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
                   {item.whenToUse.map((entry) => (
                     <p
                       key={entry}
-                      className="border-l border-[var(--color-border-strong)] pl-5 text-base leading-8 text-[var(--color-text-soft)]"
+                      className="text-base leading-8 text-[var(--color-text-soft)]"
                     >
                       {entry}
                     </p>
@@ -203,10 +199,10 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
 
               <section
                 id="outcome"
-                className="scroll-mt-32 border border-[var(--color-border-strong)] p-6 sm:p-8"
+                className="scroll-mt-32 bg-[var(--color-panel)] p-6 sm:p-8"
                 style={{ "--accent": accent } as CSSProperties}
               >
-                <div className="space-y-5 border-l-2 border-[var(--accent)] pl-5">
+                <div className="space-y-5">
                   <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                     03 / результат
                   </p>

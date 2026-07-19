@@ -16,7 +16,7 @@ export function CommunityProfileCard({
   return (
     <Link
       href={href}
-      className="group flex min-h-24 items-center gap-3 border-t border-[var(--color-border)] py-4 transition-colors hover:border-[var(--color-border-strong)]"
+      className="group flex min-h-24 items-center gap-3 py-4 transition-colors hover:bg-[rgba(255,255,255,0.018)]"
     >
       <ProfileAvatar profile={profile} className="h-11 w-11" sizes="44px" />
       <span className="min-w-0 space-y-1">

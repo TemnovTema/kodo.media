@@ -52,7 +52,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <div className="detail-rail-shell">
         <article className="grid gap-12 xl:grid-cols-[minmax(0,1fr)_18rem]">
           <div className="space-y-12">
-            <header className="page-hero space-y-8 border-b border-[var(--color-border)] pb-12">
+            <header className="page-hero space-y-8">
               <div className="flex flex-wrap items-center gap-3 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                 <Link href="/articles" className="hover:text-[var(--color-text)]">
                   Архив
@@ -87,7 +87,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 />
               </div>
 
-              <dl className="grid gap-5 border-t border-[var(--color-border)] pt-5 sm:grid-cols-2 xl:grid-cols-4">
+              <dl className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
                 {[
                   ["Формат", article.format],
                   ["Время", article.readingTime],
@@ -110,7 +110,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               {article.sections.map((section, index) => (
                 <section
                   key={section.title}
-                  className="grid gap-4 border-t border-[var(--color-border)] pt-6 md:grid-cols-[90px_minmax(0,1fr)]"
+                  className="grid gap-4 md:grid-cols-[90px_minmax(0,1fr)]"
                 >
                   <span className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
                     part 0{index + 1}
@@ -132,7 +132,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           <aside className="xl:pt-[8.5rem]">
             <div className="space-y-5 xl:sticky xl:top-28">
-              <div className="space-y-3 border-t border-[var(--color-border)] pt-4">
+              <div className="space-y-3">
                 <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
                   takeaway
                 </p>
@@ -140,7 +140,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   {article.takeaway}
                 </p>
               </div>
-              <div className="space-y-3 border-t border-[var(--color-border)] pt-4">
+              <div className="space-y-3">
                 <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-terminal)]">
                   status
                 </p>

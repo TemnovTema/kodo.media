@@ -14,7 +14,7 @@ export function SectionHeading({
       <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
         {label}
       </p>
-      <div className="space-y-3 border-t border-[var(--color-border)] pt-4">
+      <div className="space-y-3">
         <h2 className="max-w-4xl text-balance text-[clamp(1.9rem,3.6vw,3.2rem)] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
           {title}
         </h2>

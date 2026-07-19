@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CommunityCommentCard } from "@/components/community-comment-card";
+import { EngagementStats } from "@/components/engagement-stats";
 import { ProfileAvatar } from "@/components/profile-avatar";
 import {
   authorPosts,
@@ -57,7 +58,7 @@ export default async function CommentsPage({ params }: CommentsPageProps) {
 
   return (
     <div className="page-stack">
-      <section className="grid gap-9 border-t border-[var(--color-border)] pt-5 xl:grid-cols-[minmax(0,1fr)_18rem]">
+      <section>
         <div className="space-y-7">
           <div className="flex flex-wrap items-center gap-3 font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
             <Link href="/articles" className="transition-colors hover:text-[var(--color-text)]">
@@ -76,7 +77,7 @@ export default async function CommentsPage({ params }: CommentsPageProps) {
             </h1>
           </div>
 
-          <article className="space-y-5 border-y border-[var(--color-border-strong)] py-6">
+          <article className="space-y-5 py-2">
             <div className="flex items-center gap-4">
               <Link
                 href={authorHref}
@@ -100,34 +101,23 @@ export default async function CommentsPage({ params }: CommentsPageProps) {
             <p className="max-w-4xl text-[clamp(1.35rem,2.3vw,2rem)] leading-[1.08] tracking-[-0.04em] text-[var(--color-text)]">
               {post.message}
             </p>
+            <div className="border-t border-[var(--color-border)] pt-4">
+              <EngagementStats engagement={post.engagement} />
+            </div>
           </article>
         </div>
-
-        <aside className="xl:pt-[7.2rem]">
-          <div className="space-y-4 border-t border-[var(--color-border)] pt-4 xl:sticky xl:top-28">
-            <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-              режим
-            </p>
-            <p className="text-sm leading-7 text-[var(--color-text-soft)]">
-              Пока это чтение: реплики собраны из профилей KODO, а создание
-              новых комментариев подключим вместе с серверной частью.
-            </p>
-          </div>
-        </aside>
       </section>
 
-      <section className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_18rem]">
+      <section>
         <div>
-          <div className="border-t border-[var(--color-border)] pt-4">
-            <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-brand-blue)]">
-              replies
-            </p>
-            <h2 className="mt-3 text-balance text-[clamp(1.9rem,3.4vw,3.2rem)] leading-[0.96] tracking-[-0.055em] text-[var(--color-text)]">
-              Реплики участников
-            </h2>
-          </div>
+          <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-brand-blue)]">
+            replies
+          </p>
+          <h2 className="mt-3 text-balance text-[clamp(1.9rem,3.4vw,3.2rem)] leading-[0.96] tracking-[-0.055em] text-[var(--color-text)]">
+            Реплики участников
+          </h2>
 
-          <div className="mt-5">
+          <div className="mt-7 space-y-8">
             {comments.map((comment) => (
               <CommunityCommentCard key={comment.id} comment={comment} />
             ))}

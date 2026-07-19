@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-10 mt-16 border-t border-[var(--color-border)] bg-[var(--color-panel-strong)]/80">
+    <footer className="relative z-10 mt-16 bg-[var(--color-panel-strong)]/80">
       <div className="site-frame grid gap-8 py-8 lg:grid-cols-[1.3fr_0.7fr]">
         <div className="space-y-4">
           <div className="flex flex-wrap items-end gap-x-4 gap-y-1">
