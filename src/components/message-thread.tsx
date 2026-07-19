@@ -41,7 +41,7 @@ export function MessageThread({
 
   return (
     <div className="page-stack">
-      <section className="border-t border-[var(--color-border)] pt-5">
+      <section>
         <div className="grid gap-8 xl:grid-cols-[minmax(15rem,0.42fr)_minmax(0,1fr)] xl:gap-12">
           <aside className="space-y-5 xl:pt-2">
             <Link
@@ -51,7 +51,7 @@ export function MessageThread({
               <span aria-hidden="true">←</span> В профиль
             </Link>
 
-            <div className="flex items-center gap-4 border-y border-[var(--color-border)] py-5">
+            <div className="flex items-center gap-4 py-5">
               <ProfileAvatar profile={participant} className="h-14 w-14" sizes="56px" />
               <div className="min-w-0">
                 <h1 className="text-balance text-[clamp(2.1rem,4vw,3.4rem)] leading-[0.92] tracking-[-0.07em] text-[var(--color-text)]">
@@ -63,13 +63,10 @@ export function MessageThread({
               </div>
             </div>
 
-            <p className="max-w-sm text-sm leading-7 text-[var(--color-text-soft)]">
-              Личный диалог в KODO. Сообщения остаются в этом контексте и не попадают в общую ленту.
-            </p>
           </aside>
 
-          <section className="border border-[var(--color-border-strong)] bg-[var(--color-panel)]" aria-label={`Диалог с ${participant.name}`}>
-            <div className="flex items-center justify-between gap-4 border-b border-[var(--color-border)] px-5 py-4 sm:px-6">
+          <section aria-label={`Диалог с ${participant.name}`}>
+            <div className="flex items-center justify-between gap-4 pb-5">
               <p className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
                 личные сообщения
               </p>
@@ -79,7 +76,7 @@ export function MessageThread({
               </span>
             </div>
 
-            <ol className="space-y-1 px-5 py-5 sm:px-6 sm:py-6" aria-live="polite">
+            <ol className="space-y-8" aria-live="polite">
               {messages.map((item) => {
                 const isOwn = item.authorSlug === currentProfile.slug;
                 const author = isOwn ? currentProfile : participant;
@@ -87,7 +84,7 @@ export function MessageThread({
                 return (
                   <li
                     key={item.id}
-                    className={`grid gap-3 border-b border-[var(--color-border)] py-5 last:border-b-0 sm:grid-cols-[2.5rem_minmax(0,1fr)] ${
+                    className={`grid gap-3 sm:grid-cols-[2.5rem_minmax(0,1fr)] ${
                       isOwn ? "sm:ml-10" : "sm:mr-10"
                     }`}
                   >
@@ -113,7 +110,7 @@ export function MessageThread({
               })}
             </ol>
 
-            <form onSubmit={sendMessage} className="border-t border-[var(--color-border)] p-5 sm:p-6">
+            <form onSubmit={sendMessage} className="mt-10">
               <label
                 htmlFor="message-draft"
                 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)]"
@@ -126,12 +123,9 @@ export function MessageThread({
                 onChange={(event) => setDraft(event.target.value)}
                 placeholder={`Написать ${participant.name}…`}
                 rows={3}
-                className="mt-3 w-full resize-y border border-[var(--color-border)] bg-transparent px-4 py-3 text-sm leading-6 text-[var(--color-text)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)]"
+                className="mt-3 w-full resize-y bg-[var(--color-surface)] px-4 py-3 text-sm leading-6 text-[var(--color-text)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:bg-[var(--color-surface-soft)]"
               />
-              <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-xs leading-5 text-[var(--color-text-muted)]">
-                  Enter создаёт новую строку. Отправка работает локально в этом прототипе.
-                </p>
+              <div className="mt-3 flex justify-end">
                 <button type="submit" className="button-primary min-h-11 px-5 text-[0.62rem]">
                   Отправить <span aria-hidden="true">→</span>
                 </button>
