@@ -155,10 +155,16 @@ export type DirectConversation = {
 
 export type MerchItem = {
   id: string;
+  slug: string;
   title: string;
   summary: string;
   imageSrc: string;
   imageAlt: string;
+  gallery?: Array<{ src: string; alt: string }>;
+  price: string;
+  optionLabel: string;
+  options: string[];
+  details: Array<{ label: string; value: string }>;
 };
 
 export const siteStats = [
@@ -219,45 +225,94 @@ export const rubrics: Rubric[] = [
 export const merchItems: MerchItem[] = [
   {
     id: "merch-tee",
+    slug: "route-zero-tee",
     title: "Футболка Route Zero",
     summary: "Черная футболка с пиксельной планетой и цветовым кодом KODO.",
     imageSrc: "/merch/kodo-tee.jpg",
     imageAlt:
       "Черная футболка KODO на манекене с пиксельной графикой и брендовой палитрой.",
+    price: "3 400 ₽",
+    optionLabel: "Размер",
+    options: ["S", "M", "L", "XL"],
+    details: [
+      { label: "Материал", value: "Хлопок, плотность 240 г/м²" },
+      { label: "Посадка", value: "Свободный прямой крой" },
+      { label: "Нанесение", value: "Шелкография в палитре KODO" },
+    ],
   },
   {
     id: "merch-shopper",
+    slug: "signal-carry-shopper",
     title: "Шопер Signal Carry",
     summary: "Тёмный шопер с пиксельной траекторией и логотипом KODO.",
     imageSrc: "/merch/kodo-shopper.jpg",
     imageAlt:
       "Темный шопер KODO на каменной лестнице с пиксельным маршрутом и логотипом.",
+    price: "2 200 ₽",
+    optionLabel: "Формат",
+    options: ["Один размер"],
+    details: [
+      { label: "Материал", value: "Плотный чёрный канвас" },
+      { label: "Размер", value: "38 × 42 см" },
+      { label: "Нанесение", value: "Трафаретная печать" },
+    ],
   },
   {
     id: "merch-mug",
+    slug: "build-loop-mug",
     title: "Термокружка Build Loop",
     summary: "Тихий dark-object с KODO-маркой для длинных сборок и ночных прогонов.",
     imageSrc: "/generated/merch-mug.svg",
     imageAlt:
       "Темная брендовая термокружка KODO с цветными блоками на графичном фоне.",
+    price: "2 900 ₽",
+    optionLabel: "Объём",
+    options: ["450 мл"],
+    details: [
+      { label: "Корпус", value: "Нержавеющая сталь" },
+      { label: "Крышка", value: "Герметичная, с поилкой" },
+      { label: "Марка", value: "Лазерная гравировка KODO" },
+    ],
   },
   {
     id: "merch-notebook",
+    slug: "prompt-field-notebook",
     title: "Блокнот Prompt Field",
     summary: "Поле для схем, промтов и разметки перед запуском следующего прохода.",
     imageSrc: "/generated/merch-notebook.svg",
     imageAlt:
       "Черный блокнот KODO с эластичной лентой и брендовой геометрией на фоне.",
+    price: "1 600 ₽",
+    optionLabel: "Формат",
+    options: ["A5"],
+    details: [
+      { label: "Бумага", value: "Тёплый офсет, 100 г/м²" },
+      { label: "Листы", value: "96 страниц в точку" },
+      { label: "Обложка", value: "Матовый чёрный картон" },
+    ],
   },
   {
     id: "merch-stickers",
+    slug: "kodo-sticker-pack",
     title: "Sticker Pack KODO",
     summary: "Набор наклеек для ноутбука, кейса и рабочего стола в языке айдентики.",
     imageSrc: "/generated/merch-sticker-pack.svg",
     imageAlt:
       "Набор брендовых наклеек KODO на темной поверхности с цветными акцентами.",
+    price: "900 ₽",
+    optionLabel: "Набор",
+    options: ["12 наклеек"],
+    details: [
+      { label: "Материал", value: "Винил с матовой ламинацией" },
+      { label: "Состав", value: "12 графических марок KODO" },
+      { label: "Для чего", value: "Ноутбук, кейс, рабочая станция" },
+    ],
   },
 ];
+
+export function getMerchItemBySlug(slug: string) {
+  return merchItems.find((item) => item.slug === slug);
+}
 
 export const articles: Article[] = [
   {
