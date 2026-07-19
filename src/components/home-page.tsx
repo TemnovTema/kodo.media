@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ArticleCard } from "@/components/article-card";
+import { CommunityMemberCounter } from "@/components/community-member-counter";
 import { SymbolSphereHero } from "@/components/symbol-sphere-hero";
 import {
   demoSessionEvent,
   demoSessionStorageKey,
 } from "@/lib/demo-session";
+import { articles, rubrics } from "@/lib/content";
 
 const routes = [
   {
@@ -53,6 +56,8 @@ const benefits = [
     description: "В сообществе остаются авторы, их заметки и разговор вокруг конкретной работы.",
   },
 ] as const;
+
+const homeArticles = articles.slice(0, 3);
 
 export function HomePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -121,25 +126,67 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12">
-        <h2 className="max-w-xl text-balance text-[clamp(2rem,3.7vw,3.5rem)] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)]">
-          Не витрина про ИИ, а среда, в которой работа становится видимой.
-        </h2>
-        <ul className="grid gap-x-7 gap-y-6 sm:grid-cols-3">
-          {benefits.map((benefit, index) => (
-            <li key={benefit.title} className="pt-1">
-              <span className="font-mono text-[0.6rem] tracking-[0.16em] text-[var(--color-text-muted)]">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 text-lg leading-tight text-[var(--color-text)]">
-                {benefit.title}
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[var(--color-text-soft)]">
-                {benefit.description}
-              </p>
-            </li>
+      <section className="grid gap-8 xl:grid-cols-[minmax(19rem,0.72fr)_minmax(0,1.28fr)] xl:gap-12">
+        <CommunityMemberCounter />
+
+        <div className="flex min-w-0 flex-col justify-between gap-10 py-2 sm:py-5">
+          <h2 className="max-w-2xl text-balance text-[clamp(2.2rem,4vw,4rem)] leading-[0.9] tracking-[-0.065em] text-[var(--color-text)]">
+            Не витрина про ИИ, а среда, в которой работа становится видимой.
+          </h2>
+          <ul className="grid gap-x-7 gap-y-7 sm:grid-cols-3">
+            {benefits.map((benefit, index) => (
+              <li key={benefit.title} className="pt-1">
+                <span className="font-mono text-[0.6rem] tracking-[0.16em] text-[var(--color-text-muted)]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-3 text-lg leading-tight text-[var(--color-text)]">
+                  {benefit.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-[var(--color-text-soft)]">
+                  {benefit.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="space-y-8" aria-labelledby="home-reading">
+        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-brand-pink)]">
+              reading now
+            </p>
+            <h2
+              id="home-reading"
+              className="mt-3 text-balance text-[clamp(2.2rem,4vw,4rem)] leading-[0.9] tracking-[-0.065em] text-[var(--color-text)]"
+            >
+              Из сообщества, в которое можно войти прямо сейчас.
+            </h2>
+          </div>
+          <Link
+            href="/articles"
+            className="group inline-flex min-h-11 items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:text-[var(--color-brand-pink)] sm:min-h-0"
+          >
+            Все материалы
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none"
+            >
+              →
+            </span>
+          </Link>
+        </div>
+
+        <div className="grid items-stretch gap-8 lg:grid-cols-3">
+          {homeArticles.map((article) => (
+            <ArticleCard
+              key={article.slug}
+              article={article}
+              rubric={rubrics.find((rubric) => rubric.slug === article.rubric)}
+            />
           ))}
-        </ul>
+        </div>
       </section>
 
       <section id="routes" className="scroll-mt-8">
