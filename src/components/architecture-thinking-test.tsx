@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type QuizAnswer = {
   id: string;
@@ -263,6 +263,37 @@ const questions: QuizQuestion[] = [
   },
 ];
 
+const questionHints = [
+  "Ищите повторяющийся каркас, а не количество похожих файлов.",
+  "Проверьте, какие части можно менять, тестировать и понимать независимо друг от друга.",
+  "Общее должно жить в оболочке, а различающееся - оставаться в содержимом.",
+  "Подумайте, какой код изменяется вместе, когда развивается одна функция продукта.",
+  "У пользователя должна быть ясность не только в успешном сценарии.",
+  "Сравните повторяющийся каркас с тем, что действительно должно отличаться между карточками.",
+  "Новый сценарий не должен заново изобретать размеры, доступность и поведение базового элемента.",
+  "Состояние стоит хранить у ближайшей части интерфейса, которая в нём заинтересована.",
+  "Разделяйте не по количеству строк, а по устойчивым зонам ответственности.",
+  "Сбой запроса - это часть пользовательского маршрута, а не только запись в консоли.",
+] as const;
+
+const relatedReading = [
+  {
+    href: "/articles/why-vibe-coding-needs-an-editor",
+    title: "Почему вайб-кодингу нужен редактор, а не только хороший агент",
+    note: "Как удерживать структуру решений, когда продукт быстро растёт вместе с агентом.",
+  },
+  {
+    href: "/articles/prompt-pipeline-for-a-small-media",
+    title: "Пайплайн промтов для небольшого онлайн-СМИ: от замысла до выпуска",
+    note: "О том, как связать маршруты, сущности и интерфейс в одну систему.",
+  },
+  {
+    href: "/articles/agents-as-layout-engineers",
+    title: "Агенты как layout engineers: где заканчивается генерация и начинается композиция",
+    note: "Про границы компонентов, композицию и дисциплину экрана.",
+  },
+] as const;
+
 function formatStep(value: number) {
   return String(value).padStart(2, "0");
 }
@@ -280,9 +311,11 @@ function resultCopy(score: number) {
 }
 
 export function ArchitectureThinkingTest() {
+  const sessionRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [isComplete, setIsComplete] = useState(false);
+  const [isHintVisible, setIsHintVisible] = useState(false);
   const currentQuestion = questions[currentIndex];
   const selectedId = answers[currentIndex];
   const selectedAnswer = currentQuestion.answers.find(
@@ -293,6 +326,18 @@ export function ArchitectureThinkingTest() {
 
     return total + (selected?.correct ? 1 : 0);
   }, 0);
+  const incorrectAnswers = questions.flatMap((question, index) => {
+    const selectedAnswer = question.answers.find(
+      (answer) => answer.id === answers[index],
+    );
+    const correctAnswer = question.answers.find((answer) => answer.correct);
+
+    if (!selectedAnswer || selectedAnswer.correct || !correctAnswer) {
+      return [];
+    }
+
+    return [{ question, index, selectedAnswer, correctAnswer }];
+  });
 
   useEffect(() => {
     document.body.dataset.testSession = "active";
@@ -316,21 +361,26 @@ export function ArchitectureThinkingTest() {
     }
 
     if (currentIndex === questions.length - 1) {
+      sessionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
       setIsComplete(true);
       return;
     }
 
     setCurrentIndex((value) => value + 1);
+    setIsHintVisible(false);
   };
 
   const restartTest = () => {
+    sessionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentIndex(0);
     setAnswers({});
     setIsComplete(false);
+    setIsHintVisible(false);
   };
 
   return (
     <div
+      ref={sessionRef}
       role="dialog"
       aria-modal="true"
       className="test-session fixed inset-0 z-[100] overflow-y-auto overscroll-y-contain bg-[var(--color-bg)] text-[var(--color-text)]"
@@ -367,7 +417,7 @@ export function ArchitectureThinkingTest() {
 
       <main className="site-frame flex min-h-[calc(100dvh-4rem)] flex-col pb-8 pt-8 sm:min-h-[calc(100dvh-5rem)] sm:pb-12 sm:pt-12">
         {isComplete ? (
-          <section className="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center py-8 sm:py-12">
+          <section className="mx-auto w-full max-w-6xl py-8 sm:py-12">
             <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-brand-yellow)]">
               Проход завершён
             </p>
@@ -387,6 +437,97 @@ export function ArchitectureThinkingTest() {
                 {resultCopy(score)}
               </p>
             </div>
+
+            {incorrectAnswers.length > 0 ? (
+              <section className="mt-16">
+                <div className="max-w-2xl">
+                  <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-brand-yellow)]">
+                    Разбор маршрута
+                  </p>
+                  <h2 className="mt-4 text-balance text-[clamp(2rem,4vw,3.75rem)] leading-[0.9] tracking-[-0.06em]">
+                    К этим вопросам стоит вернуться.
+                  </h2>
+                  <p className="mt-4 text-base leading-8 text-[var(--color-text-soft)]">
+                    Здесь не оценка, а точки, где полезно уточнить собственный способ собирать интерфейсы.
+                  </p>
+                </div>
+
+                <div className="mt-8 space-y-3">
+                  {incorrectAnswers.map(
+                    ({ question, index, selectedAnswer, correctAnswer }) => (
+                      <article
+                        key={question.title}
+                        className="grid gap-5 bg-[var(--color-surface)] p-5 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:p-7"
+                      >
+                        <span className="font-mono text-[0.68rem] tracking-[0.2em] text-[var(--color-brand-yellow)]">
+                          {formatStep(index + 1)}
+                        </span>
+                        <div>
+                          <p className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                            {question.category}
+                          </p>
+                          <h3 className="mt-3 max-w-3xl text-xl leading-tight tracking-[-0.04em] sm:text-2xl">
+                            {question.title}
+                          </h3>
+                          <p className="mt-5 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base">
+                            Ваш ответ: {selectedAnswer.label}
+                          </p>
+                          <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
+                            <span className="mr-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[var(--color-brand-yellow)]">
+                              Рабочий ход
+                            </span>
+                            {correctAnswer.label}
+                          </p>
+                          <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
+                            {correctAnswer.note.replace(/^Верно\.\s*/, "")}
+                          </p>
+                        </div>
+                      </article>
+                    ),
+                  )}
+                </div>
+              </section>
+            ) : (
+              <section className="mt-16 max-w-2xl bg-[var(--color-surface)] p-6 sm:p-8">
+                <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-brand-green)]">
+                  Точный проход
+                </p>
+                <h2 className="mt-4 text-balance text-2xl leading-tight tracking-[-0.05em] sm:text-3xl">
+                  Ошибок в этом маршруте нет.
+                </h2>
+                <p className="mt-4 text-base leading-8 text-[var(--color-text-soft)]">
+                  Сохраните этот принцип для следующей сборки: сначала границы и состояния, затем скорость реализации.
+                </p>
+              </section>
+            )}
+
+            <section className="mt-16">
+              <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-text-muted)]">
+                Читать дальше
+              </p>
+              <div className="mt-5 grid gap-3 lg:grid-cols-3">
+                {relatedReading.map((article, index) => (
+                  <Link
+                    key={article.href}
+                    href={article.href}
+                    className="group min-h-48 bg-[rgba(255,255,255,0.018)] p-5 transition-colors hover:bg-[var(--color-surface)] sm:p-6"
+                  >
+                    <span className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                      Материал {formatStep(index + 1)}
+                    </span>
+                    <span className="mt-7 block text-lg leading-tight tracking-[-0.04em] text-[var(--color-text)] sm:text-xl">
+                      {article.title}
+                    </span>
+                    <span className="mt-4 block text-sm leading-6 text-[var(--color-text-soft)]">
+                      {article.note}
+                    </span>
+                    <span className="mt-5 inline-block font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[var(--color-brand-yellow)] transition-transform group-hover:translate-x-1">
+                      Читать →
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </section>
 
             <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center">
               <button
@@ -424,9 +565,13 @@ export function ArchitectureThinkingTest() {
                   />
                 ))}
               </div>
-              <p className="hidden font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)] sm:block">
-                Выберите вариант
-              </p>
+              <button
+                type="button"
+                onClick={() => setIsHintVisible((value) => !value)}
+                className="inline-flex min-h-10 w-fit items-center justify-center px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-text)] sm:w-auto"
+              >
+                {isHintVisible ? "Скрыть подсказку" : "Подсказка"}
+              </button>
             </div>
 
             <section className="grid flex-1 gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-center lg:py-16">
@@ -446,6 +591,17 @@ export function ArchitectureThinkingTest() {
                     <code>{currentQuestion.code}</code>
                   </pre>
                 ) : null}
+
+                {isHintVisible ? (
+                  <div className="mt-7 max-w-3xl bg-[var(--color-surface)] px-5 py-4 sm:px-6">
+                    <p className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-[var(--color-brand-yellow)]">
+                      Подсказка
+                    </p>
+                    <p className="mt-2 text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
+                      {questionHints[currentIndex]}
+                    </p>
+                  </div>
+                ) : null}
               </div>
 
               <aside className="hidden self-end lg:block">
@@ -462,15 +618,10 @@ export function ArchitectureThinkingTest() {
               <div className="grid gap-2.5 md:grid-cols-3">
                 {currentQuestion.answers.map((answer, index) => {
                   const isSelected = answer.id === selectedId;
-                  const isCorrect = Boolean(answer.correct);
                   const optionState = selectedId
                     ? isSelected
-                      ? isCorrect
-                        ? "bg-[rgba(91,137,75,0.18)] text-[var(--color-text)]"
-                        : "bg-[rgba(162,100,157,0.18)] text-[var(--color-text)]"
-                      : isCorrect
-                        ? "bg-[rgba(91,137,75,0.08)] text-[var(--color-text-soft)]"
-                        : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-muted)]"
+                      ? "bg-[rgba(180,159,0,0.16)] text-[var(--color-text)]"
+                      : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-muted)]"
                     : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-soft)] hover:bg-[rgba(255,255,255,0.05)] hover:text-[var(--color-text)]";
 
                   return (
@@ -496,9 +647,9 @@ export function ArchitectureThinkingTest() {
                 <div className="mt-5 flex flex-col gap-5 bg-[var(--color-surface)] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                   <p className="max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
                     <span className="mr-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[var(--color-brand-yellow)]">
-                      {selectedAnswer.correct ? "Точно" : "Проверь ещё раз"}
+                      Ответ сохранён
                     </span>
-                    {selectedAnswer.note}
+                    Разбор появится после завершения теста.
                   </p>
                   <button
                     type="button"
