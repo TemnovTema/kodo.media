@@ -23,6 +23,7 @@ const rubricAccents: Record<string, string> = {
 };
 
 const testAccents: Record<string, string> = {
+  "architecture-thinking": brandPalette.yellow,
   "vibe-coding-profile": brandPalette.blue,
   "prompt-lint": brandPalette.pink,
   "agent-stack-fit": brandPalette.green,

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ArchitectureThinkingTest } from "@/components/architecture-thinking-test";
 import { ContentCommentSection } from "@/components/content-comment-section";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { SectionHeading } from "@/components/section-heading";
@@ -38,6 +39,10 @@ export default async function TestPage({ params }: TestPageProps) {
 
   if (!test) {
     notFound();
+  }
+
+  if (test.slug === "architecture-thinking") {
+    return <ArchitectureThinkingTest />;
   }
 
   return (

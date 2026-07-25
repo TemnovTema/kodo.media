@@ -53,7 +53,7 @@ export default function RootLayout({
         >
           Перейти к контенту
         </a>
-        <div className="relative min-h-screen overflow-x-hidden">
+        <div className="site-shell relative min-h-screen overflow-x-hidden">
           <div className="noise-overlay" aria-hidden="true" />
           <SiteHeader />
           <main id="content" className="site-frame relative z-10 pb-12 pt-4">

@@ -191,6 +191,10 @@ main :is(h1, h2, h3) {
   padding-inline: var(--page-gutter);
 }
 
+body[data-test-session="active"] .site-shell > :is(header, footer) {
+  display: none;
+}
+
 .page-hero {
   padding-block: clamp(1.5rem, 4vw, 3.25rem);
 }

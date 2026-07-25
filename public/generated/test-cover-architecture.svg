@@ -1,0 +1,40 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1120" fill="#08080B"/>
+  <path d="M130 166H1470" stroke="rgba(243,238,232,0.10)" stroke-width="2"/>
+  <path d="M130 954H1470" stroke="rgba(243,238,232,0.10)" stroke-width="2"/>
+  <path d="M198 102V1018" stroke="rgba(243,238,232,0.07)" stroke-width="2"/>
+  <path d="M1402 102V1018" stroke="rgba(243,238,232,0.07)" stroke-width="2"/>
+  <rect x="258" y="334" width="284" height="254" fill="#111116" stroke="#6087C2" stroke-width="3"/>
+  <rect x="300" y="384" width="82" height="14" fill="#6087C2"/>
+  <rect x="300" y="432" width="182" height="12" fill="rgba(243,238,232,0.86)"/>
+  <rect x="300" y="468" width="144" height="10" fill="rgba(243,238,232,0.28)"/>
+  <rect x="300" y="500" width="164" height="10" fill="rgba(243,238,232,0.18)"/>
+  <text x="300" y="556" fill="rgba(243,238,232,0.42)" font-family="monospace" font-size="20" letter-spacing="6">MODULE / 01</text>
+  <rect x="658" y="212" width="284" height="254" fill="#111116" stroke="#5B894B" stroke-width="3"/>
+  <rect x="700" y="262" width="82" height="14" fill="#5B894B"/>
+  <rect x="700" y="310" width="176" height="12" fill="rgba(243,238,232,0.86)"/>
+  <rect x="700" y="346" width="162" height="10" fill="rgba(243,238,232,0.28)"/>
+  <rect x="700" y="378" width="124" height="10" fill="rgba(243,238,232,0.18)"/>
+  <text x="700" y="434" fill="rgba(243,238,232,0.42)" font-family="monospace" font-size="20" letter-spacing="6">MODULE / 02</text>
+  <rect x="658" y="656" width="284" height="254" fill="#111116" stroke="#B49F00" stroke-width="3"/>
+  <rect x="700" y="706" width="82" height="14" fill="#B49F00"/>
+  <rect x="700" y="754" width="184" height="12" fill="rgba(243,238,232,0.86)"/>
+  <rect x="700" y="790" width="152" height="10" fill="rgba(243,238,232,0.28)"/>
+  <rect x="700" y="822" width="174" height="10" fill="rgba(243,238,232,0.18)"/>
+  <text x="700" y="878" fill="rgba(243,238,232,0.42)" font-family="monospace" font-size="20" letter-spacing="6">MODULE / 03</text>
+  <rect x="1058" y="428" width="284" height="254" fill="#111116" stroke="#A2649D" stroke-width="3"/>
+  <rect x="1100" y="478" width="82" height="14" fill="#A2649D"/>
+  <rect x="1100" y="526" width="184" height="12" fill="rgba(243,238,232,0.86)"/>
+  <rect x="1100" y="562" width="144" height="10" fill="rgba(243,238,232,0.28)"/>
+  <rect x="1100" y="594" width="164" height="10" fill="rgba(243,238,232,0.18)"/>
+  <text x="1100" y="650" fill="rgba(243,238,232,0.42)" font-family="monospace" font-size="20" letter-spacing="6">MODULE / 04</text>
+  <path d="M542 461H602V339H658" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M542 461H602V783H658" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M942 339H1000V555H1058" stroke="#F3EEE8" stroke-width="6"/>
+  <path d="M942 783H1000V555H1058" stroke="#F3EEE8" stroke-width="6"/>
+  <circle cx="602" cy="461" r="12" fill="#6087C2"/>
+  <circle cx="602" cy="339" r="12" fill="#5B894B"/>
+  <circle cx="602" cy="783" r="12" fill="#B49F00"/>
+  <circle cx="1000" cy="555" r="12" fill="#A2649D"/>
+  <text x="196" y="138" fill="#F3EEE8" font-family="monospace" font-size="22" letter-spacing="8">ARCHITECTURE / 10 STEPS</text>
+</svg>

@@ -623,6 +623,20 @@ export const promptAnatomy = [
 
 export const diagnosticTests: DiagnosticTest[] = [
   {
+    slug: "architecture-thinking",
+    title: "Архитектурное мышление",
+    summary:
+      "Практический проход по компонентам, состояниям и структуре проекта: как собирать интерфейс системой, а не копированием экранов.",
+    duration: "10 вопросов",
+    outcome: "Профиль архитектурного мышления",
+    mode: "Базовый навык",
+    checkpoints: [
+      "Компоненты и границы ответственности",
+      "Композиция вместо копирования",
+      "Состояния интерфейса и UI Kit",
+    ],
+  },
+  {
     slug: "vibe-coding-profile",
     title: "Профиль вайб-кодера",
     summary:

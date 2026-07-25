@@ -151,6 +151,14 @@ const articleVisuals: Record<string, VisualAsset> = {
 };
 
 const testVisuals: Record<string, VisualAsset> = {
+  "architecture-thinking": {
+    src: "/generated/test-cover-architecture.svg",
+    alt: "Схема из четырёх связанных модулей с нумерацией и цветными маркерами в языке KODO.",
+    label: "architecture visual",
+    title: "Component Field",
+    description: "Архитектурное мышление как работа с границами модулей и связями между ними.",
+    tone: "#B49F00",
+  },
   "vibe-coding-profile": {
     src: "/generated/test-cover-profile.svg",
     alt: "Три профильных модуля на темном поле с кругами сканирования и брендовой цветовой системой KODO.",
