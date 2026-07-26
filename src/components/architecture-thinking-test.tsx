@@ -310,16 +310,72 @@ function resultCopy(score: number) {
   return "Есть пространство для системности: начните с повторов, состояний и явных границ между частями интерфейса.";
 }
 
+const codeTokens =
+  /(function|NoteCard|QuoteCard|<article><Meta \/>|<\/article>|\{title\}|\{text\}|\{author\}|\{quote\})/g;
+
+function renderCodeLine(line: string) {
+  return line.split(codeTokens).map((token, index) => {
+    const tone =
+      token === "function"
+        ? "text-[var(--color-brand-pink)]"
+        : token === "NoteCard" || token === "QuoteCard"
+          ? "text-[var(--color-brand-yellow)]"
+          : token === "<article><Meta />" || token === "</article>"
+            ? "text-[var(--color-brand-green)]"
+            : /^\{(?:title|text|author|quote)\}$/.test(token)
+              ? "text-[var(--color-brand-blue)]"
+              : "";
+
+    return (
+      <span key={`${token}-${index}`} className={tone}>
+        {token}
+      </span>
+    );
+  });
+}
+
+function CodeEditor({ code }: { code: string }) {
+  return (
+    <div className="mt-3 max-w-3xl overflow-x-auto bg-[var(--color-surface)] font-mono text-[0.65rem] leading-5 text-[var(--color-text-soft)] sm:text-xs">
+      <div className="flex min-w-[34rem] items-center justify-between bg-[rgba(255,255,255,0.028)] px-4 py-1.5 text-[0.56rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+        <span className="flex items-center gap-1.5" aria-hidden="true">
+          <span className="h-1.5 w-1.5 bg-[var(--color-brand-pink)]" />
+          <span className="h-1.5 w-1.5 bg-[var(--color-brand-yellow)]" />
+          <span className="h-1.5 w-1.5 bg-[var(--color-brand-green)]" />
+        </span>
+        <span>cards.tsx</span>
+        <span>tsx</span>
+      </div>
+      <ol className="min-w-[34rem] py-1.5" aria-label="Фрагмент кода с повторяющейся структурой карточек">
+        {code.split("\n").map((line, index) => (
+          <li
+            key={`${line}-${index}`}
+            className={`grid grid-cols-[2.75rem_minmax(0,1fr)] px-4 ${
+              index === 1 || index === 5 ? "bg-[rgba(96,135,194,0.08)]" : ""
+            }`}
+          >
+            <span className="select-none text-right text-[var(--color-text-muted)]">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <code className="pl-4 whitespace-pre">{renderCodeLine(line)}</code>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export function ArchitectureThinkingTest() {
   const sessionRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [draftAnswerId, setDraftAnswerId] = useState<string>();
   const [isComplete, setIsComplete] = useState(false);
   const [isHintVisible, setIsHintVisible] = useState(false);
   const currentQuestion = questions[currentIndex];
-  const selectedId = answers[currentIndex];
-  const selectedAnswer = currentQuestion.answers.find(
-    (answer) => answer.id === selectedId,
+  const hasCodeQuestion = Boolean(currentQuestion.code);
+  const draftAnswer = currentQuestion.answers.find(
+    (answer) => answer.id === draftAnswerId,
   );
   const score = questions.reduce((total, question, index) => {
     const selected = question.answers.find((answer) => answer.id === answers[index]);
@@ -348,25 +404,28 @@ export function ArchitectureThinkingTest() {
   }, []);
 
   const selectAnswer = (answerId: string) => {
-    if (selectedId) {
-      return;
-    }
-
-    setAnswers((previous) => ({ ...previous, [currentIndex]: answerId }));
+    setDraftAnswerId(answerId);
   };
 
   const continueTest = () => {
-    if (!selectedAnswer) {
+    if (!draftAnswerId) {
       return;
     }
+
+    setAnswers((previous) => ({
+      ...previous,
+      [currentIndex]: draftAnswerId,
+    }));
 
     if (currentIndex === questions.length - 1) {
       sessionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
       setIsComplete(true);
+      setDraftAnswerId(undefined);
       return;
     }
 
     setCurrentIndex((value) => value + 1);
+    setDraftAnswerId(undefined);
     setIsHintVisible(false);
   };
 
@@ -374,6 +433,7 @@ export function ArchitectureThinkingTest() {
     sessionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentIndex(0);
     setAnswers({});
+    setDraftAnswerId(undefined);
     setIsComplete(false);
     setIsHintVisible(false);
   };
@@ -387,7 +447,7 @@ export function ArchitectureThinkingTest() {
       aria-label="Тест по архитектурному мышлению"
     >
       <header className="sticky top-0 z-10 bg-[var(--color-bg)]">
-        <div className="site-frame flex min-h-16 items-center justify-between gap-4 py-3 sm:min-h-20 sm:py-4">
+        <div className="site-frame flex min-h-16 items-center justify-between gap-4 py-3">
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
             <span className="grid h-9 w-9 shrink-0 place-items-center bg-[var(--color-brand-yellow)] font-mono text-[0.72rem] tracking-[0.08em] text-[#17161a] sm:h-10 sm:w-10">
               A
@@ -415,7 +475,7 @@ export function ArchitectureThinkingTest() {
         </div>
       </header>
 
-      <main className="site-frame flex min-h-[calc(100dvh-4rem)] flex-col pb-8 pt-8 sm:min-h-[calc(100dvh-5rem)] sm:pb-12 sm:pt-12">
+      <main className="site-frame flex min-h-[calc(100dvh-4rem)] flex-col pb-4 pt-5 sm:py-5">
         {isComplete ? (
           <section className="mx-auto w-full max-w-6xl py-8 sm:py-12">
             <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-brand-yellow)]">
@@ -547,7 +607,7 @@ export function ArchitectureThinkingTest() {
           </section>
         ) : (
           <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col">
-            <div className="grid gap-5 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-8">
+            <div className="grid gap-3 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-6">
               <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                 Ход {formatStep(currentIndex + 1)} / {formatStep(questions.length)}
               </p>
@@ -574,26 +634,38 @@ export function ArchitectureThinkingTest() {
               </button>
             </div>
 
-            <section className="grid flex-1 gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-center lg:py-16">
+            <section
+              className={`grid flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_14rem] lg:items-center ${
+                hasCodeQuestion ? "py-2 lg:py-1" : "py-6 lg:py-5"
+              }`}
+            >
               <div className="max-w-4xl">
                 <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-brand-yellow)]">
                   {currentQuestion.category}
                 </p>
-                <h1 className="mt-5 text-balance text-[clamp(2.35rem,5.6vw,5.15rem)] leading-[0.88] tracking-[-0.07em]">
+                <h1
+                  className={`mt-3 text-balance leading-[0.9] tracking-[-0.07em] ${
+                    hasCodeQuestion
+                      ? "text-[clamp(2rem,3.6vw,3.35rem)]"
+                      : "text-[clamp(2.2rem,4.6vw,4.4rem)]"
+                  }`}
+                >
                   {currentQuestion.title}
                 </h1>
-                <p className="mt-6 max-w-3xl text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
+                <p
+                  className={`max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base ${
+                    hasCodeQuestion ? "mt-3" : "mt-4"
+                  }`}
+                >
                   {currentQuestion.prompt}
                 </p>
 
                 {currentQuestion.code ? (
-                  <pre className="mt-8 overflow-x-auto bg-[var(--color-surface)] p-5 font-mono text-xs leading-6 text-[var(--color-text-soft)] sm:p-6 sm:text-sm">
-                    <code>{currentQuestion.code}</code>
-                  </pre>
+                  <CodeEditor code={currentQuestion.code} />
                 ) : null}
 
                 {isHintVisible ? (
-                  <div className="mt-7 max-w-3xl bg-[var(--color-surface)] px-5 py-4 sm:px-6">
+                  <div className="mt-5 max-w-3xl bg-[var(--color-surface)] px-5 py-4 sm:px-6">
                     <p className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-[var(--color-brand-yellow)]">
                       Подсказка
                     </p>
@@ -608,17 +680,17 @@ export function ArchitectureThinkingTest() {
                 <p className="font-display text-[clamp(5rem,8vw,7.5rem)] leading-[0.72] tracking-[-0.09em] text-[rgba(243,238,232,0.14)]">
                   {formatStep(currentIndex + 1)}
                 </p>
-                <p className="mt-7 font-mono text-[0.62rem] uppercase leading-5 tracking-[0.2em] text-[var(--color-text-muted)]">
+                <p className="mt-5 font-mono text-[0.62rem] uppercase leading-5 tracking-[0.2em] text-[var(--color-text-muted)]">
                   Не угадывайте. Ищите границу ответственности.
                 </p>
               </aside>
             </section>
 
-            <section aria-label="Варианты ответа" className="pb-6">
+            <section aria-label="Варианты ответа" className="pb-2">
               <div className="grid gap-2.5 md:grid-cols-3">
                 {currentQuestion.answers.map((answer, index) => {
-                  const isSelected = answer.id === selectedId;
-                  const optionState = selectedId
+                  const isSelected = answer.id === draftAnswerId;
+                  const optionState = draftAnswerId
                     ? isSelected
                       ? "bg-[rgba(180,159,0,0.16)] text-[var(--color-text)]"
                       : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-muted)]"
@@ -629,13 +701,19 @@ export function ArchitectureThinkingTest() {
                       key={answer.id}
                       type="button"
                       onClick={() => selectAnswer(answer.id)}
-                      disabled={Boolean(selectedId)}
-                      className={`group min-h-44 p-5 text-left transition-colors disabled:cursor-default sm:min-h-48 sm:p-6 ${optionState}`}
+                      aria-pressed={isSelected}
+                      className={`group p-4 text-left transition-colors sm:p-5 ${
+                        hasCodeQuestion ? "min-h-24 sm:min-h-28" : "min-h-32 sm:min-h-36"
+                      } ${optionState}`}
                     >
                       <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                         {String.fromCharCode(65 + index)}
                       </span>
-                      <span className="mt-8 block text-sm leading-6 sm:text-base sm:leading-7">
+                      <span
+                        className={`block text-sm leading-6 sm:text-base sm:leading-7 ${
+                          hasCodeQuestion ? "mt-3" : "mt-5"
+                        }`}
+                      >
                         {answer.label}
                       </span>
                     </button>
@@ -643,13 +721,13 @@ export function ArchitectureThinkingTest() {
                 })}
               </div>
 
-              {selectedAnswer ? (
-                <div className="mt-5 flex flex-col gap-5 bg-[var(--color-surface)] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              {draftAnswer ? (
+                <div className="mt-3 flex flex-col gap-4 bg-[var(--color-surface)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                   <p className="max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
                     <span className="mr-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[var(--color-brand-yellow)]">
-                      Ответ сохранён
+                      Вариант выбран
                     </span>
-                    Разбор появится после завершения теста.
+                    Нажмите «Дальше», чтобы зафиксировать ответ.
                   </p>
                   <button
                     type="button"
