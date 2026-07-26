@@ -2,279 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-type QuizAnswer = {
-  id: string;
-  label: string;
-  correct?: boolean;
-  note: string;
-};
-
-type QuizQuestion = {
-  category: string;
-  title: string;
-  prompt: string;
-  code?: string;
-  answers: QuizAnswer[];
-};
-
-const questions: QuizQuestion[] = [
-  {
-    category: "Компоненты",
-    title: "Пять карточек почти одинаковы. Что делать?",
-    prompt:
-      "Codex собрал пять карточек товаров: у них совпадают структура, кнопка и сетка, но отличаются текст, изображение и один цветной акцент.",
-    answers: [
-      {
-        id: "a",
-        label: "Оставить пять файлов: так проще менять каждую карточку отдельно.",
-        note: "Похожая разметка быстро начинает расходиться и требует правок в пяти местах.",
-      },
-      {
-        id: "b",
-        label: "Сделать общую карточку и передавать отличия через данные и варианты.",
-        correct: true,
-        note: "Верно. Общая структура живёт в одном месте, а контент и допустимые различия приходят извне.",
-      },
-      {
-        id: "c",
-        label: "Скопировать первую карточку ещё раз, чтобы не затронуть уже готовые экраны.",
-        note: "Копирование выглядит безопасно только до первой общей правки.",
-      },
-    ],
-  },
-  {
-    category: "Границы файла",
-    title: "Когда компонент пора разделять?",
-    prompt:
-      "В одном файле уже есть форма, таблица результатов, запросы к API и логика открытия модального окна. Формально он ещё компилируется.",
-    answers: [
-      {
-        id: "a",
-        label: "Только когда файл стал длиннее 500 строк.",
-        note: "Количество строк само по себе ничего не говорит о границах ответственности.",
-      },
-      {
-        id: "b",
-        label: "Когда части решают разные задачи или могут жить и проверяться отдельно.",
-        correct: true,
-        note: "Верно. Разделение появляется по ответственности и связям, а не по произвольному лимиту строк.",
-      },
-      {
-        id: "c",
-        label: "Сразу после первой правки: один файл должен делать ровно один JSX-элемент.",
-        note: "Это другая крайность. Связанные части лучше оставлять рядом, пока они образуют одну понятную задачу.",
-      },
-    ],
-  },
-  {
-    category: "Композиция",
-    title: "Как не копировать похожие блоки?",
-    prompt:
-      "В ленте есть «заметка», «разбор» и «ссылка». У всех один контейнер и метаданные, но центральная часть разная: текст, цитата или внешний ресурс.",
-    answers: [
-      {
-        id: "a",
-        label: "Сделать три почти одинаковых компонента и синхронно менять их при каждом обновлении.",
-        note: "Так общая оболочка превращается в несколько независимых версий.",
-      },
-      {
-        id: "b",
-        label: "Сделать общую оболочку, а центральную часть передавать как композицию или слот.",
-        correct: true,
-        note: "Верно. Компонент владеет тем, что действительно общее, а различия остаются явными в содержимом.",
-      },
-      {
-        id: "c",
-        label: "Добавить один компонент со всеми возможными вариантами на десятки boolean-props.",
-        note: "Большое количество переключателей скрывает смысл интерфейса и делает API компонента хрупким.",
-      },
-    ],
-  },
-  {
-    category: "Структура",
-    title: "Какой порядок в проекте полезнее?",
-    prompt:
-      "В продукте появились профиль, сообщения и тесты. Каждый раздел использует свои страницы, запросы, локальные компоненты и типы.",
-    answers: [
-      {
-        id: "a",
-        label: "Сложить все компоненты в одну папку components, а все типы в types.",
-        note: "Так связь между частями одной функции продукта быстро теряется.",
-      },
-      {
-        id: "b",
-        label: "Держать рядом код, который меняется вместе: по функции продукта, с общим слоем отдельно.",
-        correct: true,
-        note: "Верно. Общие примитивы остаются общими, а код конкретной функции проще найти и менять рядом.",
-      },
-      {
-        id: "c",
-        label: "Создать папку misc для всего, что пока некуда положить.",
-        note: "Временная папка почти всегда становится постоянной точкой потери контекста.",
-      },
-    ],
-  },
-  {
-    category: "Состояния",
-    title: "Какие состояния должен увидеть пользователь?",
-    prompt:
-      "Экран загружает список задач. Иногда данных ещё нет, иногда запрос падает, а иногда список честно пуст.",
-    answers: [
-      {
-        id: "a",
-        label: "Показывать один спиннер, пока не появится хоть что-нибудь.",
-        note: "Так пользователь не отличит загрузку от ошибки или реально пустого результата.",
-      },
-      {
-        id: "b",
-        label: "Явно спроектировать загрузку, ошибку, пустое состояние и успешный список.",
-        correct: true,
-        note: "Верно. Состояния интерфейса являются частью продукта, а не остаточной логикой вокруг happy path.",
-      },
-      {
-        id: "c",
-        label: "Не показывать ничего, если данные не пришли: меньше интерфейса.",
-        note: "Отсутствие обратной связи не делает сценарий проще, оно делает его непонятным.",
-      },
-    ],
-  },
-  {
-    category: "Рефакторинг",
-    title: "Где здесь граница общего?",
-    prompt:
-      "Два компонента повторяют семантику статьи, отступы и метаданные. Отличается только содержимое середины.",
-    code: `function NoteCard({ title, text }) {\n  return <article><Meta /><h2>{title}</h2><p>{text}</p></article>;\n}\n\nfunction QuoteCard({ author, quote }) {\n  return <article><Meta /><h2>{author}</h2><blockquote>{quote}</blockquote></article>;\n}`,
-    answers: [
-      {
-        id: "a",
-        label: "Вынести общую оболочку ArticleCard и передавать в неё заголовок и содержимое.",
-        correct: true,
-        note: "Верно. Повторяется каркас, значит он заслуживает отдельной границы. Разное содержимое остаётся разным.",
-      },
-      {
-        id: "b",
-        label: "Ничего не менять: два компонента всегда лучше одного.",
-        note: "Разделение полезно, но здесь есть явный общий каркас, который уже требует синхронных изменений.",
-      },
-      {
-        id: "c",
-        label: "Сделать один Card с props note, quote, author, text, title и семью флагами.",
-        note: "Слишком широкий API маскирует разные сценарии. Здесь достаточно композиции, а не набора флагов.",
-      },
-    ],
-  },
-  {
-    category: "UI Kit",
-    title: "Как добавить новую кнопку без разрастания?",
-    prompt:
-      "Нужна кнопка удаления. В проекте уже есть обычная и вторичная кнопки с общими размерами, фокусом и поведением на мобильном.",
-    answers: [
-      {
-        id: "a",
-        label: "Собрать новую кнопку вручную на каждой странице, где есть удаление.",
-        note: "Так важные состояния и размеры неизбежно начнут расходиться.",
-      },
-      {
-        id: "b",
-        label: "Добавить понятный destructive-вариант в существующий примитив Button.",
-        correct: true,
-        note: "Верно. UI Kit хранит общий контракт, а вариант выражает допустимое визуальное отличие.",
-      },
-      {
-        id: "c",
-        label: "Поменять обычную кнопку на красную во всём продукте.",
-        note: "Опасное действие должно быть различимо, но не должно менять смысл базового действия.",
-      },
-    ],
-  },
-  {
-    category: "Состояние рядом",
-    title: "Где хранить открытие модального окна?",
-    prompt:
-      "Кнопка «Редактировать» и само окно находятся в одном блоке профиля. Больше нигде этот флаг не нужен.",
-    answers: [
-      {
-        id: "a",
-        label: "В локальном состоянии блока профиля, рядом с теми, кто им пользуется.",
-        correct: true,
-        note: "Верно. Состояние стоит поднимать только до ближайшего общего владельца, которому оно действительно нужно.",
-      },
-      {
-        id: "b",
-        label: "Сразу в глобальный store: вдруг пригодится позже.",
-        note: "Глобальное состояние имеет цену: больше связей, сложнее тестирование и выше риск случайных зависимостей.",
-      },
-      {
-        id: "c",
-        label: "В URL, даже если на окно никто не должен ссылаться.",
-        note: "URL полезен для воспроизводимого состояния и навигации, но не обязан хранить каждый локальный флаг.",
-      },
-    ],
-  },
-  {
-    category: "Ответственность",
-    title: "Компонент уже стал слишком общим?",
-    prompt:
-      "Dashboard рендерит шапку, навигацию, таблицу, модальные окна, графики и сам делает пять запросов. Любая правка ломает несколько несвязанных частей.",
-    answers: [
-      {
-        id: "a",
-        label: "Разделить по устойчивым задачам: shell, данные, таблица, график и действия пользователя.",
-        correct: true,
-        note: "Верно. У компонентов появляются ясные зоны изменений и более узкие контракты.",
-      },
-      {
-        id: "b",
-        label: "Оставить всё вместе: так меньше импортов.",
-        note: "Количество импортов не важнее читаемости и предсказуемости изменений.",
-      },
-      {
-        id: "c",
-        label: "Разбить файл на тридцать компонентов по одной строке JSX.",
-        note: "Дробление ради дробления тоже скрывает смысл. Нужны границы по задачам, а не по количеству строк.",
-      },
-    ],
-  },
-  {
-    category: "Проверка сценария",
-    title: "Какой дефект здесь спрятан?",
-    prompt:
-      "Экран показывает загрузку и список, но не содержит состояния ошибки. После неудачного запроса он перестаёт обновляться без объяснения.",
-    code: `if (isLoading) return <Loading />;\n\nif (items) return <TaskList items={items} />;\n\nreturn null;`,
-    answers: [
-      {
-        id: "a",
-        label: "Добавить явное состояние ошибки с понятным действием: повторить или вернуться.",
-        correct: true,
-        note: "Верно. Ошибка - не исключение из интерфейса, а ожидаемая ветка пользовательского маршрута.",
-      },
-      {
-        id: "b",
-        label: "Заменить return null на ещё один Loading, чтобы экран не был пустым.",
-        note: "Вечная загрузка скрывает проблему и лишает пользователя возможности продолжить работу.",
-      },
-      {
-        id: "c",
-        label: "Поставить console.log и оставить интерфейс как есть.",
-        note: "Лог помогает разработчику, но не даёт пользователю понятного сценария при сбое.",
-      },
-    ],
-  },
-];
-
-const questionHints = [
-  "Ищите повторяющийся каркас, а не количество похожих файлов.",
-  "Проверьте, какие части можно менять, тестировать и понимать независимо друг от друга.",
-  "Общее должно жить в оболочке, а различающееся - оставаться в содержимом.",
-  "Подумайте, какой код изменяется вместе, когда развивается одна функция продукта.",
-  "У пользователя должна быть ясность не только в успешном сценарии.",
-  "Сравните повторяющийся каркас с тем, что действительно должно отличаться между карточками.",
-  "Новый сценарий не должен заново изобретать размеры, доступность и поведение базового элемента.",
-  "Состояние стоит хранить у ближайшей части интерфейса, которая в нём заинтересована.",
-  "Разделяйте не по количеству строк, а по устойчивым зонам ответственности.",
-  "Сбой запроса - это часть пользовательского маршрута, а не только запись в консоли.",
-] as const;
+import type { DiagnosticTestSession as DiagnosticTestSessionData } from "@/lib/test-sessions";
 
 const relatedReading = [
   {
@@ -298,32 +26,32 @@ function formatStep(value: number) {
   return String(value).padStart(2, "0");
 }
 
-function resultCopy(score: number) {
-  if (score >= 9) {
-    return "Вы уже мыслите связями: отличаете общий каркас от частного случая и не прячете сценарии в копиях.";
+function resultCopy(score: number, total: number) {
+  if (score === total) {
+    return "Точный проход. Вы выбираете решения, которые можно проверить, объяснить команде и безопасно развивать дальше.";
   }
 
-  if (score >= 7) {
-    return "Основа есть. Следующий шаг - чаще проверять, где заканчивается ответственность компонента и начинается новый сценарий.";
+  if (score >= Math.ceil(total * 0.7)) {
+    return "Основа есть. В следующих задачах стоит ещё внимательнее отделять сильный рабочий процесс от самого быстрого на вид решения.";
   }
 
-  return "Есть пространство для системности: начните с повторов, состояний и явных границ между частями интерфейса.";
+  return "Есть пространство для системности: сверяйте контекст, границы изменений и способ проверки результата до начала работы.";
 }
 
 const codeTokens =
-  /(function|NoteCard|QuoteCard|<article><Meta \/>|<\/article>|\{title\}|\{text\}|\{author\}|\{quote\})/g;
+  /(\b(?:const|let|function|return|if|else|await)\b|<\/?[\w-]+(?:\s[^>]*)?\/?>(?:<\/[\w-]+>)?|\{[^}]+\}|["'][^"']+["'])/g;
 
 function renderCodeLine(line: string) {
   return line.split(codeTokens).map((token, index) => {
     const tone =
-      token === "function"
+      /^(?:const|let|function|return|if|else|await)$/.test(token)
         ? "text-[var(--color-brand-pink)]"
-        : token === "NoteCard" || token === "QuoteCard"
-          ? "text-[var(--color-brand-yellow)]"
-          : token === "<article><Meta />" || token === "</article>"
-            ? "text-[var(--color-brand-green)]"
-            : /^\{(?:title|text|author|quote)\}$/.test(token)
-              ? "text-[var(--color-brand-blue)]"
+        : token.startsWith("<")
+          ? "text-[var(--color-brand-green)]"
+          : token.startsWith("{")
+            ? "text-[var(--color-brand-blue)]"
+            : /^['"]/.test(token)
+              ? "text-[var(--color-brand-yellow)]"
               : "";
 
     return (
@@ -343,21 +71,21 @@ function CodeEditor({ code }: { code: string }) {
           <span className="h-1.5 w-1.5 bg-[var(--color-brand-yellow)]" />
           <span className="h-1.5 w-1.5 bg-[var(--color-brand-green)]" />
         </span>
-        <span>cards.tsx</span>
+        <span>fragment.tsx</span>
         <span>tsx</span>
       </div>
-      <ol className="min-w-[34rem] py-1.5" aria-label="Фрагмент кода с повторяющейся структурой карточек">
+      <ol className="min-w-[34rem] py-1.5" aria-label="Фрагмент кода">
         {code.split("\n").map((line, index) => (
           <li
             key={`${line}-${index}`}
             className={`grid grid-cols-[2.75rem_minmax(0,1fr)] px-4 ${
-              index === 1 || index === 5 ? "bg-[rgba(96,135,194,0.08)]" : ""
+              index % 3 === 1 ? "bg-[rgba(96,135,194,0.08)]" : ""
             }`}
           >
             <span className="select-none text-right text-[var(--color-text-muted)]">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <code className="pl-4 whitespace-pre">{renderCodeLine(line)}</code>
+            <code className="whitespace-pre pl-4">{renderCodeLine(line)}</code>
           </li>
         ))}
       </ol>
@@ -398,34 +126,42 @@ function ScenarioEditor({ prompt, step }: { prompt: string; step: number }) {
   );
 }
 
-export function ArchitectureThinkingTest() {
+export function DiagnosticTestSession({
+  test,
+}: {
+  test: DiagnosticTestSessionData;
+}) {
   const sessionRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [draftAnswerId, setDraftAnswerId] = useState<string>();
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [draftAnswerIndex, setDraftAnswerIndex] = useState<number>();
   const [isComplete, setIsComplete] = useState(false);
   const [isHintVisible, setIsHintVisible] = useState(false);
+  const questions = test.questions;
   const currentQuestion = questions[currentIndex];
   const hasCodeQuestion = Boolean(currentQuestion.code);
-  const draftAnswer = currentQuestion.answers.find(
-    (answer) => answer.id === draftAnswerId,
-  );
+  const draftAnswer =
+    draftAnswerIndex === undefined
+      ? undefined
+      : currentQuestion.answers[draftAnswerIndex];
   const score = questions.reduce((total, question, index) => {
-    const selected = question.answers.find((answer) => answer.id === answers[index]);
-
-    return total + (selected?.correct ? 1 : 0);
+    return total + (answers[index] === question.correctIndex ? 1 : 0);
   }, 0);
   const incorrectAnswers = questions.flatMap((question, index) => {
-    const selectedAnswer = question.answers.find(
-      (answer) => answer.id === answers[index],
-    );
-    const correctAnswer = question.answers.find((answer) => answer.correct);
+    const selectedIndex = answers[index];
 
-    if (!selectedAnswer || selectedAnswer.correct || !correctAnswer) {
+    if (selectedIndex === undefined || selectedIndex === question.correctIndex) {
       return [];
     }
 
-    return [{ question, index, selectedAnswer, correctAnswer }];
+    return [
+      {
+        question,
+        index,
+        selectedAnswer: question.answers[selectedIndex],
+        correctAnswer: question.answers[question.correctIndex],
+      },
+    ];
   });
 
   useEffect(() => {
@@ -436,29 +172,25 @@ export function ArchitectureThinkingTest() {
     };
   }, []);
 
-  const selectAnswer = (answerId: string) => {
-    setDraftAnswerId(answerId);
-  };
-
   const continueTest = () => {
-    if (!draftAnswerId) {
+    if (draftAnswerIndex === undefined) {
       return;
     }
 
     setAnswers((previous) => ({
       ...previous,
-      [currentIndex]: draftAnswerId,
+      [currentIndex]: draftAnswerIndex,
     }));
 
     if (currentIndex === questions.length - 1) {
       sessionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
       setIsComplete(true);
-      setDraftAnswerId(undefined);
+      setDraftAnswerIndex(undefined);
       return;
     }
 
     setCurrentIndex((value) => value + 1);
-    setDraftAnswerId(undefined);
+    setDraftAnswerIndex(undefined);
     setIsHintVisible(false);
   };
 
@@ -466,7 +198,7 @@ export function ArchitectureThinkingTest() {
     sessionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentIndex(0);
     setAnswers({});
-    setDraftAnswerId(undefined);
+    setDraftAnswerIndex(undefined);
     setIsComplete(false);
     setIsHintVisible(false);
   };
@@ -477,17 +209,17 @@ export function ArchitectureThinkingTest() {
       role="dialog"
       aria-modal="true"
       className="test-session fixed inset-0 z-[100] overflow-y-auto overscroll-y-contain bg-[var(--color-bg)] text-[var(--color-text)]"
-      aria-label="Тест по архитектурному мышлению"
+      aria-label={`Тест: ${test.title}`}
     >
       <header className="sticky top-0 z-10 bg-[var(--color-bg)]">
         <div className="site-frame flex min-h-16 items-center justify-between gap-4 py-3">
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
             <span className="grid h-9 w-9 shrink-0 place-items-center bg-[var(--color-brand-yellow)] font-mono text-[0.72rem] tracking-[0.08em] text-[#17161a] sm:h-10 sm:w-10">
-              A
+              T
             </span>
             <div className="min-w-0">
               <p className="truncate font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)] sm:text-[0.68rem] sm:tracking-[0.24em]">
-                Тест / архитектурное мышление
+                Тест / {test.shortLabel}
               </p>
               <p className="mt-1 text-sm text-[var(--color-text-soft)] sm:text-base">
                 {isComplete ? "Результат прохода" : currentQuestion.category}
@@ -523,11 +255,11 @@ export function ArchitectureThinkingTest() {
                   </span>
                 </p>
                 <h1 className="mt-8 max-w-2xl text-balance text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.86] tracking-[-0.07em]">
-                  Архитектура начинается с выбора границ.
+                  {test.resultTitle}
                 </h1>
               </div>
               <p className="max-w-xl text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
-                {resultCopy(score)}
+                {resultCopy(score, questions.length)}
               </p>
             </div>
 
@@ -541,7 +273,7 @@ export function ArchitectureThinkingTest() {
                     К этим вопросам стоит вернуться.
                   </h2>
                   <p className="mt-4 text-base leading-8 text-[var(--color-text-soft)]">
-                    Здесь не оценка, а точки, где полезно уточнить собственный способ собирать интерфейсы.
+                    Здесь не оценка, а точки, где полезно сверить решение с контекстом задачи и рабочим процессом.
                   </p>
                 </div>
 
@@ -563,16 +295,16 @@ export function ArchitectureThinkingTest() {
                             {question.title}
                           </h3>
                           <p className="mt-5 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base">
-                            Ваш ответ: {selectedAnswer.label}
+                            Ваш ответ: {selectedAnswer}
                           </p>
                           <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
                             <span className="mr-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[var(--color-brand-yellow)]">
                               Рабочий ход
                             </span>
-                            {correctAnswer.label}
+                            {correctAnswer}
                           </p>
                           <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
-                            {correctAnswer.note.replace(/^Верно\.\s*/, "")}
+                            Правильный вариант сохраняет контекст задачи и даёт результат, который можно проверить.
                           </p>
                         </div>
                       </article>
@@ -589,7 +321,7 @@ export function ArchitectureThinkingTest() {
                   Ошибок в этом маршруте нет.
                 </h2>
                 <p className="mt-4 text-base leading-8 text-[var(--color-text-soft)]">
-                  Сохраните этот принцип для следующей сборки: сначала границы и состояния, затем скорость реализации.
+                  Сохраните этот подход для следующей задачи: сначала условия и критерии, затем скорость реализации.
                 </p>
               </section>
             )}
@@ -676,9 +408,7 @@ export function ArchitectureThinkingTest() {
                 <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-brand-yellow)]">
                   {currentQuestion.category}
                 </p>
-                <h1
-                  className="mt-3 text-balance text-[clamp(2rem,3.6vw,3.35rem)] leading-[0.9] tracking-[-0.07em]"
-                >
+                <h1 className="mt-3 text-balance text-[clamp(2rem,3.6vw,3.35rem)] leading-[0.9] tracking-[-0.07em]">
                   {currentQuestion.title}
                 </h1>
                 <div className="mt-3 max-w-3xl">
@@ -698,7 +428,7 @@ export function ArchitectureThinkingTest() {
                       Подсказка
                     </p>
                     <p className="mt-2 text-sm leading-7 text-[var(--color-text-soft)] sm:text-base">
-                      {questionHints[currentIndex]}
+                      {test.hint}
                     </p>
                   </div>
                 ) : null}
@@ -709,38 +439,35 @@ export function ArchitectureThinkingTest() {
                   {formatStep(currentIndex + 1)}
                 </p>
                 <p className="mt-5 font-mono text-[0.62rem] uppercase leading-5 tracking-[0.2em] text-[var(--color-text-muted)]">
-                  Не угадывайте. Ищите границу ответственности.
+                  Не угадывайте. Сверяйте условие и последствия решения.
                 </p>
               </aside>
             </section>
 
             <section aria-label="Варианты ответа" className="pb-2">
-              <div className="grid gap-2.5 md:grid-cols-3">
+              <div className="grid gap-2.5 md:grid-cols-2">
                 {currentQuestion.answers.map((answer, index) => {
-                  const isSelected = answer.id === draftAnswerId;
-                  const optionState = draftAnswerId
-                    ? isSelected
-                      ? "bg-[rgba(180,159,0,0.16)] text-[var(--color-text)]"
-                      : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-muted)]"
-                    : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-soft)] hover:bg-[rgba(255,255,255,0.05)] hover:text-[var(--color-text)]";
+                  const isSelected = index === draftAnswerIndex;
+                  const optionState =
+                    draftAnswerIndex !== undefined
+                      ? isSelected
+                        ? "bg-[rgba(180,159,0,0.16)] text-[var(--color-text)]"
+                        : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-muted)]"
+                      : "bg-[rgba(255,255,255,0.018)] text-[var(--color-text-soft)] hover:bg-[rgba(255,255,255,0.05)] hover:text-[var(--color-text)]";
 
                   return (
                     <button
-                      key={answer.id}
+                      key={answer}
                       type="button"
-                      onClick={() => selectAnswer(answer.id)}
+                      onClick={() => setDraftAnswerIndex(index)}
                       aria-pressed={isSelected}
-                      className={`group min-h-24 p-4 text-left transition-colors sm:min-h-28 sm:p-5 ${optionState}`}
+                      className={`group min-h-20 p-4 text-left transition-colors sm:min-h-24 sm:p-5 ${optionState}`}
                     >
                       <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                         {String.fromCharCode(65 + index)}
                       </span>
-                      <span
-                        className={`block text-sm leading-6 sm:text-base sm:leading-7 ${
-                          hasCodeQuestion ? "mt-3" : "mt-4"
-                        }`}
-                      >
-                        {answer.label}
+                      <span className="mt-3 block text-sm leading-6 sm:text-base sm:leading-7">
+                        {answer}
                       </span>
                     </button>
                   );

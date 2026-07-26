@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArchitectureThinkingTest } from "@/components/architecture-thinking-test";
+import { DiagnosticTestSession } from "@/components/architecture-thinking-test";
 import { ContentCommentSection } from "@/components/content-comment-section";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { SectionHeading } from "@/components/section-heading";
 import { diagnosticTests, getTestBySlug } from "@/lib/content";
+import { getDiagnosticTestSession } from "@/lib/test-sessions";
 import { getTestVisualAsset } from "@/lib/visual-assets";
 
 type TestPageProps = {
@@ -41,8 +42,10 @@ export default async function TestPage({ params }: TestPageProps) {
     notFound();
   }
 
-  if (test.slug === "architecture-thinking") {
-    return <ArchitectureThinkingTest />;
+  const testSession = getDiagnosticTestSession(test.slug);
+
+  if (testSession) {
+    return <DiagnosticTestSession test={testSession} />;
   }
 
   return (
