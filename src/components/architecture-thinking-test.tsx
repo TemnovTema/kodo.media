@@ -336,7 +336,7 @@ function renderCodeLine(line: string) {
 
 function CodeEditor({ code }: { code: string }) {
   return (
-    <div className="mt-3 max-w-3xl overflow-x-auto bg-[var(--color-surface)] font-mono text-[0.65rem] leading-5 text-[var(--color-text-soft)] sm:text-xs">
+    <div className="overflow-x-auto bg-[var(--color-surface)] font-mono text-[0.65rem] leading-5 text-[var(--color-text-soft)] sm:text-xs">
       <div className="flex min-w-[34rem] items-center justify-between bg-[rgba(255,255,255,0.028)] px-4 py-1.5 text-[0.56rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
         <span className="flex items-center gap-1.5" aria-hidden="true">
           <span className="h-1.5 w-1.5 bg-[var(--color-brand-pink)]" />
@@ -358,6 +358,39 @@ function CodeEditor({ code }: { code: string }) {
               {String(index + 1).padStart(2, "0")}
             </span>
             <code className="pl-4 whitespace-pre">{renderCodeLine(line)}</code>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+function ScenarioEditor({ prompt, step }: { prompt: string; step: number }) {
+  const lines = prompt.match(/[^.!?]+[.!?]+|[^.!?]+$/g) ?? [prompt];
+
+  return (
+    <div className="bg-[var(--color-surface)]">
+      <div className="flex items-center justify-between bg-[rgba(255,255,255,0.028)] px-4 py-1.5 font-mono text-[0.56rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+        <span className="flex items-center gap-1.5" aria-hidden="true">
+          <span className="h-1.5 w-1.5 bg-[var(--color-brand-pink)]" />
+          <span className="h-1.5 w-1.5 bg-[var(--color-brand-yellow)]" />
+          <span className="h-1.5 w-1.5 bg-[var(--color-brand-green)]" />
+        </span>
+        <span>сценарий-{formatStep(step)}.md</span>
+        <span>text</span>
+      </div>
+      <ol className="py-2" aria-label="Контекст вопроса">
+        {lines.map((line, index) => (
+          <li
+            key={`${line}-${index}`}
+            className="grid grid-cols-[2.75rem_minmax(0,1fr)] px-4"
+          >
+            <span className="select-none text-right font-mono text-[0.6rem] leading-6 text-[var(--color-text-muted)]">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="pl-4 text-[0.8rem] leading-6 text-[var(--color-text-soft)] sm:text-sm sm:leading-6">
+              {line.trim()}
+            </span>
           </li>
         ))}
       </ol>
@@ -475,7 +508,7 @@ export function ArchitectureThinkingTest() {
         </div>
       </header>
 
-      <main className="site-frame flex min-h-[calc(100dvh-4rem)] flex-col pb-4 pt-5 sm:py-5">
+      <main className="site-frame flex min-h-[calc(100dvh-4.5rem)] flex-col pb-2 pt-5 sm:pb-3 sm:pt-5">
         {isComplete ? (
           <section className="mx-auto w-full max-w-6xl py-8 sm:py-12">
             <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-brand-yellow)]">
@@ -636,7 +669,7 @@ export function ArchitectureThinkingTest() {
 
             <section
               className={`grid flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_14rem] lg:items-center ${
-                hasCodeQuestion ? "py-2 lg:py-1" : "py-6 lg:py-5"
+                hasCodeQuestion ? "py-2 lg:py-1" : "py-3 lg:py-2"
               }`}
             >
               <div className="max-w-4xl">
@@ -644,25 +677,20 @@ export function ArchitectureThinkingTest() {
                   {currentQuestion.category}
                 </p>
                 <h1
-                  className={`mt-3 text-balance leading-[0.9] tracking-[-0.07em] ${
-                    hasCodeQuestion
-                      ? "text-[clamp(2rem,3.6vw,3.35rem)]"
-                      : "text-[clamp(2.2rem,4.6vw,4.4rem)]"
-                  }`}
+                  className="mt-3 text-balance text-[clamp(2rem,3.6vw,3.35rem)] leading-[0.9] tracking-[-0.07em]"
                 >
                   {currentQuestion.title}
                 </h1>
-                <p
-                  className={`max-w-3xl text-sm leading-7 text-[var(--color-text-soft)] sm:text-base ${
-                    hasCodeQuestion ? "mt-3" : "mt-4"
-                  }`}
-                >
-                  {currentQuestion.prompt}
-                </p>
-
-                {currentQuestion.code ? (
-                  <CodeEditor code={currentQuestion.code} />
-                ) : null}
+                <div className="mt-3 max-w-3xl">
+                  {currentQuestion.code ? (
+                    <CodeEditor code={currentQuestion.code} />
+                  ) : (
+                    <ScenarioEditor
+                      prompt={currentQuestion.prompt}
+                      step={currentIndex + 1}
+                    />
+                  )}
+                </div>
 
                 {isHintVisible ? (
                   <div className="mt-5 max-w-3xl bg-[var(--color-surface)] px-5 py-4 sm:px-6">
@@ -702,16 +730,14 @@ export function ArchitectureThinkingTest() {
                       type="button"
                       onClick={() => selectAnswer(answer.id)}
                       aria-pressed={isSelected}
-                      className={`group p-4 text-left transition-colors sm:p-5 ${
-                        hasCodeQuestion ? "min-h-24 sm:min-h-28" : "min-h-32 sm:min-h-36"
-                      } ${optionState}`}
+                      className={`group min-h-24 p-4 text-left transition-colors sm:min-h-28 sm:p-5 ${optionState}`}
                     >
                       <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                         {String.fromCharCode(65 + index)}
                       </span>
                       <span
                         className={`block text-sm leading-6 sm:text-base sm:leading-7 ${
-                          hasCodeQuestion ? "mt-3" : "mt-5"
+                          hasCodeQuestion ? "mt-3" : "mt-4"
                         }`}
                       >
                         {answer.label}
