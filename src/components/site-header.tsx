@@ -102,11 +102,11 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div className="site-frame hidden grid-cols-[8.25rem_minmax(0,1fr)_auto] items-center md:grid lg:grid-cols-[clamp(11.5rem,18vw,16rem)_minmax(0,1fr)_auto]">
+      <div className="mx-2 hidden min-h-[9.5rem] grid-cols-[clamp(11rem,18vw,17.5rem)_minmax(0,1fr)_auto] overflow-hidden bg-[linear-gradient(118deg,rgba(84,144,157,0.82),rgba(72,137,151,0.7)_54%,rgba(57,116,130,0.76))] shadow-[0_18px_48px_rgba(0,0,0,0.25)] backdrop-blur-[18px] md:grid">
         <Link
           href="/"
           aria-label="KODO"
-          className="group relative z-10 inline-flex min-h-16 items-center pr-5 lg:min-h-[6.25rem] lg:pr-8"
+          className="group relative z-10 inline-flex items-start bg-[rgba(6,11,14,0.44)] px-5 pt-5 lg:px-7 lg:pt-6"
         >
           {/* Use the raw PNG here to avoid the broken next/image fallback seen in the header. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -115,14 +115,14 @@ export function SiteHeader() {
             alt=""
             width={1116}
             height={271}
-            className="h-auto w-[7.8rem] transition-transform duration-200 group-hover:translate-x-0.5 lg:w-[13.5rem]"
+            className="h-auto w-[10.5rem] transition-transform duration-200 group-hover:translate-x-0.5 lg:w-[15.5rem]"
             draggable="false"
           />
         </Link>
 
         <nav
           aria-label="Основная навигация"
-          className="grid min-w-0 grid-cols-4 bg-[linear-gradient(105deg,rgba(96,135,194,0.26),rgba(96,135,194,0.12)_54%,rgba(17,21,31,0.56))] shadow-[0_14px_40px_rgba(0,0,0,0.2)] backdrop-blur-xl"
+          className="mt-2 grid min-w-0 grid-cols-4 self-start bg-[rgba(203,231,231,0.14)] backdrop-blur-xl lg:mt-3"
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
@@ -132,10 +132,10 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                className={`group relative flex min-h-14 min-w-0 items-center justify-between gap-2 px-3.5 font-mono text-[0.64rem] uppercase tracking-[0.1em] transition-colors lg:min-h-[4.25rem] lg:px-5 lg:text-[0.78rem] lg:tracking-[0.14em] ${
+                className={`group relative flex min-h-14 min-w-0 items-center justify-between gap-2 px-3 font-mono text-[0.62rem] uppercase tracking-[0.08em] transition-colors before:absolute before:inset-y-3 before:left-0 before:w-px before:bg-[rgba(6,31,36,0.16)] first:before:hidden lg:min-h-16 lg:px-5 lg:text-[0.78rem] lg:tracking-[0.12em] ${
                   active
-                    ? "bg-[rgba(8,8,11,0.22)] text-[var(--color-text)]"
-                    : "text-[rgba(243,238,232,0.68)] hover:bg-[rgba(8,8,11,0.16)] hover:text-[var(--color-text)]"
+                    ? "bg-[rgba(5,25,30,0.13)] text-[#f7f5ed]"
+                    : "text-[rgba(238,246,241,0.78)] hover:bg-[rgba(5,25,30,0.12)] hover:text-[#ffffff]"
                 }`}
               >
                 <span className="flex min-w-0 items-center gap-2">
@@ -143,7 +143,7 @@ export function SiteHeader() {
                     aria-hidden="true"
                     className={`h-2 w-2 shrink-0 rounded-full border transition-colors ${
                       active
-                        ? "border-[var(--color-brand-yellow)] bg-[var(--color-brand-yellow)]"
+                        ? "border-[#f7f5ed] bg-[#f7f5ed]"
                         : "border-current"
                     }`}
                   />
@@ -151,9 +151,9 @@ export function SiteHeader() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="shrink-0 text-base leading-none opacity-60 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  className="shrink-0 text-sm leading-none opacity-55 transition-all duration-200 group-hover:translate-y-0.5 group-hover:opacity-100"
                 >
-                  ↗
+                  ↓
                 </span>
               </Link>
             );
@@ -163,15 +163,13 @@ export function SiteHeader() {
         <Link
           href={accountItem.href}
           aria-label={accountItem.label}
-          className={`ml-3 inline-flex min-h-14 items-center gap-3 bg-[rgba(8,8,11,0.74)] px-4 font-mono text-[0.66rem] uppercase tracking-[0.14em] shadow-[0_12px_32px_rgba(0,0,0,0.2)] backdrop-blur-xl transition-colors lg:min-h-[4.25rem] lg:px-6 lg:text-[0.78rem] lg:tracking-[0.16em] ${
+          className={`mr-2 mt-2 inline-flex min-h-14 items-center justify-center bg-[#050608] px-5 font-mono text-[0.66rem] uppercase tracking-[0.14em] shadow-[0_12px_32px_rgba(0,0,0,0.2)] transition-colors lg:mr-3 lg:mt-3 lg:min-h-16 lg:px-7 lg:text-[0.78rem] lg:tracking-[0.16em] ${
             accountActive
               ? "bg-[var(--color-text)] text-[var(--color-accent-contrast)]"
-              : "text-[var(--color-text)] hover:bg-[rgba(96,135,194,0.22)]"
+              : "text-[#f7f5ed] hover:bg-[rgba(5,25,30,0.78)]"
           }`}
         >
-          <span className="h-1.5 w-1.5 bg-[var(--color-brand-yellow)]" aria-hidden="true" />
           <span>{isAuthenticated ? "Профиль" : "Войти"}</span>
-          <span className="text-sm" aria-hidden="true">↗</span>
         </Link>
       </div>
 
