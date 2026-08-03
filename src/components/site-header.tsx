@@ -102,11 +102,11 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div className="site-frame hidden grid-cols-[clamp(11rem,18vw,17.5rem)_minmax(0,1fr)_auto] items-center gap-4 md:grid">
+      <div className="mx-2 hidden min-h-[9.5rem] grid-cols-[clamp(11rem,18vw,17.5rem)_minmax(0,1fr)_auto] overflow-hidden bg-[linear-gradient(118deg,rgba(84,144,157,0.82),rgba(72,137,151,0.7)_54%,rgba(57,116,130,0.76))] shadow-[0_18px_48px_rgba(0,0,0,0.25)] backdrop-blur-[18px] md:grid">
         <Link
           href="/"
           aria-label="KODO"
-          className="group relative z-10 inline-flex min-h-16 items-center lg:min-h-[4.25rem]"
+          className="group relative z-10 inline-flex items-start bg-[rgba(6,11,14,0.44)] px-5 pt-5 lg:px-7 lg:pt-6"
         >
           {/* Use the raw PNG here to avoid the broken next/image fallback seen in the header. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -122,7 +122,7 @@ export function SiteHeader() {
 
         <nav
           aria-label="Основная навигация"
-          className="grid min-w-0 grid-cols-4 gap-2"
+          className="mt-2 grid min-w-0 grid-cols-4 self-start bg-[rgba(203,231,231,0.14)] backdrop-blur-xl lg:mt-3"
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
@@ -132,10 +132,10 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                className={`group relative flex min-h-14 min-w-0 items-center justify-center gap-2 bg-[rgba(96,135,194,0.3)] px-2 font-mono text-[0.62rem] uppercase tracking-[0.08em] shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-colors lg:min-h-[4.25rem] lg:px-4 lg:text-[0.78rem] lg:tracking-[0.12em] ${
+                className={`group relative flex min-h-14 min-w-0 items-center justify-between gap-2 px-3 font-mono text-[0.62rem] uppercase tracking-[0.08em] transition-colors before:absolute before:inset-y-3 before:left-0 before:w-px before:bg-[rgba(6,31,36,0.16)] first:before:hidden lg:min-h-16 lg:px-5 lg:text-[0.78rem] lg:tracking-[0.12em] ${
                   active
-                    ? "bg-[rgba(96,135,194,0.48)] text-[#f7f5ed]"
-                    : "text-[rgba(238,246,241,0.82)] hover:bg-[rgba(96,135,194,0.44)] hover:text-[#ffffff]"
+                    ? "bg-[rgba(5,25,30,0.13)] text-[#f7f5ed]"
+                    : "text-[rgba(238,246,241,0.78)] hover:bg-[rgba(5,25,30,0.12)] hover:text-[#ffffff]"
                 }`}
               >
                 <span className="flex min-w-0 items-center gap-2">
@@ -149,6 +149,12 @@ export function SiteHeader() {
                   />
                   <span className="truncate">{item.label}</span>
                 </span>
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 text-sm leading-none opacity-55 transition-all duration-200 group-hover:translate-y-0.5 group-hover:opacity-100"
+                >
+                  ↓
+                </span>
               </Link>
             );
           })}
@@ -157,7 +163,7 @@ export function SiteHeader() {
         <Link
           href={accountItem.href}
           aria-label={accountItem.label}
-          className={`inline-flex min-h-14 items-center justify-center bg-[#050608] px-5 font-mono text-[0.66rem] uppercase tracking-[0.14em] shadow-[0_10px_28px_rgba(0,0,0,0.2)] transition-colors lg:min-h-[4.25rem] lg:px-7 lg:text-[0.78rem] lg:tracking-[0.16em] ${
+          className={`mr-2 mt-2 inline-flex min-h-14 items-center justify-center bg-[#050608] px-5 font-mono text-[0.66rem] uppercase tracking-[0.14em] shadow-[0_12px_32px_rgba(0,0,0,0.2)] transition-colors lg:mr-3 lg:mt-3 lg:min-h-16 lg:px-7 lg:text-[0.78rem] lg:tracking-[0.16em] ${
             accountActive
               ? "bg-[var(--color-text)] text-[var(--color-accent-contrast)]"
               : "text-[#f7f5ed] hover:bg-[rgba(5,25,30,0.78)]"
