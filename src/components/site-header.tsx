@@ -32,6 +32,9 @@ export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const accountItem = isAuthenticated ? profileItem : authItem;
   const accountActive = isActive(pathname, accountItem.href);
+  const activeNavHref = navItems.find((item) => isActive(pathname, item.href))?.href;
+  const [hoveredNavHref, setHoveredNavHref] = useState<string | null>(null);
+  const signalNavHref = hoveredNavHref ?? activeNavHref;
 
   useEffect(() => {
     const syncSession = () => {
@@ -131,30 +134,47 @@ export function SiteHeader() {
         <nav
           aria-label="Основная навигация"
           className="flex w-full min-w-0 items-center justify-between whitespace-nowrap md:w-auto md:flex-none md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-2"
+          onMouseLeave={() => setHoveredNavHref(null)}
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
+            const isSignalTarget = signalNavHref === item.href;
+            const isDimmed = hoveredNavHref !== null && !isSignalTarget;
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors md:text-[0.72rem] md:tracking-[0.24em] ${
-                  active
+                onMouseEnter={() => setHoveredNavHref(item.href)}
+                onFocus={() => setHoveredNavHref(item.href)}
+                onBlur={() => setHoveredNavHref(null)}
+                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-[color,opacity] duration-200 md:text-[0.72rem] md:tracking-[0.24em] ${
+                  isSignalTarget
                     ? "text-[var(--color-text)]"
-                    : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
+                    : isDimmed
+                      ? "opacity-35 text-[var(--color-text-muted)]"
+                      : active
+                        ? "text-[var(--color-text)]"
+                        : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
                 }`}
               >
-                <span className="relative inline-flex items-center">
+                <span
+                  aria-hidden="true"
+                  className={`hidden h-2 overflow-hidden transition-[width,margin,opacity,transform] duration-300 ease-out md:inline-grid md:grid-cols-4 md:gap-px ${
+                    isSignalTarget
+                      ? "header-route-signal mr-2 w-6 opacity-100"
+                      : "mr-0 w-0 -translate-x-1 opacity-0"
+                  }`}
+                >
+                  <span className="bg-[var(--color-brand-blue)]" />
+                  <span className="bg-[var(--color-brand-green)]" />
+                  <span className="bg-[var(--color-brand-yellow)]" />
+                  <span className="bg-[var(--color-brand-pink)]" />
+                </span>
+                <span className="inline-flex items-center">
                   <span className="md:hidden">{item.mobileLabel}</span>
                   <span className="hidden md:inline">{item.label}</span>
-                  {active ? (
-                    <span
-                      aria-hidden="true"
-                      className="absolute -bottom-1 left-0 h-px w-full bg-[var(--color-text)] md:-bottom-2"
-                    />
-                  ) : null}
                 </span>
               </Link>
             );
@@ -163,13 +183,17 @@ export function SiteHeader() {
         <div className="hidden lg:flex lg:justify-end">
           <Link
             href={accountItem.href}
-            className={`inline-flex min-h-10 items-center font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
+            className={`group relative inline-flex min-h-10 items-center overflow-hidden font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
               accountActive
                 ? "text-[var(--color-text)]"
                 : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
             }`}
           >
             {accountItem.label}
+            <span
+              aria-hidden="true"
+              className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-brand-blue),var(--color-brand-green),var(--color-brand-yellow),var(--color-brand-pink))] transition-transform duration-300 group-hover:scale-x-100"
+            />
           </Link>
         </div>
       </div>

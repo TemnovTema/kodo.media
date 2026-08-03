@@ -328,6 +328,10 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   animation: sweep 5.5s linear infinite;
 }
 
+.header-route-signal {
+  animation: header-route-arrival 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .marquee-track {
   overflow: hidden;
   padding: 1rem 0;
@@ -378,6 +382,21 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes header-route-arrival {
+  0% {
+    opacity: 0;
+    transform: translateX(-0.7rem) scaleX(0.35);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(0.1rem) scaleX(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
   }
 }
 
