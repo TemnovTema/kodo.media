@@ -68,7 +68,7 @@ export function SiteHeader() {
   }, [isMenuOpen]);
 
   return (
-    <header className="relative z-20 bg-[var(--color-bg)] pt-2 md:pt-4">
+    <header className="relative z-20 bg-[var(--color-bg)]">
       <div
         className={`site-frame flex min-h-14 items-center justify-between py-2 md:hidden ${
           isMenuOpen ? "invisible" : ""
@@ -82,7 +82,7 @@ export function SiteHeader() {
             alt=""
             width={1116}
             height={271}
-            className="h-auto w-[4.5rem]"
+            className="h-auto w-14"
             draggable="false"
           />
         </Link>
@@ -102,27 +102,35 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div className="site-frame hidden grid-cols-[7.5rem_minmax(0,1fr)_auto] items-center md:grid lg:grid-cols-[clamp(9rem,14vw,13rem)_minmax(0,1fr)_auto]">
-        <Link
-          href="/"
-          aria-label="KODO"
-          className="group relative z-10 inline-flex min-h-14 items-center pr-5 lg:min-h-[4.75rem] lg:pr-7"
-        >
-          {/* Use the raw PNG here to avoid the broken next/image fallback seen in the header. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/logologo.png"
-            alt=""
-            width={1116}
-            height={271}
-            className="h-auto w-[6.9rem] transition-transform duration-200 group-hover:translate-x-0.5 lg:w-[10.5rem]"
-            draggable="false"
-          />
-        </Link>
-
+      <div className="site-frame hidden grid-cols-1 gap-1.5 py-2 md:grid md:gap-2 md:py-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+        <div className="flex min-h-10 items-center justify-between lg:min-h-0 lg:justify-start">
+          <Link href="/" aria-label="KODO" className="group inline-flex items-center">
+            {/* Use the raw PNG here to avoid the broken next/image fallback seen in the header. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/logologo.png"
+              alt=""
+              width={1116}
+              height={271}
+              className="h-auto w-12 md:w-[72px]"
+              draggable="false"
+            />
+          </Link>
+          <Link
+            href={accountItem.href}
+            aria-label={accountItem.label}
+            className={`inline-flex min-h-10 items-center bg-[var(--color-brand-yellow)] px-3 font-mono text-[0.6rem] font-medium uppercase tracking-[0.08em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] lg:hidden md:bg-transparent md:px-0 md:text-[0.72rem] md:font-normal md:tracking-[0.24em] md:hover:bg-transparent ${
+              accountActive
+                ? "md:text-[var(--color-text)]"
+                : "md:text-[var(--color-text-muted)] md:hover:text-[var(--color-text-soft)]"
+            }`}
+          >
+            {isAuthenticated ? "Профиль" : "Вход"}
+          </Link>
+        </div>
         <nav
           aria-label="Основная навигация"
-          className="grid min-w-0 grid-cols-4 border-y border-l border-[var(--color-border)]"
+          className="flex w-full min-w-0 items-center justify-between whitespace-nowrap md:w-auto md:flex-none md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-2"
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
@@ -132,46 +140,38 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                className={`group relative flex min-h-14 min-w-0 items-center justify-between gap-2 border-r border-[var(--color-border)] px-3 font-mono text-[0.56rem] uppercase tracking-[0.1em] transition-colors lg:min-h-[3.75rem] lg:px-4 lg:text-[0.66rem] lg:tracking-[0.16em] ${
+                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors md:text-[0.72rem] md:tracking-[0.24em] ${
                   active
-                    ? "bg-[rgba(96,135,194,0.11)] text-[var(--color-text)]"
-                    : "text-[var(--color-text-muted)] hover:bg-[var(--color-panel-strong)] hover:text-[var(--color-text-soft)]"
+                    ? "text-[var(--color-text)]"
+                    : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
                 }`}
               >
-                <span className="flex min-w-0 items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className={`h-1.5 w-1.5 shrink-0 rounded-full border transition-colors ${
-                      active
-                        ? "border-[var(--color-brand-yellow)] bg-[var(--color-brand-yellow)]"
-                        : "border-current"
-                    }`}
-                  />
-                  <span className="truncate">{item.label}</span>
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 text-sm leading-none opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
-                >
-                  ↗
+                <span className="relative inline-flex items-center">
+                  <span className="md:hidden">{item.mobileLabel}</span>
+                  <span className="hidden md:inline">{item.label}</span>
+                  {active ? (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 h-px w-full bg-[var(--color-text)] md:-bottom-2"
+                    />
+                  ) : null}
                 </span>
               </Link>
             );
           })}
         </nav>
-
-        <Link
-          href={accountItem.href}
-          aria-label={accountItem.label}
-          className={`ml-2 inline-flex min-h-14 items-center gap-3 px-4 font-mono text-[0.6rem] uppercase tracking-[0.14em] transition-colors lg:min-h-[3.75rem] lg:px-5 lg:text-[0.66rem] lg:tracking-[0.18em] ${
-            accountActive
-              ? "bg-[var(--color-text)] text-[var(--color-accent-contrast)]"
-              : "bg-[var(--color-brand-yellow)] text-[#17161a] hover:bg-[var(--color-text)]"
-          }`}
-        >
-          <span>{isAuthenticated ? "Профиль" : "Войти"}</span>
-          <span className="text-sm" aria-hidden="true">↗</span>
-        </Link>
+        <div className="hidden lg:flex lg:justify-end">
+          <Link
+            href={accountItem.href}
+            className={`inline-flex min-h-10 items-center font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
+              accountActive
+                ? "text-[var(--color-text)]"
+                : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
+            }`}
+          >
+            {accountItem.label}
+          </Link>
+        </div>
       </div>
 
       {isMenuOpen ? (
