@@ -70,7 +70,7 @@ export function SiteHeader() {
   return (
     <header className="relative z-20 bg-[var(--color-bg)] pt-2 md:pt-4">
       <div
-        className={`site-frame flex min-h-16 items-center justify-between py-2 md:hidden ${
+        className={`site-frame flex min-h-14 items-center justify-between py-2 md:hidden ${
           isMenuOpen ? "invisible" : ""
         }`}
       >
@@ -82,7 +82,7 @@ export function SiteHeader() {
             alt=""
             width={1116}
             height={271}
-            className="h-auto w-[4.7rem]"
+            className="h-auto w-[4.5rem]"
             draggable="false"
           />
         </Link>
@@ -92,7 +92,7 @@ export function SiteHeader() {
           aria-controls="mobile-navigation"
           aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
           onClick={() => setIsMenuOpen((value) => !value)}
-          className="inline-flex min-h-11 min-w-11 items-center justify-center bg-[rgba(17,21,31,0.62)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-colors hover:bg-[rgba(96,135,194,0.2)]"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-border)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel-strong)]"
         >
           <span className="flex w-4 flex-col gap-1.5" aria-hidden="true">
             <span className="h-px w-full bg-current" />
@@ -102,11 +102,11 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div className="site-frame hidden grid-cols-[8.25rem_minmax(0,1fr)_auto] items-center md:grid lg:grid-cols-[clamp(11.5rem,18vw,16rem)_minmax(0,1fr)_auto]">
+      <div className="site-frame hidden grid-cols-[7.5rem_minmax(0,1fr)_auto] items-center md:grid lg:grid-cols-[clamp(9rem,14vw,13rem)_minmax(0,1fr)_auto]">
         <Link
           href="/"
           aria-label="KODO"
-          className="group relative z-10 inline-flex min-h-16 items-center pr-5 lg:min-h-[6.25rem] lg:pr-8"
+          className="group relative z-10 inline-flex min-h-14 items-center pr-5 lg:min-h-[4.75rem] lg:pr-7"
         >
           {/* Use the raw PNG here to avoid the broken next/image fallback seen in the header. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -115,14 +115,14 @@ export function SiteHeader() {
             alt=""
             width={1116}
             height={271}
-            className="h-auto w-[7.8rem] transition-transform duration-200 group-hover:translate-x-0.5 lg:w-[13.5rem]"
+            className="h-auto w-[6.9rem] transition-transform duration-200 group-hover:translate-x-0.5 lg:w-[10.5rem]"
             draggable="false"
           />
         </Link>
 
         <nav
           aria-label="Основная навигация"
-          className="grid min-w-0 grid-cols-4 bg-[linear-gradient(105deg,rgba(96,135,194,0.26),rgba(96,135,194,0.12)_54%,rgba(17,21,31,0.56))] shadow-[0_14px_40px_rgba(0,0,0,0.2)] backdrop-blur-xl"
+          className="grid min-w-0 grid-cols-4 border-y border-l border-[var(--color-border)]"
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
@@ -132,16 +132,16 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                className={`group relative flex min-h-14 min-w-0 items-center justify-between gap-2 px-3.5 font-mono text-[0.64rem] uppercase tracking-[0.1em] transition-colors lg:min-h-[4.25rem] lg:px-5 lg:text-[0.78rem] lg:tracking-[0.14em] ${
+                className={`group relative flex min-h-14 min-w-0 items-center justify-between gap-2 border-r border-[var(--color-border)] px-3 font-mono text-[0.56rem] uppercase tracking-[0.1em] transition-colors lg:min-h-[3.75rem] lg:px-4 lg:text-[0.66rem] lg:tracking-[0.16em] ${
                   active
-                    ? "bg-[rgba(8,8,11,0.22)] text-[var(--color-text)]"
-                    : "text-[rgba(243,238,232,0.68)] hover:bg-[rgba(8,8,11,0.16)] hover:text-[var(--color-text)]"
+                    ? "bg-[rgba(96,135,194,0.11)] text-[var(--color-text)]"
+                    : "text-[var(--color-text-muted)] hover:bg-[var(--color-panel-strong)] hover:text-[var(--color-text-soft)]"
                 }`}
               >
                 <span className="flex min-w-0 items-center gap-2">
                   <span
                     aria-hidden="true"
-                    className={`h-2 w-2 shrink-0 rounded-full border transition-colors ${
+                    className={`h-1.5 w-1.5 shrink-0 rounded-full border transition-colors ${
                       active
                         ? "border-[var(--color-brand-yellow)] bg-[var(--color-brand-yellow)]"
                         : "border-current"
@@ -151,7 +151,7 @@ export function SiteHeader() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="shrink-0 text-base leading-none opacity-60 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  className="shrink-0 text-sm leading-none opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
                 >
                   ↗
                 </span>
@@ -163,13 +163,12 @@ export function SiteHeader() {
         <Link
           href={accountItem.href}
           aria-label={accountItem.label}
-          className={`ml-3 inline-flex min-h-14 items-center gap-3 bg-[rgba(8,8,11,0.74)] px-4 font-mono text-[0.66rem] uppercase tracking-[0.14em] shadow-[0_12px_32px_rgba(0,0,0,0.2)] backdrop-blur-xl transition-colors lg:min-h-[4.25rem] lg:px-6 lg:text-[0.78rem] lg:tracking-[0.16em] ${
+          className={`ml-2 inline-flex min-h-14 items-center gap-3 px-4 font-mono text-[0.6rem] uppercase tracking-[0.14em] transition-colors lg:min-h-[3.75rem] lg:px-5 lg:text-[0.66rem] lg:tracking-[0.18em] ${
             accountActive
               ? "bg-[var(--color-text)] text-[var(--color-accent-contrast)]"
-              : "text-[var(--color-text)] hover:bg-[rgba(96,135,194,0.22)]"
+              : "bg-[var(--color-brand-yellow)] text-[#17161a] hover:bg-[var(--color-text)]"
           }`}
         >
-          <span className="h-1.5 w-1.5 bg-[var(--color-brand-yellow)]" aria-hidden="true" />
           <span>{isAuthenticated ? "Профиль" : "Войти"}</span>
           <span className="text-sm" aria-hidden="true">↗</span>
         </Link>
@@ -183,7 +182,7 @@ export function SiteHeader() {
           aria-label="Мобильная навигация"
           className="fixed inset-0 z-50 flex min-h-[100dvh] flex-col bg-[var(--color-bg)] md:hidden"
         >
-          <div className="site-frame flex min-h-16 items-center justify-between py-2">
+          <div className="site-frame flex min-h-14 items-center justify-between py-2">
             <Link href="/" aria-label="KODO" className="group inline-flex items-center" onClick={() => setIsMenuOpen(false)}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -191,7 +190,7 @@ export function SiteHeader() {
                 alt=""
                 width={1116}
                 height={271}
-                className="h-auto w-[4.7rem]"
+                className="h-auto w-14"
                 draggable="false"
               />
             </Link>
@@ -199,7 +198,7 @@ export function SiteHeader() {
               type="button"
               aria-label="Закрыть меню"
               onClick={() => setIsMenuOpen(false)}
-              className="inline-flex min-h-11 min-w-11 items-center justify-center bg-[rgba(17,21,31,0.62)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-colors hover:bg-[rgba(96,135,194,0.2)]"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-border)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel-strong)]"
             >
               <span className="relative block h-4 w-4" aria-hidden="true">
                 <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 rotate-45 bg-current" />
@@ -210,7 +209,7 @@ export function SiteHeader() {
           </div>
 
           <div className="site-frame flex flex-1 flex-col justify-between pb-6 pt-8">
-            <nav aria-label="Мобильная навигация" className="grid gap-1.5">
+            <nav aria-label="Мобильная навигация" className="border-t border-[var(--color-border)]">
               {navItems.map((item, index) => {
                 const active = isActive(pathname, item.href);
 
@@ -219,10 +218,10 @@ export function SiteHeader() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`group flex min-h-20 items-center justify-between px-3 py-3 transition-colors ${
+                    className={`group flex min-h-20 items-center justify-between border-b border-[var(--color-border)] py-3 transition-colors ${
                       active
-                        ? "bg-[rgba(96,135,194,0.13)] text-[var(--color-text)]"
-                        : "text-[var(--color-text-soft)] hover:bg-[var(--color-panel-strong)] hover:text-[var(--color-text)]"
+                        ? "text-[var(--color-text)]"
+                        : "text-[var(--color-text-soft)] hover:text-[var(--color-text)]"
                     }`}
                   >
                     <span className="flex items-baseline gap-3">
