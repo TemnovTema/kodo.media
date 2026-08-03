@@ -132,13 +132,13 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                className={`group relative flex min-h-14 min-w-0 items-center justify-center gap-1.5 bg-[rgba(96,135,194,0.3)] px-1.5 font-mono text-[0.62rem] uppercase tracking-[0.08em] shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-colors lg:min-h-[4.25rem] lg:px-2 lg:text-[0.78rem] lg:tracking-[0.12em] ${
+                className={`group relative flex min-h-14 min-w-0 items-center justify-center gap-2 bg-[rgba(96,135,194,0.3)] px-2 font-mono text-[0.62rem] uppercase tracking-[0.08em] shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-colors lg:min-h-[4.25rem] lg:px-4 lg:text-[0.78rem] lg:tracking-[0.12em] ${
                   active
                     ? "bg-[rgba(96,135,194,0.48)] text-[#f7f5ed]"
                     : "text-[rgba(238,246,241,0.82)] hover:bg-[rgba(96,135,194,0.44)] hover:text-[#ffffff]"
                 }`}
               >
-                <span className="flex min-w-0 items-center gap-1.5">
+                <span className="flex min-w-0 items-center gap-2">
                   <span
                     aria-hidden="true"
                     className={`h-2 w-2 shrink-0 rounded-full border transition-colors ${
@@ -157,7 +157,7 @@ export function SiteHeader() {
         <Link
           href={accountItem.href}
           aria-label={accountItem.label}
-          className={`inline-flex min-h-14 items-center justify-center bg-[#050608] px-3 font-mono text-[0.66rem] uppercase tracking-[0.14em] shadow-[0_10px_28px_rgba(0,0,0,0.2)] transition-colors lg:min-h-[4.25rem] lg:px-4 lg:text-[0.78rem] lg:tracking-[0.16em] ${
+          className={`inline-flex min-h-14 items-center justify-center bg-[#050608] px-5 font-mono text-[0.66rem] uppercase tracking-[0.14em] shadow-[0_10px_28px_rgba(0,0,0,0.2)] transition-colors lg:min-h-[4.25rem] lg:px-7 lg:text-[0.78rem] lg:tracking-[0.16em] ${
             accountActive
               ? "bg-[var(--color-text)] text-[var(--color-accent-contrast)]"
               : "text-[#f7f5ed] hover:bg-[rgba(5,25,30,0.78)]"
