@@ -15,6 +15,16 @@ const navItems = [
   { href: "/tests", label: "Тесты", mobileLabel: "Тесты" },
 ];
 
+const navGlyphFrames = [
+  { glyph: "[", color: "text-[var(--color-brand-blue)]" },
+  { glyph: "|", color: "text-[var(--color-brand-green)]" },
+  { glyph: "]", color: "text-[var(--color-brand-yellow)]" },
+  { glyph: "<", color: "text-[var(--color-brand-pink)]" },
+  { glyph: "/", color: "text-[var(--color-brand-blue)]" },
+  { glyph: ">", color: "text-[var(--color-brand-green)]" },
+  { glyph: "\\", color: "text-[var(--color-brand-yellow)]" },
+] as const;
+
 const authItem = { href: "/login", label: "Авторизироваться" };
 const profileItem = { href: "/profile", label: "Профиль" };
 
@@ -30,11 +40,25 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hoveredNavHref, setHoveredNavHref] = useState<string | null>(null);
+  const [navGlyphFrame, setNavGlyphFrame] = useState(0);
   const accountItem = isAuthenticated ? profileItem : authItem;
   const accountActive = isActive(pathname, accountItem.href);
-  const activeNavHref = navItems.find((item) => isActive(pathname, item.href))?.href;
-  const [hoveredNavHref, setHoveredNavHref] = useState<string | null>(null);
-  const signalNavHref = hoveredNavHref ?? activeNavHref;
+
+  useEffect(() => {
+    if (
+      !hoveredNavHref ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      setNavGlyphFrame((frame) => (frame + 1) % navGlyphFrames.length);
+    }, 96);
+
+    return () => window.clearInterval(timer);
+  }, [hoveredNavHref]);
 
   useEffect(() => {
     const syncSession = () => {
@@ -134,47 +158,68 @@ export function SiteHeader() {
         <nav
           aria-label="Основная навигация"
           className="flex w-full min-w-0 items-center justify-between whitespace-nowrap md:w-auto md:flex-none md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-2"
-          onMouseLeave={() => setHoveredNavHref(null)}
+          onMouseLeave={() => {
+            setHoveredNavHref(null);
+            setNavGlyphFrame(0);
+          }}
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
-            const isSignalTarget = signalNavHref === item.href;
-            const isDimmed = hoveredNavHref !== null && !isSignalTarget;
+            const isHovered = hoveredNavHref === item.href;
+            const isDimmed = hoveredNavHref !== null && !isHovered;
+            const glyphFrame = navGlyphFrames[navGlyphFrame];
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-label={item.label}
-                onMouseEnter={() => setHoveredNavHref(item.href)}
-                onFocus={() => setHoveredNavHref(item.href)}
-                onBlur={() => setHoveredNavHref(null)}
+                onMouseEnter={() => {
+                  setNavGlyphFrame(0);
+                  setHoveredNavHref(item.href);
+                }}
+                onFocus={() => {
+                  setNavGlyphFrame(0);
+                  setHoveredNavHref(item.href);
+                }}
+                onBlur={() => {
+                  setHoveredNavHref(null);
+                  setNavGlyphFrame(0);
+                }}
                 className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-[color,opacity] duration-200 md:text-[0.72rem] md:tracking-[0.24em] ${
-                  isSignalTarget
+                  isHovered
                     ? "text-[var(--color-text)]"
                     : isDimmed
                       ? "opacity-35 text-[var(--color-text-muted)]"
                       : active
                         ? "text-[var(--color-text)]"
                         : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
-                }`}
+                  }`}
               >
                 <span
                   aria-hidden="true"
-                  className={`hidden h-2 overflow-hidden transition-[width,margin,opacity,transform] duration-300 ease-out md:inline-grid md:grid-cols-4 md:gap-px ${
-                    isSignalTarget
-                      ? "header-route-signal mr-2 w-6 opacity-100"
+                  className={`hidden items-center justify-center overflow-hidden font-mono text-sm leading-none transition-[width,margin,opacity] duration-150 md:inline-flex ${
+                    isHovered
+                      ? "mr-2 w-3 opacity-100"
                       : "mr-0 w-0 -translate-x-1 opacity-0"
                   }`}
                 >
-                  <span className="bg-[var(--color-brand-blue)]" />
-                  <span className="bg-[var(--color-brand-green)]" />
-                  <span className="bg-[var(--color-brand-yellow)]" />
-                  <span className="bg-[var(--color-brand-pink)]" />
+                  <span
+                    key={`${item.href}-${navGlyphFrame}`}
+                    className={`header-nav-glyph-shift ${glyphFrame.color}`}
+                  >
+                    {glyphFrame.glyph}
+                  </span>
                 </span>
-                <span className="inline-flex items-center">
+                <span className="relative inline-flex items-center">
                   <span className="md:hidden">{item.mobileLabel}</span>
                   <span className="hidden md:inline">{item.label}</span>
+                  {active ? (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 h-px w-full bg-[var(--color-text)] md:-bottom-2"
+                    />
+                  ) : null}
                 </span>
               </Link>
             );
@@ -183,17 +228,13 @@ export function SiteHeader() {
         <div className="hidden lg:flex lg:justify-end">
           <Link
             href={accountItem.href}
-            className={`group relative inline-flex min-h-10 items-center overflow-hidden font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
+            className={`inline-flex min-h-10 items-center font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
               accountActive
                 ? "text-[var(--color-text)]"
                 : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
             }`}
           >
             {accountItem.label}
-            <span
-              aria-hidden="true"
-              className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-brand-blue),var(--color-brand-green),var(--color-brand-yellow),var(--color-brand-pink))] transition-transform duration-300 group-hover:scale-x-100"
-            />
           </Link>
         </div>
       </div>

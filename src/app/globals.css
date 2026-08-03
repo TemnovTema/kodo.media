@@ -328,8 +328,8 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   animation: sweep 5.5s linear infinite;
 }
 
-.header-route-signal {
-  animation: header-route-arrival 360ms cubic-bezier(0.16, 1, 0.3, 1);
+.header-nav-glyph-shift {
+  animation: header-nav-glyph-shift 96ms steps(2, end);
 }
 
 .marquee-track {
@@ -385,18 +385,18 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   }
 }
 
-@keyframes header-route-arrival {
+@keyframes header-nav-glyph-shift {
   0% {
     opacity: 0;
-    transform: translateX(-0.7rem) scaleX(0.35);
+    transform: translateY(0.35rem) scale(0.75);
   }
-  65% {
+  70% {
     opacity: 1;
-    transform: translateX(0.1rem) scaleX(1.08);
+    transform: translateY(-0.08rem) scale(1.08);
   }
   100% {
     opacity: 1;
-    transform: translateX(0) scaleX(1);
+    transform: translateY(0) scale(1);
   }
 }
 
