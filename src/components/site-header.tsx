@@ -55,7 +55,7 @@ export function SiteHeader() {
 
     const timer = window.setInterval(() => {
       setNavGlyphFrame((frame) => (frame + 1) % navGlyphFrames.length);
-    }, 96);
+    }, 260);
 
     return () => window.clearInterval(timer);
   }, [hoveredNavHref]);
@@ -166,7 +166,6 @@ export function SiteHeader() {
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
             const isHovered = hoveredNavHref === item.href;
-            const isDimmed = hoveredNavHref !== null && !isHovered;
 
             return (
               <Link
@@ -185,14 +184,10 @@ export function SiteHeader() {
                   setHoveredNavHref(null);
                   setNavGlyphFrame(0);
                 }}
-                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-[color,opacity] duration-200 md:text-[0.72rem] md:tracking-[0.24em] ${
-                  isHovered
+                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors duration-200 md:text-[0.72rem] md:tracking-[0.24em] ${
+                  isHovered || active
                     ? "text-[var(--color-text)]"
-                    : isDimmed
-                      ? "opacity-35 text-[var(--color-text-muted)]"
-                      : active
-                        ? "text-[var(--color-text)]"
-                        : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
+                    : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
                   }`}
               >
                 <span className="relative inline-flex items-center">
@@ -209,6 +204,7 @@ export function SiteHeader() {
                             <span
                               key={`${item.href}-${index}-${navGlyphFrame}`}
                               className={`header-nav-character-shift ${glyphFrame.color}`}
+                              style={{ animationDelay: `${index * 18}ms` }}
                             >
                               {glyphFrame.glyph}
                             </span>
@@ -222,7 +218,11 @@ export function SiteHeader() {
                   {active ? (
                     <span
                       aria-hidden="true"
-                      className="absolute -bottom-1 left-0 h-px w-full bg-[var(--color-text)] md:-bottom-2"
+                      className={`absolute -bottom-1 left-0 h-px w-full md:-bottom-2 ${
+                        isHovered
+                          ? "header-nav-underline-cycle"
+                          : "bg-[var(--color-text)]"
+                      }`}
                     />
                   ) : null}
                 </span>
