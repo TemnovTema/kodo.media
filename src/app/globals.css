@@ -328,8 +328,8 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   animation: sweep 5.5s linear infinite;
 }
 
-.header-nav-glyph-shift {
-  animation: header-nav-glyph-shift 96ms steps(2, end);
+.header-nav-character-shift {
+  animation: header-nav-character-shift 96ms steps(2, end);
 }
 
 .marquee-track {
@@ -385,7 +385,7 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   }
 }
 
-@keyframes header-nav-glyph-shift {
+@keyframes header-nav-character-shift {
   0% {
     opacity: 0;
     transform: translateY(0.35rem) scale(0.75);

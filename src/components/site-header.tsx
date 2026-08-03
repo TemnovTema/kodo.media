@@ -167,7 +167,6 @@ export function SiteHeader() {
             const active = isActive(pathname, item.href);
             const isHovered = hoveredNavHref === item.href;
             const isDimmed = hoveredNavHref !== null && !isHovered;
-            const glyphFrame = navGlyphFrames[navGlyphFrame];
 
             return (
               <Link
@@ -196,24 +195,30 @@ export function SiteHeader() {
                         : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
                   }`}
               >
-                <span
-                  aria-hidden="true"
-                  className={`hidden items-center justify-center overflow-hidden font-mono text-sm leading-none transition-[width,margin,opacity] duration-150 md:inline-flex ${
-                    isHovered
-                      ? "mr-2 w-3 opacity-100"
-                      : "mr-0 w-0 -translate-x-1 opacity-0"
-                  }`}
-                >
-                  <span
-                    key={`${item.href}-${navGlyphFrame}`}
-                    className={`header-nav-glyph-shift ${glyphFrame.color}`}
-                  >
-                    {glyphFrame.glyph}
-                  </span>
-                </span>
                 <span className="relative inline-flex items-center">
                   <span className="md:hidden">{item.mobileLabel}</span>
-                  <span className="hidden md:inline">{item.label}</span>
+                  <span className="hidden md:inline" aria-hidden={isHovered}>
+                    {isHovered ? (
+                      <span className="inline-flex">
+                        {Array.from(item.label).map((_, index) => {
+                          const glyphFrame = navGlyphFrames[
+                            (navGlyphFrame + index * 2) % navGlyphFrames.length
+                          ];
+
+                          return (
+                            <span
+                              key={`${item.href}-${index}-${navGlyphFrame}`}
+                              className={`header-nav-character-shift ${glyphFrame.color}`}
+                            >
+                              {glyphFrame.glyph}
+                            </span>
+                          );
+                        })}
+                      </span>
+                    ) : (
+                      item.label
+                    )}
+                  </span>
                   {active ? (
                     <span
                       aria-hidden="true"
