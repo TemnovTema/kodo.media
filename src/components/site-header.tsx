@@ -7,6 +7,7 @@ import {
   demoSessionEvent,
   demoSessionStorageKey,
 } from "@/lib/demo-session";
+import { SiteSearch } from "@/components/site-search";
 
 const navItems = [
   { href: "/articles", label: "Сообщество", mobileLabel: "Статьи" },
@@ -111,9 +112,9 @@ export function SiteHeader() {
     }
 
     const previousOverflow = document.body.style.overflow;
-    const focusableSelector = "a[href], button:not([disabled])";
+    const focusableSelector = "a[href], button:not([disabled]), input:not([disabled])";
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && !document.querySelector('[role="dialog"][aria-label="Поиск по сайту"]')) {
         closeMobileMenu();
       }
     };
@@ -182,21 +183,24 @@ export function SiteHeader() {
             draggable="false"
           />
         </Link>
-        <button
-          ref={menuToggleRef}
-          type="button"
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-          aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
-          onClick={() => setIsMenuOpen((value) => !value)}
-          className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-border)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel-strong)]"
-        >
-          <span className="flex w-4 flex-col gap-1.5" aria-hidden="true">
-            <span className="h-px w-full bg-current" />
-            <span className="h-px w-full bg-current" />
-          </span>
-          <span className="sr-only">{isMenuOpen ? "Закрыть" : "Меню"}</span>
-        </button>
+        <div className="flex items-center gap-1">
+          <SiteSearch panelClassName="max-md:fixed max-md:left-4 max-md:right-4 max-md:top-16 max-md:w-auto" />
+          <button
+            ref={menuToggleRef}
+            type="button"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            onClick={() => setIsMenuOpen((value) => !value)}
+            className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-border)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel-strong)]"
+          >
+            <span className="flex w-4 flex-col gap-1.5" aria-hidden="true">
+              <span className="h-px w-full bg-current" />
+              <span className="h-px w-full bg-current" />
+            </span>
+            <span className="sr-only">{isMenuOpen ? "Закрыть" : "Меню"}</span>
+          </button>
+        </div>
       </div>
 
       <div className="site-frame hidden grid-cols-1 gap-1.5 py-2 md:grid md:gap-2 md:py-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
@@ -213,17 +217,20 @@ export function SiteHeader() {
               draggable="false"
             />
           </Link>
-          <Link
-            href={accountItem.href}
-            aria-label={accountItem.label}
-            className={`inline-flex min-h-10 items-center bg-[var(--color-brand-yellow)] px-3 font-mono text-[0.6rem] font-medium uppercase tracking-[0.08em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] lg:hidden md:bg-transparent md:px-0 md:text-[0.72rem] md:font-normal md:tracking-[0.24em] md:hover:bg-transparent ${
-              accountActive
-                ? "md:text-[var(--color-text)]"
-                : "md:text-[var(--color-text-muted)] md:hover:text-[var(--color-text-soft)]"
-            }`}
-          >
-            {isAuthenticated ? "Профиль" : "Вход"}
-          </Link>
+          <div className="flex items-center gap-1 lg:hidden">
+            <SiteSearch />
+            <Link
+              href={accountItem.href}
+              aria-label={accountItem.label}
+              className={`inline-flex min-h-10 items-center bg-[var(--color-brand-yellow)] px-3 font-mono text-[0.6rem] font-medium uppercase tracking-[0.08em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] md:bg-transparent md:px-0 md:text-[0.72rem] md:font-normal md:tracking-[0.24em] md:hover:bg-transparent ${
+                accountActive
+                  ? "md:text-[var(--color-text)]"
+                  : "md:text-[var(--color-text-muted)] md:hover:text-[var(--color-text-soft)]"
+              }`}
+            >
+              {isAuthenticated ? "Профиль" : "Вход"}
+            </Link>
+          </div>
         </div>
         <nav
           aria-label="Основная навигация"
@@ -333,16 +340,19 @@ export function SiteHeader() {
           })}
         </nav>
         <div className="hidden lg:flex lg:justify-end">
-          <Link
-            href={accountItem.href}
-            className={`inline-flex min-h-10 items-center font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
-              accountActive
-                ? "text-[var(--color-text)]"
-                : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
-            }`}
-          >
-            {accountItem.label}
-          </Link>
+          <div className="flex items-center gap-3">
+            <SiteSearch />
+            <Link
+              href={accountItem.href}
+              className={`inline-flex min-h-10 items-center font-mono text-[0.72rem] uppercase tracking-[0.24em] transition-colors ${
+                accountActive
+                  ? "text-[var(--color-text)]"
+                  : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
+              }`}
+            >
+              {accountItem.label}
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -367,18 +377,21 @@ export function SiteHeader() {
                 draggable="false"
               />
             </Link>
-            <button
-              type="button"
-              aria-label="Закрыть меню"
-              onClick={closeMobileMenu}
-              className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-border)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel-strong)]"
-            >
-              <span className="relative block h-4 w-4" aria-hidden="true">
-                <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 rotate-45 bg-current" />
-                <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 -rotate-45 bg-current" />
-              </span>
-              <span className="sr-only">Закрыть</span>
-            </button>
+            <div className="flex items-center gap-1">
+              <SiteSearch panelClassName="max-md:fixed max-md:left-4 max-md:right-4 max-md:top-16 max-md:w-auto" />
+              <button
+                type="button"
+                aria-label="Закрыть меню"
+                onClick={closeMobileMenu}
+                className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-border)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel-strong)]"
+              >
+                <span className="relative block h-4 w-4" aria-hidden="true">
+                  <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 rotate-45 bg-current" />
+                  <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 -rotate-45 bg-current" />
+                </span>
+                <span className="sr-only">Закрыть</span>
+              </button>
+            </div>
           </div>
 
           <div className="site-frame flex flex-1 flex-col justify-between pb-6 pt-8">
