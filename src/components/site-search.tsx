@@ -17,6 +17,13 @@ type SiteSearchProps = {
   panelClassName?: string;
 };
 
+const searchColorFrames = [
+  "var(--color-brand-blue)",
+  "var(--color-brand-green)",
+  "var(--color-brand-yellow)",
+  "var(--color-brand-pink)",
+] as const;
+
 export function SiteSearch({
   className = "",
   panelClassName = "",
@@ -24,9 +31,11 @@ export function SiteSearch({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [triggerColorFrame, setTriggerColorFrame] = useState<number | null>(null);
   const deferredQuery = useDeferredValue(query);
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerColorTimerRef = useRef<number | undefined>(undefined);
   const panelId = useId();
   const results = findSiteSearchResults(deferredQuery);
   const hasQuery = deferredQuery.trim().length > 0;
@@ -40,6 +49,37 @@ export function SiteSearch({
   const handleEscape = useEffectEvent(() => {
     closeSearch();
   });
+
+  const stopTriggerColorCycle = () => {
+    if (triggerColorTimerRef.current !== undefined) {
+      window.clearInterval(triggerColorTimerRef.current);
+      triggerColorTimerRef.current = undefined;
+    }
+
+    setTriggerColorFrame(null);
+  };
+
+  const startTriggerColorCycle = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    stopTriggerColorCycle();
+    let frame = 0;
+    setTriggerColorFrame(frame);
+    triggerColorTimerRef.current = window.setInterval(() => {
+      frame = (frame + 1) % searchColorFrames.length;
+      setTriggerColorFrame(frame);
+    }, 460);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (triggerColorTimerRef.current !== undefined) {
+        window.clearInterval(triggerColorTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!isOpen) {
@@ -79,6 +119,8 @@ export function SiteSearch({
         aria-label="Поиск"
         aria-expanded={isOpen}
         aria-controls={panelId}
+        onMouseEnter={startTriggerColorCycle}
+        onMouseLeave={stopTriggerColorCycle}
         onClick={() => {
           if (isOpen) {
             closeSearch();
@@ -86,7 +128,12 @@ export function SiteSearch({
             setIsOpen(true);
           }
         }}
-        className="inline-flex min-h-10 min-w-10 items-center justify-center text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+        className="inline-flex min-h-10 min-w-10 items-center justify-center text-[var(--color-text-muted)] transition-colors duration-300 ease-out"
+        style={
+          triggerColorFrame === null
+            ? undefined
+            : { color: searchColorFrames[triggerColorFrame] }
+        }
       >
         <span
           aria-hidden="true"

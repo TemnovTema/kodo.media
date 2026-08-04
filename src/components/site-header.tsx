@@ -26,6 +26,12 @@ const navGlyphFrames = [
   { glyph: "\\", color: "text-[var(--color-brand-yellow)]" },
 ] as const;
 
+type NavGlyphExit = {
+  href: string;
+  frame: number;
+  previousFrame: number;
+};
+
 const authItem = { href: "/login", label: "Авторизироваться" };
 const profileItem = { href: "/profile", label: "Профиль" };
 
@@ -44,7 +50,10 @@ export function SiteHeader() {
   const [hoveredNavHref, setHoveredNavHref] = useState<string | null>(null);
   const [navGlyphFrame, setNavGlyphFrame] = useState(-1);
   const [previousNavGlyphFrame, setPreviousNavGlyphFrame] = useState(-1);
+  const [leavingNavGlyph, setLeavingNavGlyph] = useState<NavGlyphExit | null>(null);
   const navGlyphFrameRef = useRef(-1);
+  const previousNavGlyphFrameRef = useRef(-1);
+  const navGlyphExitTimeoutRef = useRef<number | undefined>(undefined);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const accountItem = isAuthenticated ? profileItem : authItem;
@@ -52,8 +61,34 @@ export function SiteHeader() {
 
   const resetNavGlyphFrames = () => {
     navGlyphFrameRef.current = -1;
+    previousNavGlyphFrameRef.current = -1;
     setNavGlyphFrame(-1);
     setPreviousNavGlyphFrame(-1);
+  };
+
+  const clearNavGlyphExit = () => {
+    if (navGlyphExitTimeoutRef.current !== undefined) {
+      window.clearTimeout(navGlyphExitTimeoutRef.current);
+      navGlyphExitTimeoutRef.current = undefined;
+    }
+
+    setLeavingNavGlyph(null);
+  };
+
+  const beginNavGlyphExit = (href: string) => {
+    if (navGlyphExitTimeoutRef.current !== undefined) {
+      window.clearTimeout(navGlyphExitTimeoutRef.current);
+    }
+
+    setLeavingNavGlyph({
+      href,
+      frame: navGlyphFrameRef.current,
+      previousFrame: previousNavGlyphFrameRef.current,
+    });
+    navGlyphExitTimeoutRef.current = window.setTimeout(() => {
+      setLeavingNavGlyph((current) => (current?.href === href ? null : current));
+      navGlyphExitTimeoutRef.current = undefined;
+    }, 360);
   };
 
   const closeMobileMenu = () => {
@@ -75,6 +110,7 @@ export function SiteHeader() {
         previousFrame < 0 ? 0 : (previousFrame + 1) % navGlyphFrames.length;
 
       navGlyphFrameRef.current = nextFrame;
+      previousNavGlyphFrameRef.current = previousFrame;
       setPreviousNavGlyphFrame(previousFrame);
       setNavGlyphFrame(nextFrame);
     };
@@ -92,6 +128,14 @@ export function SiteHeader() {
       }
     };
   }, [hoveredNavHref]);
+
+  useEffect(() => {
+    return () => {
+      if (navGlyphExitTimeoutRef.current !== undefined) {
+        window.clearTimeout(navGlyphExitTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const syncSession = () => {
@@ -236,13 +280,23 @@ export function SiteHeader() {
           aria-label="Основная навигация"
           className="flex w-full min-w-0 items-center justify-between whitespace-nowrap md:w-auto md:flex-none md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-2"
           onMouseLeave={() => {
+            if (hoveredNavHref) {
+              beginNavGlyphExit(hoveredNavHref);
+            }
             setHoveredNavHref(null);
-            resetNavGlyphFrames();
           }}
         >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
             const isHovered = hoveredNavHref === item.href;
+            const isLeaving = leavingNavGlyph?.href === item.href && !isHovered;
+            const glyphFrameIndex = isLeaving
+              ? leavingNavGlyph.frame
+              : navGlyphFrame;
+            const previousGlyphFrameIndex = isLeaving
+              ? leavingNavGlyph.previousFrame
+              : previousNavGlyphFrame;
+            const showGlyphLayer = isHovered || isLeaving;
 
             return (
               <Link
@@ -250,10 +304,16 @@ export function SiteHeader() {
                 href={item.href}
                 aria-label={item.label}
                 onMouseEnter={() => {
+                  if (hoveredNavHref && hoveredNavHref !== item.href) {
+                    beginNavGlyphExit(hoveredNavHref);
+                  }
+                  if (leavingNavGlyph?.href === item.href) {
+                    clearNavGlyphExit();
+                  }
                   resetNavGlyphFrames();
                   setHoveredNavHref(item.href);
                 }}
-                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors duration-200 md:text-[0.72rem] md:tracking-[0.24em] ${
+                className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors duration-300 ease-out md:text-[0.72rem] md:tracking-[0.24em] ${
                   isHovered || active
                     ? "text-[var(--color-text)]"
                     : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
@@ -268,11 +328,27 @@ export function SiteHeader() {
                   }
                 >
                   <span className="md:hidden">{item.mobileLabel}</span>
-                  <span className="hidden md:inline" aria-hidden={isHovered}>
-                    {isHovered ? (
-                      <span className="inline-flex gap-[0.06em] tracking-normal md:gap-[0.24em]">
+                  <span className="hidden md:inline">
+                    <span
+                      aria-hidden="true"
+                      className={`header-nav-base-label ${
+                        isHovered ? "header-nav-base-label-muted" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                    {showGlyphLayer ? (
+                      <span
+                        aria-hidden="true"
+                        className={`header-nav-glyph-layer ${
+                          isHovered
+                            ? "header-nav-glyph-layer-enter"
+                            : "header-nav-glyph-layer-exit"
+                        }`}
+                      >
+                        <span className="inline-flex gap-[0.06em] tracking-normal md:gap-[0.24em]">
                         {Array.from(item.label).map((character, index) => {
-                          if (navGlyphFrame < 0) {
+                          if (glyphFrameIndex < 0) {
                             return (
                               <span
                                 key={`${item.href}-${index}`}
@@ -284,16 +360,16 @@ export function SiteHeader() {
                           }
 
                           const glyphFrame = navGlyphFrames[
-                            (navGlyphFrame + index * 2) % navGlyphFrames.length
+                            (glyphFrameIndex + index * 2) % navGlyphFrames.length
                           ];
                           const previousGlyphFrame =
-                            previousNavGlyphFrame < 0
+                            previousGlyphFrameIndex < 0
                               ? {
                                   glyph: character,
                                   color: "text-[var(--color-text)]",
                                 }
                               : navGlyphFrames[
-                                  (previousNavGlyphFrame + index * 2) %
+                                  (previousGlyphFrameIndex + index * 2) %
                                     navGlyphFrames.length
                                 ];
 
@@ -303,14 +379,14 @@ export function SiteHeader() {
                               className="header-nav-character-cell"
                             >
                               <span
-                                key={`out-${previousNavGlyphFrame}`}
+                                key={`out-${previousGlyphFrameIndex}`}
                                 className={`header-nav-character-out ${previousGlyphFrame.color}`}
                                 style={{ animationDelay: `${index * 16}ms` }}
                               >
                                 {previousGlyphFrame.glyph}
                               </span>
                               <span
-                                key={`in-${navGlyphFrame}`}
+                                key={`in-${glyphFrameIndex}`}
                                 className={`header-nav-character-in ${glyphFrame.color}`}
                                 style={{ animationDelay: `${index * 16}ms` }}
                               >
@@ -319,20 +395,27 @@ export function SiteHeader() {
                             </span>
                           );
                         })}
+                        </span>
                       </span>
-                    ) : (
-                      item.label
-                    )}
+                    ) : null}
                   </span>
                   {active ? (
-                    <span
-                      aria-hidden="true"
-                      className={`absolute -bottom-1 left-0 h-px w-full md:-bottom-2 ${
-                        isHovered
-                          ? "header-nav-underline-cycle"
-                          : "bg-[var(--color-text)]"
-                      }`}
-                    />
+                    <>
+                      <span
+                        aria-hidden="true"
+                        className="absolute -bottom-1 left-0 h-px w-full bg-[var(--color-text)] md:-bottom-2"
+                      />
+                      {showGlyphLayer ? (
+                        <span
+                          aria-hidden="true"
+                          className={`header-nav-underline-brand absolute -bottom-1 left-0 h-px w-full md:-bottom-2 ${
+                            isHovered
+                              ? "header-nav-underline-brand-active"
+                              : "header-nav-underline-brand-exit"
+                          }`}
+                        />
+                      ) : null}
+                    </>
                   ) : null}
                 </span>
               </Link>

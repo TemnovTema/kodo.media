@@ -349,6 +349,34 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   vertical-align: middle;
 }
 
+.header-nav-base-label {
+  display: inline-block;
+  transition:
+    opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.header-nav-base-label-muted {
+  opacity: 0.16;
+  transform: translateY(1px);
+}
+
+.header-nav-glyph-layer {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.header-nav-glyph-layer-enter {
+  animation: header-nav-glyph-layer-enter 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.header-nav-glyph-layer-exit {
+  animation: header-nav-glyph-layer-exit 360ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
 .header-nav-character-in,
 .header-nav-character-out {
   position: absolute;
@@ -365,8 +393,27 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   animation: header-nav-character-out 440ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
-.header-nav-underline-cycle {
-  animation: header-nav-underline-cycle 1.4s ease-in-out infinite;
+.header-nav-underline-brand {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-blue),
+    var(--color-brand-green),
+    var(--color-brand-yellow),
+    var(--color-brand-pink),
+    var(--color-brand-blue)
+  );
+  background-size: 400% 100%;
+  opacity: 0;
+  transition: opacity 360ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-nav-underline-brand-active {
+  animation: header-nav-underline-spectrum 1.8s linear infinite;
+  opacity: 1;
+}
+
+.header-nav-underline-brand-exit {
+  opacity: 0;
 }
 
 .marquee-track {
@@ -448,19 +495,37 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   }
 }
 
-@keyframes header-nav-underline-cycle {
-  0%,
-  100% {
-    background-color: var(--color-brand-blue);
+@keyframes header-nav-glyph-layer-enter {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
   }
-  25% {
-    background-color: var(--color-brand-green);
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  50% {
-    background-color: var(--color-brand-yellow);
+}
+
+@keyframes header-nav-glyph-layer-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
   }
-  75% {
-    background-color: var(--color-brand-pink);
+
+  to {
+    opacity: 0;
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes header-nav-underline-spectrum {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 100% 50%;
   }
 }
 
