@@ -93,13 +93,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           />
         </figure>
 
-        <div className="mx-auto mt-12 max-w-3xl space-y-14 sm:mt-16 sm:space-y-16">
+        <div className="mx-auto mt-14 max-w-6xl space-y-16 sm:mt-20 sm:space-y-24">
           {article.sections.map((section) => (
-            <section key={section.title} className="space-y-5 sm:space-y-6">
-              <h2 className="max-w-2xl text-balance text-[clamp(1.85rem,3.3vw,3.15rem)] leading-[0.96] tracking-[-0.06em] text-[var(--color-text)]">
+            <section
+              key={section.title}
+              className="grid gap-7 sm:gap-10 md:grid-cols-[minmax(13rem,0.76fr)_minmax(0,1fr)] md:gap-14 lg:gap-20"
+            >
+              <h2 className="max-w-[11ch] text-balance text-[clamp(2rem,3.15vw,3.7rem)] leading-[0.93] tracking-[-0.06em] text-[var(--color-brand-yellow)]">
                 {section.title}
               </h2>
-              <div className="space-y-5 text-base leading-8 text-[var(--color-text-soft)] sm:text-[1.08rem] sm:leading-9">
+              <div className="max-w-[38rem] space-y-6 text-[1.1rem] leading-8 text-[var(--color-text)] sm:text-[1.22rem] sm:leading-9">
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
