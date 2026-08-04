@@ -10,17 +10,26 @@ import { ProfileAvatar } from "@/components/profile-avatar";
 type ContentCommentSectionProps = {
   kind: ContentCommentKind;
   slug: string;
+  layout?: "default" | "article";
 };
 
 export function ContentCommentSection({
   kind,
   slug,
+  layout = "default",
 }: ContentCommentSectionProps) {
   const comments = getContentComments(kind, slug);
+  const usesArticleLayout = layout === "article";
 
   return (
     <section>
-      <div className="grid gap-7 xl:grid-cols-[12rem_minmax(0,1fr)] xl:gap-10">
+      <div
+        className={
+          usesArticleLayout
+            ? "grid gap-7 sm:gap-10 md:grid-cols-[minmax(13rem,0.76fr)_minmax(0,1fr)] md:gap-14 lg:gap-20"
+            : "grid gap-7 xl:grid-cols-[12rem_minmax(0,1fr)] xl:gap-10"
+        }
+      >
         <div className="space-y-2">
           <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-brand-blue)]">
             community / note

@@ -46,7 +46,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const nextArticle = articles[(articleIndex + 1) % articles.length];
 
   return (
-    <div className="page-stack pb-8 md:pb-14">
+    <div className="flex flex-col gap-14 pb-8 sm:gap-20 md:pb-14">
       <article id="article-top" className="mx-auto w-full max-w-6xl">
         <header className="mx-auto max-w-5xl pt-2 sm:pt-5">
           <nav
@@ -133,8 +133,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </nav>
       </article>
 
-      <div className="mx-auto w-full max-w-3xl">
-        <ContentCommentSection kind="article" slug={article.slug} />
+      <div className="mx-auto w-full max-w-6xl">
+        <ContentCommentSection kind="article" slug={article.slug} layout="article" />
       </div>
     </div>
   );
