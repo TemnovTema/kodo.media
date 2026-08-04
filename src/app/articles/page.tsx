@@ -41,16 +41,16 @@ export default function ArticlesPage() {
           <CommunityArticleShelf articles={carouselArticles} rubrics={rubrics} />
         </section>
 
-        <section className="space-y-6">
+        <section className="space-y-7">
           <div>
             <h2 className="max-w-3xl text-balance text-[clamp(1.9rem,3.2vw,3rem)] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
               Популярные посты
             </h2>
           </div>
 
-          <div className="grid gap-x-8 gap-y-12 lg:grid-cols-2">
+          <div className="grid gap-x-12 gap-y-9 lg:grid-cols-2 xl:gap-x-16">
             {authorPosts.map((post) => (
-              <AuthorPostCard key={post.id} post={post} />
+              <AuthorPostCard key={post.id} post={post} variant="community" />
             ))}
           </div>
         </section>
