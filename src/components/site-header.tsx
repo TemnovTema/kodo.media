@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   demoSessionEvent,
   demoSessionStorageKey,
@@ -41,9 +41,17 @@ export function SiteHeader() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredNavHref, setHoveredNavHref] = useState<string | null>(null);
-  const [navGlyphFrame, setNavGlyphFrame] = useState(0);
+  const [navGlyphFrame, setNavGlyphFrame] = useState(-1);
+  const [previousNavGlyphFrame, setPreviousNavGlyphFrame] = useState(-1);
+  const navGlyphFrameRef = useRef(-1);
   const accountItem = isAuthenticated ? profileItem : authItem;
   const accountActive = isActive(pathname, accountItem.href);
+
+  const resetNavGlyphFrames = () => {
+    navGlyphFrameRef.current = -1;
+    setNavGlyphFrame(-1);
+    setPreviousNavGlyphFrame(-1);
+  };
 
   useEffect(() => {
     if (
@@ -53,11 +61,28 @@ export function SiteHeader() {
       return;
     }
 
-    const timer = window.setInterval(() => {
-      setNavGlyphFrame((frame) => (frame + 1) % navGlyphFrames.length);
-    }, 260);
+    const advanceGlyphFrame = () => {
+      const previousFrame = navGlyphFrameRef.current;
+      const nextFrame =
+        previousFrame < 0 ? 0 : (previousFrame + 1) % navGlyphFrames.length;
 
-    return () => window.clearInterval(timer);
+      navGlyphFrameRef.current = nextFrame;
+      setPreviousNavGlyphFrame(previousFrame);
+      setNavGlyphFrame(nextFrame);
+    };
+
+    let timer: number | undefined;
+    const startTimer = window.setTimeout(() => {
+      advanceGlyphFrame();
+      timer = window.setInterval(advanceGlyphFrame, 820);
+    }, 220);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      if (timer !== undefined) {
+        window.clearInterval(timer);
+      }
+    };
   }, [hoveredNavHref]);
 
   useEffect(() => {
@@ -160,7 +185,7 @@ export function SiteHeader() {
           className="flex w-full min-w-0 items-center justify-between whitespace-nowrap md:w-auto md:flex-none md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-2"
           onMouseLeave={() => {
             setHoveredNavHref(null);
-            setNavGlyphFrame(0);
+            resetNavGlyphFrames();
           }}
         >
           {navItems.map((item) => {
@@ -173,16 +198,16 @@ export function SiteHeader() {
                 href={item.href}
                 aria-label={item.label}
                 onMouseEnter={() => {
-                  setNavGlyphFrame(0);
+                  resetNavGlyphFrames();
                   setHoveredNavHref(item.href);
                 }}
                 onFocus={() => {
-                  setNavGlyphFrame(0);
+                  resetNavGlyphFrames();
                   setHoveredNavHref(item.href);
                 }}
                 onBlur={() => {
                   setHoveredNavHref(null);
-                  setNavGlyphFrame(0);
+                  resetNavGlyphFrames();
                 }}
                 className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors duration-200 md:text-[0.72rem] md:tracking-[0.24em] ${
                   isHovered || active
@@ -194,19 +219,52 @@ export function SiteHeader() {
                   <span className="md:hidden">{item.mobileLabel}</span>
                   <span className="hidden md:inline" aria-hidden={isHovered}>
                     {isHovered ? (
-                      <span className="inline-flex">
-                        {Array.from(item.label).map((_, index) => {
+                      <span className="inline-flex gap-[0.06em] tracking-normal md:gap-[0.24em]">
+                        {Array.from(item.label).map((character, index) => {
+                          if (navGlyphFrame < 0) {
+                            return (
+                              <span
+                                key={`${item.href}-${index}`}
+                                className="header-nav-character-cell text-[var(--color-text)]"
+                              >
+                                {character}
+                              </span>
+                            );
+                          }
+
                           const glyphFrame = navGlyphFrames[
                             (navGlyphFrame + index * 2) % navGlyphFrames.length
                           ];
+                          const previousGlyphFrame =
+                            previousNavGlyphFrame < 0
+                              ? {
+                                  glyph: character,
+                                  color: "text-[var(--color-text)]",
+                                }
+                              : navGlyphFrames[
+                                  (previousNavGlyphFrame + index * 2) %
+                                    navGlyphFrames.length
+                                ];
 
                           return (
                             <span
-                              key={`${item.href}-${index}-${navGlyphFrame}`}
-                              className={`header-nav-character-shift ${glyphFrame.color}`}
-                              style={{ animationDelay: `${index * 18}ms` }}
+                              key={`${item.href}-${index}`}
+                              className="header-nav-character-cell"
                             >
-                              {glyphFrame.glyph}
+                              <span
+                                key={`out-${previousNavGlyphFrame}`}
+                                className={`header-nav-character-out ${previousGlyphFrame.color}`}
+                                style={{ animationDelay: `${index * 16}ms` }}
+                              >
+                                {previousGlyphFrame.glyph}
+                              </span>
+                              <span
+                                key={`in-${navGlyphFrame}`}
+                                className={`header-nav-character-in ${glyphFrame.color}`}
+                                style={{ animationDelay: `${index * 16}ms` }}
+                              >
+                                {glyphFrame.glyph}
+                              </span>
                             </span>
                           );
                         })}
