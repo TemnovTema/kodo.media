@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CatalogShell } from "@/components/catalog-shell";
 import { TestCard } from "@/components/test-card";
 import { diagnosticTests } from "@/lib/content";
 
@@ -11,24 +10,24 @@ export const metadata: Metadata = {
 
 export default function TestsPage() {
   return (
-    <CatalogShell
-      eyebrow="tests / route checks"
-      title="Диагностики, которые работают как короткие ритуалы настройки."
-      description="Тут важна не плотность интерфейса, а ясный маршрут: один крупный входной тест, затем более тихие соседние проходы без dashboard-мусора."
-      stats={[
-        { label: "Тестов", value: String(diagnosticTests.length).padStart(2, "0") },
-        { label: "Формат", value: "short passes" },
-        { label: "Выход", value: "профиль / lint / fit" },
-        { label: "Режим", value: "diagnostic flow" },
-      ]}
-    >
-      <div className="-mt-2 grid gap-x-8 gap-y-12 lg:grid-cols-2">
-        {diagnosticTests.map((test, index) => (
-          <div key={test.slug} className={index === 0 ? "lg:col-span-2" : ""}>
-            <TestCard test={test} featured={index === 0} />
-          </div>
-        ))}
-      </div>
-    </CatalogShell>
+    <section className="page-stack pt-2">
+      <header className="max-w-3xl space-y-5 pb-1 sm:space-y-6">
+        <h1 className="text-balance text-[clamp(2.65rem,5.6vw,5rem)] leading-[0.92] tracking-[-0.07em] text-[var(--color-text)]">
+          Тесты
+        </h1>
+        <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
+          Короткие практические проверки для работы с AI-агентами, кодом и
+          продуктом. Выберите тему и пройдите её в своём темпе.
+        </p>
+      </header>
+
+      <section aria-label="Каталог тестов">
+        <div className="grid gap-5 md:grid-cols-2 md:gap-6 xl:gap-7">
+          {diagnosticTests.map((test, index) => (
+            <TestCard key={test.slug} test={test} index={index} />
+          ))}
+        </div>
+      </section>
+    </section>
   );
 }
