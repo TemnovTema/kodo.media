@@ -262,7 +262,7 @@ export const merchItems: MerchItem[] = [
     slug: "build-loop-mug",
     title: "Термокружка Build Loop",
     summary: "Тихий dark-object с KODO-маркой для длинных сборок и ночных прогонов.",
-    imageSrc: "/generated/merch-mug.svg",
+    imageSrc: "/merch/kodo-build-loop-mug.png",
     imageAlt:
       "Темная брендовая термокружка KODO с цветными блоками на графичном фоне.",
     price: "2 900 ₽",
@@ -279,7 +279,7 @@ export const merchItems: MerchItem[] = [
     slug: "prompt-field-notebook",
     title: "Блокнот Prompt Field",
     summary: "Поле для схем, промтов и разметки перед запуском следующего прохода.",
-    imageSrc: "/generated/merch-notebook.svg",
+    imageSrc: "/merch/kodo-prompt-field-notebook.png",
     imageAlt:
       "Черный блокнот KODO с эластичной лентой и брендовой геометрией на фоне.",
     price: "1 600 ₽",
@@ -296,7 +296,7 @@ export const merchItems: MerchItem[] = [
     slug: "kodo-sticker-pack",
     title: "Sticker Pack KODO",
     summary: "Набор наклеек для ноутбука, кейса и рабочего стола в языке айдентики.",
-    imageSrc: "/generated/merch-sticker-pack.svg",
+    imageSrc: "/merch/kodo-sticker-pack.png",
     imageAlt:
       "Набор брендовых наклеек KODO на темной поверхности с цветными акцентами.",
     price: "900 ₽",
