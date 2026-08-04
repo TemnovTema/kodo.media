@@ -328,12 +328,19 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
   animation: sweep 5.5s linear infinite;
 }
 
+@media (min-width: 768px) {
+  .header-nav-label {
+    min-width: var(--header-nav-label-width);
+  }
+}
+
 .header-nav-character-cell {
   position: relative;
   display: inline-grid;
   width: 1ch;
   height: 1em;
   place-items: center;
+  pointer-events: none;
   vertical-align: middle;
 }
 
@@ -346,11 +353,11 @@ body[data-test-session="active"] .site-shell > :is(header, footer) {
 }
 
 .header-nav-character-in {
-  animation: header-nav-character-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: header-nav-character-in 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .header-nav-character-out {
-  animation: header-nav-character-out 560ms cubic-bezier(0.4, 0, 1, 1) both;
+  animation: header-nav-character-out 440ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 .header-nav-underline-cycle {

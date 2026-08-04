@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import {
   demoSessionEvent,
   demoSessionStorageKey,
@@ -74,8 +74,8 @@ export function SiteHeader() {
     let timer: number | undefined;
     const startTimer = window.setTimeout(() => {
       advanceGlyphFrame();
-      timer = window.setInterval(advanceGlyphFrame, 820);
-    }, 220);
+      timer = window.setInterval(advanceGlyphFrame, 620);
+    }, 140);
 
     return () => {
       window.clearTimeout(startTimer);
@@ -215,7 +215,14 @@ export function SiteHeader() {
                     : "text-[var(--color-text-muted)] hover:text-[var(--color-text-soft)]"
                   }`}
               >
-                <span className="relative inline-flex items-center">
+                <span
+                  className="header-nav-label relative inline-flex items-center"
+                  style={
+                    {
+                      "--header-nav-label-width": `calc(${item.label.length}ch + ${(item.label.length - 1) * 0.24}em)`,
+                    } as CSSProperties
+                  }
+                >
                   <span className="md:hidden">{item.mobileLabel}</span>
                   <span className="hidden md:inline" aria-hidden={isHovered}>
                     {isHovered ? (
