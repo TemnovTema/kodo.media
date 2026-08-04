@@ -20,6 +20,9 @@ export default function ArticlesPage() {
   const carouselArticles = articles.filter(
     (article) => article.slug !== "why-vibe-coding-needs-an-editor",
   );
+  const popularPosts = [...authorPosts].sort(
+    (first, second) => second.engagement.likes - first.engagement.likes,
+  );
   if (!featuredArticle) {
     return null;
   }
@@ -49,7 +52,7 @@ export default function ArticlesPage() {
           </div>
 
           <div className="grid gap-x-12 gap-y-9 lg:grid-cols-2 xl:gap-x-16">
-            {authorPosts.map((post) => (
+            {popularPosts.map((post) => (
               <AuthorPostCard key={post.id} post={post} variant="community" />
             ))}
           </div>

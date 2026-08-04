@@ -44,6 +44,8 @@ export function SiteHeader() {
   const [navGlyphFrame, setNavGlyphFrame] = useState(-1);
   const [previousNavGlyphFrame, setPreviousNavGlyphFrame] = useState(-1);
   const navGlyphFrameRef = useRef(-1);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const accountItem = isAuthenticated ? profileItem : authItem;
   const accountActive = isActive(pathname, accountItem.href);
 
@@ -51,6 +53,11 @@ export function SiteHeader() {
     navGlyphFrameRef.current = -1;
     setNavGlyphFrame(-1);
     setPreviousNavGlyphFrame(-1);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+    window.requestAnimationFrame(() => menuToggleRef.current?.focus());
   };
 
   useEffect(() => {
@@ -104,23 +111,60 @@ export function SiteHeader() {
     }
 
     const previousOverflow = document.body.style.overflow;
+    const focusableSelector = "a[href], button:not([disabled])";
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsMenuOpen(false);
+        closeMobileMenu();
       }
     };
+    const keepFocusInMenu = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const menu = mobileMenuRef.current;
+      const focusable = menu
+        ? Array.from(menu.querySelectorAll<HTMLElement>(focusableSelector))
+        : [];
+
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement;
+      const focusOutsideMenu = !menu?.contains(activeElement);
+
+      if (event.shiftKey && (activeElement === first || focusOutsideMenu)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (activeElement === last || focusOutsideMenu)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    const focusCloseButton = window.requestAnimationFrame(() => {
+      mobileMenuRef.current
+        ?.querySelector<HTMLButtonElement>('button[aria-label="Закрыть меню"]')
+        ?.focus();
+    });
 
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", keepFocusInMenu);
 
     return () => {
+      window.cancelAnimationFrame(focusCloseButton);
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", keepFocusInMenu);
     };
   }, [isMenuOpen]);
 
   return (
-    <header className="relative z-20 bg-[var(--color-bg)]">
+    <header className="site-header relative z-20 bg-[var(--color-bg)]">
       <div
         className={`site-frame flex min-h-14 items-center justify-between py-2 md:hidden ${
           isMenuOpen ? "invisible" : ""
@@ -139,6 +183,7 @@ export function SiteHeader() {
           />
         </Link>
         <button
+          ref={menuToggleRef}
           type="button"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navigation"
@@ -200,14 +245,6 @@ export function SiteHeader() {
                 onMouseEnter={() => {
                   resetNavGlyphFrames();
                   setHoveredNavHref(item.href);
-                }}
-                onFocus={() => {
-                  resetNavGlyphFrames();
-                  setHoveredNavHref(item.href);
-                }}
-                onBlur={() => {
-                  setHoveredNavHref(null);
-                  resetNavGlyphFrames();
                 }}
                 className={`inline-flex min-h-10 items-center font-mono text-[0.6rem] uppercase tracking-[0.06em] transition-colors duration-200 md:text-[0.72rem] md:tracking-[0.24em] ${
                   isHovered || active
@@ -311,6 +348,7 @@ export function SiteHeader() {
 
       {isMenuOpen ? (
         <div
+          ref={mobileMenuRef}
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
@@ -332,7 +370,7 @@ export function SiteHeader() {
             <button
               type="button"
               aria-label="Закрыть меню"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMobileMenu}
               className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-border)] px-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-colors hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel-strong)]"
             >
               <span className="relative block h-4 w-4" aria-hidden="true">
