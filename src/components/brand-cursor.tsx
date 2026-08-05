@@ -44,6 +44,14 @@ export function BrandCursor() {
       }
     };
 
+    const handleScroll = () => {
+      if (x === -100 || y === -100 || frameId) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(render);
+    };
+
     const handlePointerOver = (event: PointerEvent) => {
       const target = event.target;
       const isInteractive =
@@ -67,6 +75,7 @@ export function BrandCursor() {
 
     document.documentElement.dataset.brandCursor = "active";
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     document.addEventListener("pointerover", handlePointerOver, { passive: true });
     document.addEventListener("mouseleave", handlePointerLeave);
     window.addEventListener("pointerdown", handlePointerDown, { passive: true });
@@ -75,6 +84,7 @@ export function BrandCursor() {
     return () => {
       document.documentElement.removeAttribute("data-brand-cursor");
       window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("pointerover", handlePointerOver);
       document.removeEventListener("mouseleave", handlePointerLeave);
       window.removeEventListener("pointerdown", handlePointerDown);

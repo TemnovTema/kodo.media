@@ -91,7 +91,13 @@ main :is(h1, h2, h3) {
 @media (hover: hover) and (pointer: fine) {
   html[data-brand-cursor="active"],
   html[data-brand-cursor="active"] * {
-    cursor: none;
+    cursor: none !important;
+  }
+
+  html[data-brand-cursor="active"]::-webkit-scrollbar,
+  html[data-brand-cursor="active"]::-webkit-scrollbar-thumb,
+  html[data-brand-cursor="active"]::-webkit-scrollbar-track {
+    cursor: none !important;
   }
 
   html[data-brand-cursor="active"] :is(input, textarea, [contenteditable="true"]) {
