@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <h2 className="max-w-[11ch] text-balance text-[clamp(2rem,3.15vw,3.7rem)] leading-[0.93] tracking-[-0.06em] text-[var(--color-brand-yellow)]">
                 {section.title}
               </h2>
-              <div className="max-w-[38rem] space-y-6 text-[1.1rem] leading-8 text-[var(--color-text)] sm:text-[1.22rem] sm:leading-9">
+              <div className="max-w-[38rem] space-y-5 text-[1.05rem] leading-[1.6] text-[var(--color-text)] sm:text-[1.18rem] sm:leading-[1.55]">
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
