@@ -89,12 +89,13 @@ main :is(h1, h2, h3) {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  html[data-brand-cursor="active"] {
+  html[data-brand-cursor="active"],
+  html[data-brand-cursor="active"] * {
     cursor: none;
   }
 
   html[data-brand-cursor="active"] :is(input, textarea, [contenteditable="true"]) {
-    cursor: text;
+    cursor: text !important;
   }
 
   .brand-cursor {
@@ -114,7 +115,7 @@ main :is(h1, h2, h3) {
         calc(var(--brand-cursor-y, -100px) - 50%),
         0
       )
-      scale(1);
+      scale(var(--brand-cursor-scale, 1));
     transition: opacity 160ms ease, transform 120ms ease-out;
     animation: brand-cursor-color 3.2s linear infinite;
     animation-play-state: paused;
@@ -126,13 +127,16 @@ main :is(h1, h2, h3) {
     animation-play-state: running;
   }
 
+  .brand-cursor[data-hover="true"] {
+    --brand-cursor-scale: 1.7;
+  }
+
   .brand-cursor[data-pressed="true"] {
-    transform: translate3d(
-        calc(var(--brand-cursor-x, -100px) - 50%),
-        calc(var(--brand-cursor-y, -100px) - 50%),
-        0
-      )
-      scale(0.72);
+    --brand-cursor-scale: 0.72;
+  }
+
+  .brand-cursor[data-hover="true"][data-pressed="true"] {
+    --brand-cursor-scale: 1.2;
   }
 }
 

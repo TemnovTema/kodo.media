@@ -2,6 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
+const INTERACTIVE_SELECTOR = [
+  "a[href]",
+  "button",
+  '[role="button"]',
+  "select",
+  "summary",
+  "label[for]",
+  'input:not([type="text"]):not([type="search"]):not([type="email"]):not([type="password"])',
+].join(",");
+
 export function BrandCursor() {
   const cursorRef = useRef<HTMLSpanElement>(null);
 
@@ -34,8 +44,17 @@ export function BrandCursor() {
       }
     };
 
+    const handlePointerOver = (event: PointerEvent) => {
+      const target = event.target;
+      const isInteractive =
+        target instanceof Element && target.closest(INTERACTIVE_SELECTOR) !== null;
+
+      cursor.dataset.hover = String(isInteractive);
+    };
+
     const handlePointerLeave = () => {
       cursor.dataset.active = "false";
+      cursor.dataset.hover = "false";
     };
 
     const handlePointerDown = () => {
@@ -48,6 +67,7 @@ export function BrandCursor() {
 
     document.documentElement.dataset.brandCursor = "active";
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    document.addEventListener("pointerover", handlePointerOver, { passive: true });
     document.addEventListener("mouseleave", handlePointerLeave);
     window.addEventListener("pointerdown", handlePointerDown, { passive: true });
     window.addEventListener("pointerup", handlePointerUp, { passive: true });
@@ -55,6 +75,7 @@ export function BrandCursor() {
     return () => {
       document.documentElement.removeAttribute("data-brand-cursor");
       window.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerover", handlePointerOver);
       document.removeEventListener("mouseleave", handlePointerLeave);
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointerup", handlePointerUp);
