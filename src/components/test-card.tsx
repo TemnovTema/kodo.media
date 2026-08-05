@@ -19,7 +19,7 @@ export function TestCard({ test, index }: TestCardProps) {
       style={{ "--accent": accent } as CSSProperties}
       className="group flex h-full flex-col overflow-hidden border border-[var(--color-border)] bg-[var(--color-panel)] transition-[border-color,background-color] duration-200 hover:border-[var(--accent)]/70 hover:bg-[var(--color-panel-strong)]"
     >
-      <div className="relative min-h-[11.5rem] overflow-hidden bg-[rgba(255,255,255,0.012)] sm:min-h-[14rem]">
+      <div className="relative aspect-[16/9] overflow-hidden bg-[rgba(255,255,255,0.012)]">
         <Image
           src={visual.src}
           alt={visual.alt}
