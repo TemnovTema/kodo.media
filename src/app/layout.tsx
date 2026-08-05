@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { BrandCursor } from "@/components/brand-cursor";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -55,6 +56,7 @@ export default function RootLayout({
         </a>
         <div className="site-shell relative min-h-screen overflow-x-hidden">
           <div className="noise-overlay" aria-hidden="true" />
+          <BrandCursor />
           <SiteHeader />
           <main id="content" className="site-frame relative z-10 pb-12 pt-4">
             {children}

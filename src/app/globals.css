@@ -84,6 +84,83 @@ main :is(h1, h2, h3) {
   mix-blend-mode: soft-light;
 }
 
+.brand-cursor {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-brand-cursor="active"] {
+    cursor: none;
+  }
+
+  html[data-brand-cursor="active"] :is(input, textarea, [contenteditable="true"]) {
+    cursor: text;
+  }
+
+  .brand-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 90;
+    display: block;
+    height: 0.72rem;
+    width: 0.72rem;
+    pointer-events: none;
+    opacity: 0;
+    background: var(--color-brand-blue);
+    mix-blend-mode: difference;
+    transform: translate3d(
+        calc(var(--brand-cursor-x, -100px) - 50%),
+        calc(var(--brand-cursor-y, -100px) - 50%),
+        0
+      )
+      scale(1);
+    transition: opacity 160ms ease, transform 120ms ease-out;
+    animation: brand-cursor-color 3.2s linear infinite;
+    animation-play-state: paused;
+    will-change: transform, background-color;
+  }
+
+  .brand-cursor[data-active="true"] {
+    opacity: 0.86;
+    animation-play-state: running;
+  }
+
+  .brand-cursor[data-pressed="true"] {
+    transform: translate3d(
+        calc(var(--brand-cursor-x, -100px) - 50%),
+        calc(var(--brand-cursor-y, -100px) - 50%),
+        0
+      )
+      scale(0.72);
+  }
+}
+
+@keyframes brand-cursor-color {
+  0%,
+  100% {
+    background-color: var(--color-brand-blue);
+  }
+
+  25% {
+    background-color: var(--color-brand-green);
+  }
+
+  50% {
+    background-color: var(--color-brand-yellow);
+  }
+
+  75% {
+    background-color: var(--color-brand-pink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-cursor {
+    display: none !important;
+  }
+}
+
 .brand-badge {
   display: inline-flex;
   height: 1rem;
