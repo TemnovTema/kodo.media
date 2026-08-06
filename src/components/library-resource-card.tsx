@@ -69,12 +69,12 @@ export function LibraryResourceCard({
               href={resource.externalUrl}
               target="_blank"
               rel="noreferrer"
-              className="group/action inline-flex min-h-11 items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--color-text-soft)] md:min-h-0"
+              className="content-action content-action--external"
             >
               {resource.externalCta ?? "Открыть сайт"}
               <span
                 aria-hidden="true"
-                className="inline-block transition-transform duration-200 ease-out group-hover/action:-translate-y-1 group-hover/action:translate-x-1 motion-reduce:transform-none"
+                className="content-action__icon"
               >
                 ↗
               </span>
@@ -82,12 +82,12 @@ export function LibraryResourceCard({
           ) : (
             <Link
               href={`/library/${resource.slug}`}
-              className="group/action inline-flex min-h-11 items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--color-text-soft)] md:min-h-0"
+              className="content-action"
             >
               Открыть материал
               <span
                 aria-hidden="true"
-                className="inline-block transition-transform duration-200 ease-out group-hover/action:translate-x-1 group-active/action:translate-x-0.5 motion-reduce:transform-none"
+                className="content-action__icon"
               >
                 →
               </span>

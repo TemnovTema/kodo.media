@@ -102,12 +102,12 @@ export function TasteSkillArticle({
                 href={repositoryUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="button-primary group gap-2"
+                className="content-action content-action--external"
               >
                 Скачать с GitHub
                 <span
                   aria-hidden="true"
-                  className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none"
+                  className="content-action__icon"
                 >
                   ↗
                 </span>
@@ -118,12 +118,12 @@ export function TasteSkillArticle({
                 href={sourceUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="button-secondary group gap-2"
+                className="content-action content-action--external"
               >
                 Читать источник
                 <span
                   aria-hidden="true"
-                  className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none"
+                  className="content-action__icon"
                 >
                   ↗
                 </span>

@@ -44,16 +44,19 @@ export function FeaturedSkillsCollection({
                 <h3 className="max-w-[18ch] text-balance text-[clamp(1.55rem,2.5vw,2.35rem)] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
                   {skill.name}
                 </h3>
+                <p className="font-mono text-[0.58rem] tracking-[0.12em] text-[var(--color-text-muted)]">
+                  {skill.repositoryLabel}
+                </p>
                 <a
                   href={skill.repository}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex min-h-11 items-center gap-2 font-mono text-[0.61rem] uppercase tracking-[0.14em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)] md:min-h-0"
+                  className="content-action content-action--external"
                 >
-                  GitHub: {skill.repositoryLabel}
+                  Открыть GitHub
                   <span
                     aria-hidden="true"
-                    className="inline-block transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none"
+                    className="content-action__icon"
                   >
                     ↗
                   </span>

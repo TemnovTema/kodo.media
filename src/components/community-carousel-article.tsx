@@ -60,14 +60,14 @@ export function CommunityCarouselArticle({
 
       <div className="mt-auto space-y-3 border-t border-[var(--color-border)] pt-3">
         <EngagementStats engagement={article.engagement} compact />
-        <div className="flex items-center justify-between gap-3 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+          <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
           <span>{article.publishedAt}</span>
           <Link
             href={`/articles/${article.slug}`}
-            className="inline-flex items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)]"
+            className="content-action"
           >
             Читать
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true" className="content-action__icon">→</span>
           </Link>
         </div>
       </div>

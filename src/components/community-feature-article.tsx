@@ -69,10 +69,10 @@ export function CommunityFeatureArticle({
             <span>{article.publishedAt}</span>
             <Link
               href={`/articles/${article.slug}`}
-              className="inline-flex min-h-11 items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--accent)] md:min-h-0"
+              className="content-action"
             >
               Читать
-              <span aria-hidden="true">→</span>
+              <span aria-hidden="true" className="content-action__icon">→</span>
             </Link>
           </div>
         </div>

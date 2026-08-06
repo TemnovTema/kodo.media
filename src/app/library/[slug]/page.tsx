@@ -98,12 +98,12 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
                       href={item.sourceUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="group inline-flex items-center gap-2 font-mono text-[0.64rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+                      className="content-action content-action--external"
                     >
                       Источник: {item.sourceLabel}
                       <span
                         aria-hidden="true"
-                        className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none"
+                        className="content-action__icon"
                       >
                         ↗
                       </span>

@@ -58,11 +58,11 @@ export function LibraryFolderCard({
               </p>
             </div>
 
-            <span className="mt-auto inline-flex items-center gap-2 border-t border-[var(--color-border)] pt-4 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text)]">
+            <span className="content-action mt-auto">
               Открыть папку
               <span
                 aria-hidden="true"
-                className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1 group-active:translate-x-0.5 motion-reduce:transform-none"
+                className="content-action__icon"
               >
                 →
               </span>
