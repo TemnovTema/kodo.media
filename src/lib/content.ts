@@ -1408,12 +1408,12 @@ export const currentProfileSlug = "dennis-ritchie";
 export const communityProfiles: CommunityProfile[] = [
   {
     slug: "dennis-ritchie",
-    name: "Деннис Ритчи",
-    role: "Системный архитектор",
-    avatarLabel: "DR",
+    name: "Давил Пуров",
+    role: "Основатель KODO",
+    avatarLabel: "ДП",
     accent: "yellow",
-    bio: "Собирает KODO MEDIA как живую редакционную среду для тех, кто работает с агентами не ради демо, а ради устойчивых продуктов.",
-    focus: ["Редакционные системы", "Product direction", "Agent workflows"],
+    bio: "Основатель KODO. Собирает открытую среду про ИИ и кодинг, в которой материалы, рабочие задачи и люди не теряют связь друг с другом.",
+    focus: ["Направление KODO", "Среда сообщества", "Agent workflows"],
     location: "Калининград",
     joined: "в KODO с 2026",
     followersCount: 312,
