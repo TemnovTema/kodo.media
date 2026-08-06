@@ -4,6 +4,7 @@ import Link from "next/link";
 import { type CSSProperties, useEffect, useState } from "react";
 import { ArticleCard } from "@/components/article-card";
 import { CommunityMemberCounter } from "@/components/community-member-counter";
+import { HomeRouteMap } from "@/components/home-route-map";
 import { SymbolSphereHero } from "@/components/symbol-sphere-hero";
 import {
   demoSessionEvent,
@@ -16,7 +17,7 @@ const routes = [
     href: "/articles",
     index: "01",
     title: "Сообщество",
-    description: "Заметки, статьи и голоса людей, которые собирают продукты вместе с агентами.",
+    description: "Заметки и разговоры людей, которые собирают продукты с агентами.",
     color: "var(--color-brand-yellow)",
   },
   {
@@ -30,7 +31,7 @@ const routes = [
     href: "/prompt-lab",
     index: "03",
     title: "ПромтЛаб",
-    description: "Черновик постановки задачи с ограничениями и критериями готовности.",
+    description: "Черновик задачи с ограничениями и проверяемым результатом.",
     color: "var(--color-brand-pink)",
   },
   {
@@ -39,21 +40,6 @@ const routes = [
     title: "Тесты",
     description: "Короткие проверки постановки задач, кода, интерфейсов и релиза.",
     color: "var(--color-brand-green)",
-  },
-] as const;
-
-const benefits = [
-  {
-    title: "Тема продолжается",
-    description: "Из статьи можно перейти к автору, обсуждению и материалам по той же теме.",
-  },
-  {
-    title: "Ошибки видны раньше",
-    description: "ПромтЛаб и тесты находят пробелы в задаче до первого прохода по коду.",
-  },
-  {
-    title: "У текста есть автор",
-    description: "Профиль показывает практику автора и собирает его заметки в одном месте.",
   },
 ] as const;
 
@@ -76,92 +62,135 @@ export function HomePage() {
   }, []);
 
   const headline = isAuthenticated
-    ? "Ваш маршрут в KODO уже собран."
-    : "KODO — медиа о работе с агентами.";
+    ? "Ваша работа с агентами. В контексте."
+    : "Работайте с агентами. Не вслепую.";
   const description = isAuthenticated
-    ? "Статьи, библиотека, ПромтЛаб и тесты доступны из одного профиля."
-    : "Статьи, рабочие ресурсы, конструктор промтов и практические тесты — без разговоров об абстрактной магии ИИ.";
+    ? "Ваш профиль связывает заметки, библиотеку, ПромтЛаб и проверки в один рабочий маршрут."
+    : "KODO помогает разбирать задачи, собирать продукты и проверять результат до того, как ошибка становится дорогой.";
+  const primaryAction = isAuthenticated
+    ? { href: "/articles", label: "Открыть сообщество" }
+    : { href: "/signup", label: "Создать аккаунт" };
 
   return (
-    <div className="page-stack pb-8 md:pb-14">
-      <section className="grid items-center gap-8 py-6 md:min-h-[calc(100dvh-8rem)] md:py-3 lg:grid-cols-[minmax(0,0.84fr)_minmax(24rem,1.16fr)] lg:gap-12 lg:py-6">
-        <div className="order-2 space-y-6 lg:order-1 lg:pb-4">
-          <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-            KODO MEDIA
+    <div className="overflow-x-clip pb-8 md:pb-14">
+      <section className="relative grid min-h-[calc(100dvh-5rem)] content-end gap-8 py-8 sm:py-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(25rem,0.88fr)] lg:items-end lg:gap-12 lg:py-14">
+        <div className="relative z-10 order-2 max-w-5xl space-y-7 lg:order-1 lg:pb-[clamp(1rem,4vw,4rem)]">
+          <p className="font-mono text-[0.64rem] uppercase tracking-[0.22em] text-[var(--color-brand-yellow)]">
+            KODO / MEDIA FOR AGENT WORK
           </p>
-          <h1 className="max-w-3xl text-balance text-[clamp(3rem,5.4vw,5.7rem)] leading-[0.88] tracking-[-0.075em] text-[var(--color-text)]">
+          <h1 className="max-w-[10.5ch] text-pretty text-[clamp(3.85rem,7.3vw,8.55rem)] leading-[0.82] tracking-[-0.085em] text-[var(--color-text)]">
             {headline}
           </h1>
           <p className="max-w-xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg md:leading-9">
             {description}
           </p>
           <div className="flex flex-col gap-3 pt-1 font-mono text-[0.7rem] uppercase tracking-[0.16em] sm:flex-row">
+            <Link href={primaryAction.href} className="button-primary w-full sm:w-auto">
+              {primaryAction.label}
+            </Link>
             {isAuthenticated ? (
-              <>
-                <Link href="/articles" className="button-primary w-full sm:w-auto">
-                  Открыть сообщество
-                </Link>
-                <Link href="/profile" className="button-secondary w-full sm:w-auto">
-                  Мой профиль
-                </Link>
-              </>
+              <Link href="/profile" className="button-secondary w-full sm:w-auto">
+                Мой профиль
+              </Link>
             ) : (
-              <>
-                <Link href="/signup" className="button-primary w-full sm:w-auto">
-                  Создать аккаунт
-                </Link>
-                <a href="#routes" className="button-secondary w-full sm:w-auto">
-                  Смотреть разделы
-                </a>
-              </>
+              <a href="#route-map" className="button-secondary w-full sm:w-auto">
+                Как это устроено
+              </a>
             )}
           </div>
         </div>
 
-        <div className="order-1 min-w-0 lg:order-2 lg:translate-x-[clamp(0rem,3vw,3rem)]">
+        <div className="relative order-1 min-w-0 lg:order-2 lg:-translate-y-[clamp(0rem,2vw,2rem)] lg:translate-x-[clamp(0rem,3vw,3rem)]">
+          <span className="absolute right-0 top-2 font-mono text-[0.58rem] uppercase tracking-[0.2em] text-[var(--color-text-soft)] sm:right-8 lg:right-4">
+            live symbol field
+          </span>
           <SymbolSphereHero
             showOverlay={false}
-            className="mx-auto aspect-square w-full max-w-[280px] sm:max-w-[430px] sm:min-h-[330px] lg:ml-auto lg:max-w-[650px] lg:min-h-[480px]"
+            className="mx-auto aspect-square w-full max-w-[340px] sm:max-w-[480px] sm:min-h-[370px] lg:ml-auto lg:max-w-[690px] lg:min-h-[540px]"
           />
         </div>
+
+        <p className="relative z-10 order-3 font-mono text-[0.58rem] uppercase tracking-[0.2em] text-[var(--color-text-soft)] lg:col-span-2">
+          Читать. Собирать. Проверять. Обсуждать.
+        </p>
       </section>
 
-      <section className="grid gap-8 xl:grid-cols-[minmax(19rem,0.72fr)_minmax(0,1.28fr)] xl:gap-12">
-        <CommunityMemberCounter />
+      <section
+        id="route-map"
+        className="grid scroll-mt-8 gap-10 py-[clamp(5rem,10vw,10rem)] lg:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-[clamp(3rem,8vw,9rem)]"
+        aria-labelledby="home-purpose"
+      >
+        <HomeRouteMap className="mx-auto w-full max-w-[36rem]" />
 
-        <div className="flex min-w-0 flex-col justify-between gap-10 py-2 sm:py-5">
-          <h2 className="max-w-2xl text-balance text-[clamp(2.2rem,4vw,4rem)] leading-[0.9] tracking-[-0.065em] text-[var(--color-text)]">
-            Здесь разбирают работу, а не пересказывают обещания ИИ.
-          </h2>
-          <ul className="grid gap-x-7 gap-y-7 sm:grid-cols-3">
-            {benefits.map((benefit, index) => (
-              <li key={benefit.title} className="pt-1">
-                <span className="font-mono text-[0.6rem] tracking-[0.16em] text-[var(--color-text-muted)]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-3 text-lg leading-tight text-[var(--color-text)]">
-                  {benefit.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-[var(--color-text-soft)]">
-                  {benefit.description}
-                </p>
+        <div className="min-w-0 space-y-8">
+          <div className="max-w-3xl space-y-5">
+            <p className="font-mono text-[0.64rem] uppercase tracking-[0.22em] text-[var(--color-brand-blue)]">
+              куда вы попали
+            </p>
+            <h2
+              id="home-purpose"
+              className="max-w-[12ch] text-pretty text-[clamp(2.75rem,5vw,5.7rem)] leading-[0.86] tracking-[-0.075em] text-[var(--color-text)]"
+            >
+              Рабочая среда для тех, кто делает с ИИ.
+            </h2>
+            <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg md:leading-9">
+              Не витрина про искусственный интеллект, а связанный маршрут: разобраться в теме, собрать задачу, проверить решение и обсудить его с людьми, которые тоже делают продукты.
+            </p>
+          </div>
+
+          <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2" aria-label="Разделы KODO">
+            {routes.map((route) => (
+              <li key={route.href}>
+                <Link
+                  href={route.href}
+                  style={{ "--route-color": route.color } as CSSProperties}
+                  className="group block min-h-28 outline-offset-4 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--route-color)]"
+                >
+                  <span className="flex items-center gap-2 font-mono text-[0.6rem] tracking-[0.16em] text-[var(--route-color)]">
+                    <span className="h-2 w-2 bg-[var(--route-color)]" aria-hidden="true" />
+                    {route.index}
+                  </span>
+                  <span className="mt-3 block text-xl leading-none tracking-[-0.04em] text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--route-color)] md:text-2xl">
+                    {route.title}
+                  </span>
+                  <span className="mt-2 block max-w-xs text-sm leading-6 text-[var(--color-text-soft)]">
+                    {route.description}
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="space-y-8" aria-labelledby="home-reading">
+      <section className="grid gap-10 py-[clamp(3rem,7vw,7rem)] xl:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1.28fr)] xl:gap-14">
+        <CommunityMemberCounter />
+        <div className="flex min-w-0 flex-col justify-between gap-8 py-2 sm:py-5">
+          <div className="max-w-2xl space-y-5">
+            <p className="font-mono text-[0.64rem] uppercase tracking-[0.22em] text-[var(--color-brand-green)]">
+              живая среда
+            </p>
+            <h2 className="text-pretty text-[clamp(2.5rem,4.6vw,4.8rem)] leading-[0.88] tracking-[-0.07em] text-[var(--color-text)]">
+              У хорошей задачи есть контекст. У хорошего сообщества - продолжение.
+            </h2>
+          </div>
+          <p className="max-w-xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg md:leading-9">
+            Профили, заметки, комментарии и сохранённые материалы остаются связаны между собой. Не нужно заново объяснять, откуда вы пришли и что уже проверили.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-[clamp(4rem,9vw,9rem)]" aria-labelledby="home-reading">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
             <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-brand-pink)]">
-              reading now
+              из сообщества
             </p>
             <h2
               id="home-reading"
-              className="mt-3 text-balance text-[clamp(2.2rem,4vw,4rem)] leading-[0.9] tracking-[-0.065em] text-[var(--color-text)]"
+              className="mt-3 text-pretty text-[clamp(2.5rem,4.5vw,4.8rem)] leading-[0.88] tracking-[-0.07em] text-[var(--color-text)]"
             >
-              Новые материалы сообщества
+              Что читают и обсуждают сейчас
             </h2>
           </div>
           <Link
@@ -178,7 +207,7 @@ export function HomePage() {
           </Link>
         </div>
 
-        <div className="grid items-stretch gap-8 lg:grid-cols-3">
+        <div className="mt-8 grid items-stretch gap-8 lg:grid-cols-3">
           {homeArticles.map((article) => (
             <ArticleCard
               key={article.slug}
@@ -189,46 +218,38 @@ export function HomePage() {
         </div>
       </section>
 
-      <section
-        id="routes"
-        className="grid scroll-mt-8 gap-9 xl:grid-cols-[minmax(16rem,0.58fr)_minmax(0,1.42fr)] xl:gap-16"
-      >
-        <div className="max-w-md xl:pt-5">
-          <h2 className="text-balance text-[clamp(2.15rem,4.2vw,4rem)] leading-[0.92] tracking-[-0.065em] text-[var(--color-text)]">
-            Выберите, с чего начать
-          </h2>
-          <p className="mt-4 text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
-            Читайте разборы, берите готовые ресурсы, собирайте промт или проверяйте свой процесс.
-          </p>
-        </div>
-
-        <div className="grid gap-x-10 sm:grid-cols-2 xl:gap-x-12">
-          {routes.map((route) => (
+      <section className="relative overflow-hidden bg-[var(--color-text)] px-6 py-10 text-[var(--color-accent-contrast)] sm:px-10 sm:py-14 lg:px-[clamp(3rem,7vw,7rem)] lg:py-[clamp(4.5rem,8vw,8rem)]">
+        <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.58fr)] lg:items-end lg:gap-16">
+          <div className="max-w-4xl space-y-6">
+            <p className="font-mono text-[0.64rem] uppercase tracking-[0.22em] text-[rgba(23,22,26,0.68)]">
+              ваш маршрут начинается здесь
+            </p>
+            <h2 className="text-pretty text-[clamp(3rem,6vw,6.8rem)] leading-[0.82] tracking-[-0.085em]">
+              {isAuthenticated
+                ? "Вернитесь к своему маршруту."
+                : "Создайте аккаунт и работайте в контексте."}
+            </h2>
+          </div>
+          <div className="max-w-md space-y-6">
+            <p className="text-base leading-8 text-[rgba(23,22,26,0.74)] md:text-lg">
+              {isAuthenticated
+                ? "Продолжайте чтение, сохраняйте материалы и держите свои задачи в одной рабочей среде."
+                : "Сохраняйте материалы, проходите тесты, собирайте задачу в ПромтЛабе и возвращайтесь к своим заметкам без потери контекста."}
+            </p>
             <Link
-              key={route.href}
-              href={route.href}
-              style={{ "--route-color": route.color } as CSSProperties}
-              className="group flex min-h-56 flex-col border-t border-[var(--color-border)] py-5 transition-[border-color,background-color] duration-200 hover:border-[var(--route-color)] hover:bg-[rgba(255,255,255,0.018)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--route-color)]"
+              href={isAuthenticated ? "/profile" : "/signup"}
+              className="inline-flex min-h-12 items-center bg-[var(--color-accent-contrast)] px-5 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-text)] transition-transform duration-200 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent-contrast)]"
             >
-              <span className="flex items-center gap-3 font-mono text-[0.6rem] tracking-[0.16em] text-[var(--color-text-muted)]">
-                <span
-                  className="h-2.5 w-2.5 bg-[var(--route-color)]"
-                  aria-hidden="true"
-                />
-                {route.index}
-              </span>
-              <span className="mt-7 block text-[clamp(1.8rem,3.1vw,2.8rem)] leading-[0.9] tracking-[-0.055em] text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--route-color)]">
-                {route.title}
-              </span>
-              <span className="mt-3 block max-w-md text-sm leading-6 text-[var(--color-text-soft)]">
-                {route.description}
-              </span>
-              <span className="mt-auto pt-8 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)] transition-colors duration-200 group-hover:text-[var(--route-color)]">
-                Открыть раздел
-              </span>
+              {isAuthenticated ? "Открыть профиль" : "Создать аккаунт"}
             </Link>
-          ))}
+          </div>
         </div>
+        <span
+          aria-hidden="true"
+          className="absolute bottom-[-0.18em] right-[-0.06em] font-display text-[clamp(8rem,23vw,24rem)] leading-none tracking-[-0.12em] text-[rgba(23,22,26,0.07)]"
+        >
+          KODO
+        </span>
       </section>
     </div>
   );

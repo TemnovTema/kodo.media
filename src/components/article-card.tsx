@@ -52,7 +52,7 @@ export function ArticleCard({
       </div>
 
       <div className="flex flex-1 flex-col gap-4">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
           <span className="inline-flex items-center gap-2">
             <span className="h-1.5 w-1.5 bg-[var(--accent)]" aria-hidden="true" />
             {rubric?.title ?? article.rubric}
@@ -74,7 +74,7 @@ export function ArticleCard({
           {article.excerpt}
         </p>
 
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
           <span>{article.publishedAt}</span>
           <Link
             href={`/articles/${article.slug}`}

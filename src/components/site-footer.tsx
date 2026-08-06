@@ -11,7 +11,7 @@ export function SiteFooter() {
               <span className="font-display text-[1.4rem] uppercase tracking-[0.14em] text-[var(--color-text)]">
                 KODO
               </span>
-              <span className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] sm:text-[0.68rem] sm:tracking-[0.28em]">
+              <span className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-[var(--color-text-soft)] sm:text-[0.68rem] sm:tracking-[0.28em]">
                 media / online smi about vibe coding
               </span>
             </div>
@@ -21,7 +21,7 @@ export function SiteFooter() {
             и проверять результат до релиза.
           </p>
         </div>
-        <div className="grid gap-3 font-mono text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+        <div className="grid gap-3 font-mono text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-text-soft)]">
           <Link href="/articles" className="hover:text-[var(--color-text)]">
             Сообщество
           </Link>

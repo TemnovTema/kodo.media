@@ -70,7 +70,7 @@ export function CommunityMemberCounter() {
       className="relative flex min-h-[19rem] flex-col justify-between overflow-hidden bg-[var(--color-surface)] p-6 sm:min-h-[22rem] sm:p-8"
     >
       <div className="flex items-start justify-between gap-4">
-        <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
           KODO / live network
         </p>
         <span className="inline-flex items-center gap-2 font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
@@ -93,7 +93,7 @@ export function CommunityMemberCounter() {
 
       <div className="flex items-end justify-between gap-4">
         <span className="brand-swatch-bar" aria-hidden="true" />
-        <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
+        <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
           +42 за неделю
         </span>
       </div>
