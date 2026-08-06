@@ -758,33 +758,18 @@ export const diagnosticTests: DiagnosticTest[] = [
 
 export const libraryFolders: LibraryFolder[] = [
   {
-    slug: "top-skills",
-    kicker: "выбор редакции / 08 репозиториев",
-    title: "Топ наших скиллов",
-    summary:
-      "Восемь открытых наборов для дизайна, SwiftUI, Claude Code и редакторской чистки текста. Все описания проверены по исходным репозиториям.",
-    items: [
-      "дизайн интерфейсов и работа с референсами",
-      "DESIGN.md и каталоги Claude Code",
-      "anti-slop для текста и кода",
-    ],
-    resourceSlugs: [],
-    count: "08 репозиториев",
-    accent: "yellow",
-  },
-  {
     slug: "input-stack",
     kicker: "навыки / промты / сценарии",
     title: "Вводные для ИИ",
     summary:
-      "Один материал о Taste Skill - открытом наборе инструкций для агентной сборки интерфейсов.",
+      "Taste Skill и редакционная подборка из восьми репозиториев для дизайна, Claude Code, SwiftUI и чистки текста.",
     items: [
-      "краткий пересказ Taste Skill",
-      "правила для агентного фронтенда",
-      "ссылка на статью и репозиторий",
+      "Taste Skill для агентного фронтенда",
+      "восемь проверенных GitHub-репозиториев",
+      "сценарии применения и прямые ссылки",
     ],
-    resourceSlugs: ["taste-skill-frontend"],
-    count: "01 материал",
+    resourceSlugs: ["taste-skill-frontend", "top-skills"],
+    count: "02 материала",
     accent: "blue",
   },
   {
@@ -930,6 +915,30 @@ export const featuredSkills: FeaturedSkill[] = [
 ];
 
 export const libraryItems: LibraryItem[] = [
+  {
+    slug: "top-skills",
+    title: "Топ наших скиллов",
+    summary:
+      "Восемь открытых наборов для дизайна, SwiftUI, Claude Code и редакторской чистки текста. Описания проверены по исходным репозиториям.",
+    kind: "Скилл",
+    target: "Claude Code / Codex / Cursor",
+    format: "Редакционная подборка",
+    outcome: "Карта инструментов с понятным сценарием применения и прямыми ссылками на GitHub",
+    includes: [
+      "дизайн-скиллы для веба и SwiftUI",
+      "каталоги DESIGN.md и Claude Code Plugins",
+      "два редакторских anti-slop набора",
+    ],
+    whenToUse: [
+      "когда нужно выбрать дизайн-процесс для coding-агента",
+      "когда ищете готовый плагин или DESIGN.md для нового проекта",
+      "когда нужен отдельный редакторский проход по тексту и комментариям в коде",
+    ],
+    coverSrc: "/skill-covers/kodo-top-skills.png",
+    coverAlt:
+      "Восемь матовых чёрных модулей в архивном ящике, соединённые тонкими линиями и цветными маркерами KODO.",
+    tags: ["8 репозиториев", "GitHub", "Выбор редакции"],
+  },
   {
     slug: "design-systems-club",
     title: "Design Systems Club",

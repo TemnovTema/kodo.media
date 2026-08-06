@@ -186,6 +186,14 @@ const testVisuals: Record<string, VisualAsset> = {
 };
 
 const libraryVisuals: Record<string, VisualAsset> = {
+  "top-skills": {
+    src: "/skill-covers/kodo-top-skills.png",
+    alt: "Восемь матовых чёрных модулей в архивном ящике, соединённые тонкими линиями и цветными маркерами KODO.",
+    label: "curated skills",
+    title: "Eight Modules",
+    description: "Редакционная подборка скиллов как физический архив из восьми связанных инструментов.",
+    tone: "#B49F00",
+  },
   "taste-skill-frontend": {
     src: "/skill-covers/pimenov-taste-skill.jpg",
     alt: "Обложка материала Taste Skill на сайте Pimenov.ai.",

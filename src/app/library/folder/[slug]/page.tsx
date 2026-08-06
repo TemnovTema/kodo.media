@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LibraryResourceCard } from "@/components/library-resource-card";
-import { FeaturedSkillsCollection } from "@/components/featured-skills-collection";
 import {
-  featuredSkills,
   getLibraryFolderBySlug,
   getLibraryItemsBySlugs,
   libraryFolders,
@@ -48,7 +46,6 @@ export default async function LibraryFolderPage({
 
   const resources = getLibraryItemsBySlugs(folder.resourceSlugs);
   const isInputStack = folder.slug === "input-stack";
-  const isTopSkills = folder.slug === "top-skills";
   const isSingleExternalDirectory =
     resources.length === 1 && Boolean(resources[0]?.externalUrl);
 
@@ -102,19 +99,15 @@ export default async function LibraryFolderPage({
             </div>
           </header>
 
-          {isTopSkills ? (
-            <FeaturedSkillsCollection skills={featuredSkills} />
-          ) : (
-            <section aria-label="Материалы папки" className="space-y-5">
-              {resources.map((resource, index) => (
-                <LibraryResourceCard
-                  key={resource.slug}
-                  resource={resource}
-                  priority={index === 0}
-                />
-              ))}
-            </section>
-          )}
+          <section aria-label="Материалы папки" className="space-y-5">
+            {resources.map((resource, index) => (
+              <LibraryResourceCard
+                key={resource.slug}
+                resource={resource}
+                priority={index === 0}
+              />
+            ))}
+          </section>
         </div>
       </div>
     </div>

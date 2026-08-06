@@ -100,10 +100,6 @@ main :is(h1, h2, h3) {
     cursor: none !important;
   }
 
-  html[data-brand-cursor="active"] :is(input, textarea, [contenteditable="true"]) {
-    cursor: text !important;
-  }
-
   .brand-cursor {
     position: fixed;
     left: 0;

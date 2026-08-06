@@ -3,11 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import { ContentCommentSection } from "@/components/content-comment-section";
+import { FeaturedSkillsCollection } from "@/components/featured-skills-collection";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { LibraryMetaTags } from "@/components/library-meta-tags";
 import { TasteSkillArticle } from "@/components/taste-skill-article";
 import { getLibraryAccent } from "@/lib/brand";
-import { getLibraryItemBySlug, libraryItems } from "@/lib/content";
+import { featuredSkills, getLibraryItemBySlug, libraryItems } from "@/lib/content";
 import { getLibraryVisualAsset } from "@/lib/visual-assets";
 
 type LibraryItemPageProps = {
@@ -55,6 +56,7 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
     "pimenov.ai/knowledge/taste-skill-anti-slop-frontend",
   );
   const isTasteSkill = item.slug === "taste-skill-frontend";
+  const isTopSkills = item.slug === "top-skills";
 
   return (
     <div className="page-stack">
@@ -63,7 +65,7 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
           <header className="page-hero max-w-4xl space-y-6">
             <div className="space-y-5">
               <Link
-                href={isTasteSkill ? "/library/folder/input-stack" : "/library"}
+                href={isTasteSkill || isTopSkills ? "/library/folder/input-stack" : "/library"}
                 className="group inline-flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
               >
                 <span
@@ -72,9 +74,9 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
                 >
                   ←
                 </span>
-                {isTasteSkill ? "Вводные для ИИ" : "В библиотеку"}
+                {isTasteSkill || isTopSkills ? "Вводные для ИИ" : "В библиотеку"}
               </Link>
-              {isTasteSkill ? null : (
+              {isTasteSkill || isTopSkills ? null : (
                 <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                   Библиотека / {item.kind}
                 </p>
@@ -117,6 +119,8 @@ export default async function LibraryItemPage({ params }: LibraryItemPageProps) 
               sourceUrl={item.sourceUrl}
               repositoryUrl={item.repositoryUrl}
             />
+          ) : isTopSkills ? (
+            <FeaturedSkillsCollection skills={featuredSkills} />
           ) : (
             <div className="grid gap-8 lg:grid-cols-[10rem_minmax(0,44rem)] lg:gap-14">
             <aside className="py-2 lg:sticky lg:top-28 lg:self-start lg:py-0 lg:pr-6">

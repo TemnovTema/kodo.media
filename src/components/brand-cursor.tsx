@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 const INTERACTIVE_SELECTOR = [
   "a[href]",
@@ -15,7 +15,7 @@ const INTERACTIVE_SELECTOR = [
 export function BrandCursor() {
   const cursorRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const cursor = cursorRef.current;
     const supportsCursor = window.matchMedia("(hover: hover) and (pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -44,11 +44,17 @@ export function BrandCursor() {
       }
     };
 
+    const syncHoverState = () => {
+      const target = document.elementFromPoint(x, y);
+      cursor.dataset.hover = String(target?.closest(INTERACTIVE_SELECTOR) !== null);
+    };
+
     const handleScroll = () => {
       if (x === -100 || y === -100 || frameId) {
         return;
       }
 
+      syncHoverState();
       frameId = window.requestAnimationFrame(render);
     };
 
@@ -60,7 +66,7 @@ export function BrandCursor() {
       cursor.dataset.hover = String(isInteractive);
     };
 
-    const handlePointerLeave = () => {
+    const handleWindowBlur = () => {
       cursor.dataset.active = "false";
       cursor.dataset.hover = "false";
     };
@@ -74,19 +80,21 @@ export function BrandCursor() {
     };
 
     document.documentElement.dataset.brandCursor = "active";
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    document.addEventListener("pointermove", handlePointerMove, { passive: true });
+    document.addEventListener("pointerenter", handlePointerMove, { passive: true });
     window.addEventListener("scroll", handleScroll, { passive: true });
     document.addEventListener("pointerover", handlePointerOver, { passive: true });
-    document.addEventListener("mouseleave", handlePointerLeave);
+    window.addEventListener("blur", handleWindowBlur);
     window.addEventListener("pointerdown", handlePointerDown, { passive: true });
     window.addEventListener("pointerup", handlePointerUp, { passive: true });
 
     return () => {
       document.documentElement.removeAttribute("data-brand-cursor");
-      window.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerenter", handlePointerMove);
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("pointerover", handlePointerOver);
-      document.removeEventListener("mouseleave", handlePointerLeave);
+      window.removeEventListener("blur", handleWindowBlur);
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointerup", handlePointerUp);
 
