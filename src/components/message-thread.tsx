@@ -126,8 +126,8 @@ export function MessageThread({
                 className="mt-3 w-full resize-y bg-[var(--color-surface)] px-4 py-3 text-sm leading-6 text-[var(--color-text)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:bg-[var(--color-surface-soft)]"
               />
               <div className="mt-3 flex justify-end">
-                <button type="submit" className="button-primary min-h-11 px-5 text-[0.62rem]">
-                  Отправить <span aria-hidden="true">→</span>
+                <button type="submit" className="button-primary text-[0.62rem]">
+                  Отправить
                 </button>
               </div>
             </form>

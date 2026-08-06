@@ -33,7 +33,7 @@ export function MerchCard({ item }: MerchCardProps) {
 
       <Link
         href={`/merch/${item.slug}`}
-        className="button-secondary mt-auto w-full text-center text-[0.64rem] tracking-[0.18em]"
+        className="button-secondary mt-auto w-full text-[0.64rem] tracking-[0.18em]"
       >
         Заказать
       </Link>

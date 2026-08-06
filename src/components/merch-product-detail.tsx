@@ -111,7 +111,7 @@ export function MerchProductDetail({ item }: MerchProductDetailProps) {
               onClick={() => setIsOrderCreated(true)}
               className="button-primary mt-4 w-full text-[0.68rem]"
             >
-              Заказать и оплатить <span aria-hidden="true">→</span>
+              Заказать и оплатить
             </button>
           )}
         </div>

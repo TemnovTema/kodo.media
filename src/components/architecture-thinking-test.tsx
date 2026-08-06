@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import type { DiagnosticTestSession as DiagnosticTestSessionData } from "@/lib/test-sessions";
 
 const relatedReading = [
@@ -358,15 +359,18 @@ export function DiagnosticTestSession({
               <button
                 type="button"
                 onClick={restartTest}
-                className="inline-flex min-h-12 items-center justify-center bg-[var(--color-brand-yellow)] px-5 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#17161a] transition-transform hover:bg-[var(--color-text)] active:translate-y-px"
+                style={{ "--accent": "var(--color-brand-yellow)" } as CSSProperties}
+                className="content-action content-action--accent"
               >
                 Пройти ещё раз
+                <span aria-hidden="true" className="content-action__icon">↻</span>
               </button>
               <Link
                 href="/tests"
-                className="inline-flex min-h-12 items-center justify-center px-5 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-text-soft)] transition-colors hover:text-[var(--color-text)]"
+                className="content-action"
               >
                 К каталогу тестов
+                <span aria-hidden="true" className="content-action__icon">→</span>
               </Link>
             </div>
           </section>
@@ -485,9 +489,11 @@ export function DiagnosticTestSession({
                   <button
                     type="button"
                     onClick={continueTest}
-                    className="inline-flex min-h-11 shrink-0 items-center justify-center bg-[var(--color-brand-yellow)] px-5 font-mono text-[0.66rem] uppercase tracking-[0.18em] text-[#17161a] transition-colors hover:bg-[var(--color-text)] active:translate-y-px"
+                    style={{ "--accent": "var(--color-brand-yellow)" } as CSSProperties}
+                    className="content-action content-action--accent shrink-0"
                   >
-                    {currentIndex === questions.length - 1 ? "К результату" : "Дальше →"}
+                    {currentIndex === questions.length - 1 ? "К результату" : "Дальше"}
+                    <span aria-hidden="true" className="content-action__icon">→</span>
                   </button>
                 </div>
               ) : null}

@@ -60,9 +60,10 @@ export function TestCard({ test, index }: TestCardProps) {
           <Link
             href={`/tests/${test.slug}`}
             aria-label={`Начать тест «${test.title}»`}
-            className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-4 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#17161a] shadow-[inset_0_-4px_0_rgba(8,8,11,0.25)] transition-[transform,filter,box-shadow] duration-200 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[inset_0_-4px_0_rgba(8,8,11,0.42)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] active:translate-y-0 motion-reduce:transform-none"
+            className="content-action content-action--accent w-full"
           >
             Начать тест
+            <span aria-hidden="true" className="content-action__icon">→</span>
           </Link>
         </div>
       </div>
