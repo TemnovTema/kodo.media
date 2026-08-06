@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 import { ArticleCard } from "@/components/article-card";
 import { CommunityMemberCounter } from "@/components/community-member-counter";
 import { SymbolSphereHero } from "@/components/symbol-sphere-hero";
@@ -189,8 +189,11 @@ export function HomePage() {
         </div>
       </section>
 
-      <section id="routes" className="scroll-mt-8">
-        <div className="max-w-3xl">
+      <section
+        id="routes"
+        className="grid scroll-mt-8 gap-9 xl:grid-cols-[minmax(16rem,0.58fr)_minmax(0,1.42fr)] xl:gap-16"
+      >
+        <div className="max-w-md xl:pt-5">
           <h2 className="text-balance text-[clamp(2.15rem,4.2vw,4rem)] leading-[0.92] tracking-[-0.065em] text-[var(--color-text)]">
             Выберите, с чего начать
           </h2>
@@ -199,34 +202,29 @@ export function HomePage() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-x-8 md:grid-cols-2">
+        <div className="grid gap-x-10 sm:grid-cols-2 xl:gap-x-12">
           {routes.map((route) => (
             <Link
               key={route.href}
               href={route.href}
-              className="group grid min-h-48 grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-4 py-5 transition-colors hover:bg-[rgba(255,255,255,0.018)]"
+              style={{ "--route-color": route.color } as CSSProperties}
+              className="group flex min-h-56 flex-col border-t border-[var(--color-border)] py-5 transition-[border-color,background-color] duration-200 hover:border-[var(--route-color)] hover:bg-[rgba(255,255,255,0.018)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--route-color)]"
             >
-              <span
-                className="mt-1 h-3 w-3"
-                style={{ backgroundColor: route.color }}
-                aria-hidden="true"
-              />
-              <span className="min-w-0">
-                <span className="font-mono text-[0.6rem] tracking-[0.16em] text-[var(--color-text-muted)]">
-                  {route.index}
-                </span>
-                <span className="mt-3 block text-[clamp(1.8rem,3.1vw,2.8rem)] leading-[0.9] tracking-[-0.055em] text-[var(--color-text)]">
-                  {route.title}
-                </span>
-                <span className="mt-3 block max-w-md text-sm leading-6 text-[var(--color-text-soft)]">
-                  {route.description}
-                </span>
+              <span className="flex items-center gap-3 font-mono text-[0.6rem] tracking-[0.16em] text-[var(--color-text-muted)]">
+                <span
+                  className="h-2.5 w-2.5 bg-[var(--route-color)]"
+                  aria-hidden="true"
+                />
+                {route.index}
               </span>
-              <span
-                className="mt-1 font-mono text-lg text-[var(--color-text-muted)] transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[var(--color-text)]"
-                aria-hidden="true"
-              >
-                →
+              <span className="mt-7 block text-[clamp(1.8rem,3.1vw,2.8rem)] leading-[0.9] tracking-[-0.055em] text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--route-color)]">
+                {route.title}
+              </span>
+              <span className="mt-3 block max-w-md text-sm leading-6 text-[var(--color-text-soft)]">
+                {route.description}
+              </span>
+              <span className="mt-auto pt-8 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)] transition-colors duration-200 group-hover:text-[var(--route-color)]">
+                Открыть раздел
               </span>
             </Link>
           ))}

@@ -51,7 +51,7 @@ export function ArticleCard({
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,11,0.04),rgba(8,8,11,0.12)_56%,rgba(8,8,11,0.42)_100%)]" />
       </div>
 
-      <div className="flex min-h-full flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="inline-flex items-center gap-2">
             <span className="h-1.5 w-1.5 bg-[var(--accent)]" aria-hidden="true" />

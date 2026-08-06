@@ -221,10 +221,10 @@ main :is(h1, h2, h3) {
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
+  justify-content: center;
+  gap: 0.4rem;
   border: 1px solid var(--color-border-strong);
-  padding: 0.35rem 0.4rem 0.35rem 0.85rem;
+  padding: 0.35rem 0.95rem;
   font-family: var(--font-fugue-mono), monospace;
   font-size: 0.72rem;
   font-weight: 500;
@@ -238,31 +238,10 @@ main :is(h1, h2, h3) {
     box-shadow 180ms ease;
 }
 
-.button-primary::after,
-.button-secondary::after {
-  content: "→";
-  display: inline-flex;
-  height: 2rem;
-  width: 2rem;
-  flex: 0 0 2rem;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.78rem;
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
-}
-
 .button-primary {
   background: var(--color-text);
   color: var(--color-accent-contrast);
   border-color: var(--color-text);
-}
-
-.button-primary::after {
-  background: var(--color-bg);
-  color: var(--color-text);
 }
 
 .button-primary:hover {
@@ -271,14 +250,9 @@ main :is(h1, h2, h3) {
   box-shadow: none;
 }
 
-.button-primary:hover::after,
-.button-secondary:hover::after {
-  transform: translateX(2px);
-}
-
 .button-primary:active,
 .button-secondary:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98);
 }
 
 .button-primary:focus-visible,
@@ -297,11 +271,6 @@ main :is(h1, h2, h3) {
   border-color: var(--color-border-strong);
   background: rgba(96, 135, 194, 0.08);
   transform: translateY(-1px);
-}
-
-.button-secondary::after {
-  background: var(--color-text);
-  color: var(--color-accent-contrast);
 }
 
 .button-primary:disabled,
@@ -342,7 +311,7 @@ main :is(h1, h2, h3) {
 }
 
 .content-action:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98);
 }
 
 .content-action:focus-visible {
@@ -396,11 +365,15 @@ main :is(h1, h2, h3) {
   background: #17161a;
 }
 
+.content-action--plain {
+  justify-content: center;
+  gap: 0;
+  padding-inline: 0.95rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .button-primary,
   .button-secondary,
-  .button-primary::after,
-  .button-secondary::after,
   .content-action,
   .content-action__icon {
     transition: none;
@@ -410,9 +383,7 @@ main :is(h1, h2, h3) {
   .content-action:active,
   .content-action:hover .content-action__icon,
   .button-primary:hover,
-  .button-secondary:hover,
-  .button-primary:hover::after,
-  .button-secondary:hover::after {
+  .button-secondary:hover {
     transform: none;
   }
 }

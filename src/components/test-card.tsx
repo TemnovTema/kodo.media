@@ -60,10 +60,9 @@ export function TestCard({ test, index }: TestCardProps) {
           <Link
             href={`/tests/${test.slug}`}
             aria-label={`Начать тест «${test.title}»`}
-            className="content-action content-action--accent w-full"
+            className="content-action content-action--accent content-action--plain w-full"
           >
             Начать тест
-            <span aria-hidden="true" className="content-action__icon">→</span>
           </Link>
         </div>
       </div>
