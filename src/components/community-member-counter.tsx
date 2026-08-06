@@ -67,11 +67,11 @@ export function CommunityMemberCounter() {
   return (
     <div
       ref={containerRef}
-      className="relative flex min-h-[19rem] flex-col justify-between overflow-hidden bg-[var(--color-surface)] p-6 sm:min-h-[22rem] sm:p-8"
+      className="relative flex min-h-[22rem] flex-col justify-between overflow-hidden bg-[var(--color-surface)] p-6 sm:min-h-[27rem] sm:p-8 xl:min-h-[33rem] xl:p-10"
     >
       <div className="flex items-start justify-between gap-4">
         <p className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-          KODO / live network
+          сейчас в KODO
         </p>
         <span className="inline-flex items-center gap-2 font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
           <span className="h-2 w-2 bg-[var(--color-brand-green)]" aria-hidden="true" />
@@ -82,12 +82,12 @@ export function CommunityMemberCounter() {
       <div className="relative z-10">
         <output
           aria-live="polite"
-          className="block text-[clamp(4.4rem,10vw,8.2rem)] leading-[0.78] tracking-[-0.09em] text-[var(--color-text)]"
+          className="block text-[clamp(6rem,13vw,13.5rem)] leading-[0.7] tracking-[-0.1em] text-[var(--color-text)]"
         >
           {formatMemberCount(members)}
         </output>
         <p className="mt-5 max-w-sm text-base leading-7 text-[var(--color-text-soft)] md:text-lg md:leading-8">
-          участников уже собирают, обсуждают и проверяют работу в KODO.
+          участников уже учатся, собирают и обсуждают работу с ИИ.
         </p>
       </div>
 
