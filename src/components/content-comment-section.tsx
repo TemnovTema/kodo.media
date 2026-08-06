@@ -22,24 +22,27 @@ export function ContentCommentSection({
   const usesArticleLayout = layout === "article";
 
   return (
-    <section>
+    <section aria-labelledby={`comment-heading-${kind}-${slug}`}>
       <div
         className={
           usesArticleLayout
-            ? "grid gap-7 sm:gap-10 md:grid-cols-[minmax(13rem,0.76fr)_minmax(0,1fr)] md:gap-14 lg:gap-20"
-            : "grid gap-7 xl:grid-cols-[12rem_minmax(0,1fr)] xl:gap-10"
+            ? "grid items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(11rem,0.62fr)_minmax(0,1.38fr)] lg:gap-16 xl:gap-20"
+            : "grid items-start gap-8 sm:gap-10 xl:grid-cols-[minmax(11rem,0.62fr)_minmax(0,1.38fr)] xl:gap-16"
         }
       >
-        <div className="space-y-2">
+        <div className="min-w-0 space-y-2">
           <p className="font-mono text-[0.64rem] uppercase tracking-[0.18em] text-[var(--color-brand-blue)]">
             community / note
           </p>
-          <h2 className="text-balance text-[clamp(1.8rem,3vw,2.7rem)] leading-[0.96] tracking-[-0.055em] text-[var(--color-text)]">
+          <h2
+            id={`comment-heading-${kind}-${slug}`}
+            className="max-w-[13rem] text-[clamp(1.75rem,2.25vw,2.35rem)] leading-[0.96] tracking-[-0.05em] text-[var(--color-text)] [overflow-wrap:anywhere]"
+          >
             Комментарий
           </h2>
         </div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-8">
           {comments.map((comment) => {
             const profile = getCommunityProfileBySlug(comment.authorSlug);
 
@@ -55,7 +58,7 @@ export function ContentCommentSection({
             return (
               <article
                 key={`${slug}-${profile.slug}`}
-                className="grid gap-4 py-2 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-5"
+                className="grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-5"
               >
                 <Link
                   href={profileHref}
@@ -65,12 +68,12 @@ export function ContentCommentSection({
                   <ProfileAvatar profile={profile} className="h-12 w-12" sizes="48px" />
                 </Link>
 
-                <div className="space-y-4">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
-                    <div>
+                <div className="min-w-0 space-y-4">
+                  <div className="grid min-w-0 gap-x-4 gap-y-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
+                    <div className="min-w-0">
                       <Link
                         href={profileHref}
-                        className="text-sm leading-6 text-[var(--color-text)] transition-colors hover:text-[var(--color-brand-blue)] md:text-base"
+                        className="block w-fit text-sm leading-6 text-[var(--color-text)] transition-colors hover:text-[var(--color-brand-blue)] md:text-base"
                       >
                         {profile.name}
                       </Link>
@@ -78,7 +81,7 @@ export function ContentCommentSection({
                         {profile.role}
                       </p>
                     </div>
-                    <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
+                    <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[var(--color-text-muted)] sm:pt-1 sm:text-right">
                       {comment.postedAt}
                     </span>
                   </div>
