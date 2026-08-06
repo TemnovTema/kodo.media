@@ -6,7 +6,7 @@ import { PromptLabIntroGlyph } from "@/components/prompt-lab-intro-glyph";
 export const metadata: Metadata = {
   title: "ПромтЛаб",
   description:
-    "ПромтЛаб KODO MEDIA: экран для сборки сильного промта с быстрыми сценариями, подсказками и черновиком.",
+    "Редактор постановки задачи для AI-агента: контекст, ограничения и критерии готовности.",
 };
 
 export default function PromptLabPage() {
@@ -14,7 +14,7 @@ export default function PromptLabPage() {
     <CatalogShell
       eyebrow="prompt lab / build brief"
       title="ПромтЛаб"
-      description="Собери задачу до запуска: тип продукта, ограничения, визуальные запреты и формат результата."
+      description="Соберите рабочий бриф для агента: что сделать, что сохранить и как проверить результат."
       introVisual={<PromptLabIntroGlyph />}
       introVisualPosition="right"
     >

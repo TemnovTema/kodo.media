@@ -11,7 +11,7 @@ export default function TermsPage() {
         legal / terms
       </p>
       <h1 className="text-4xl font-extrabold uppercase tracking-[-0.06em] text-[var(--color-text)]">
-        Terms
+        Условия использования
       </h1>
       <div className="max-w-3xl space-y-4 text-sm leading-7 text-[var(--color-text-soft)] md:text-base">
         <p>
@@ -20,9 +20,9 @@ export default function TermsPage() {
           технические гарантии результата.
         </p>
         <p>
-          Страница включена в первую итерацию как часть полноценной структуры
-          медиа-продукта: даже демонстрационный каркас не должен вести
-          пользователя в тупик.
+          Материалы библиотеки принадлежат их авторам и открываются на сайтах
+          первоисточников. Ссылки и описания даны для навигации; KODO не выдаёт
+          чужие материалы за собственные.
         </p>
       </div>
     </section>

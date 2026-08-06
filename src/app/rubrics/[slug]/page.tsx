@@ -90,7 +90,7 @@ export default async function RubricPage({ params }: RubricPageProps) {
         <SectionHeading
           label="Archive / rubric"
           title={`Материалы рубрики ${rubric.title}`}
-          description="Та же тихая сетка, но теперь с реальными cover-визуалами вместо пустых заглушек."
+          description="Все выпуски рубрики — от новых к ранним."
         />
         <div className="grid gap-6 xl:grid-cols-2">
           {rubricArticles.map((article) => (

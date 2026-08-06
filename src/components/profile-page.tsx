@@ -139,8 +139,7 @@ export function ProfilePage({ profile, isCurrentUser = false }: ProfilePageProps
               маршрут
             </p>
             <p className="text-sm leading-7 text-[var(--color-text-soft)]">
-              Профили связаны с заметками в сообществе: можно перейти к автору,
-              увидеть его контекст и продолжить чтение без потери нити.
+              Откройте заметки автора или вернитесь к общей ленте сообщества.
             </p>
             <Link
               href="/articles"

@@ -5,7 +5,7 @@ import { diagnosticTests } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Тесты",
   description:
-    "Диагностические тесты KODO MEDIA: профиль вайб-кодера, prompt lint и рекомендации по агентному пайплайну.",
+    "Практические тесты по постановке задач AI-агентам, работе с кодом, интерфейсам и релизу.",
 };
 
 export default function TestsPage() {
@@ -16,8 +16,8 @@ export default function TestsPage() {
           Тесты
         </h1>
         <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
-          Короткие практические проверки для работы с AI-агентами, кодом и
-          продуктом. Выберите тему и пройдите её в своём темпе.
+          Десять вопросов по одной рабочей теме. В конце получите разбор
+          ошибок и список действий для следующего прохода.
         </p>
       </header>
 

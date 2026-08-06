@@ -50,10 +50,10 @@ export function CommunityFeatureArticle({
           <span>{article.readingTime}</span>
         </div>
 
-        <h2 className="max-w-3xl text-balance text-[clamp(2rem,3.4vw,3.3rem)] leading-[0.96] tracking-[-0.06em] text-[var(--color-text)]">
+        <h2 className="max-w-3xl text-balance text-[clamp(1.75rem,2.8vw,2.8rem)] leading-[0.98] tracking-[-0.055em] text-[var(--color-text)]">
           <Link
             href={`/articles/${article.slug}`}
-            className="transition-colors hover:text-[var(--accent)]"
+            className="line-clamp-2 transition-colors hover:text-[var(--accent)]"
           >
             {article.title}
           </Link>

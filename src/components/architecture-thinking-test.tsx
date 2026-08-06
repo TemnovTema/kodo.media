@@ -7,17 +7,17 @@ import type { DiagnosticTestSession as DiagnosticTestSessionData } from "@/lib/t
 const relatedReading = [
   {
     href: "/articles/why-vibe-coding-needs-an-editor",
-    title: "Почему вайб-кодингу нужен редактор, а не только хороший агент",
+    title: "Зачем вайб-кодингу редактор",
     note: "Как удерживать структуру решений, когда продукт быстро растёт вместе с агентом.",
   },
   {
     href: "/articles/prompt-pipeline-for-a-small-media",
-    title: "Пайплайн промтов для небольшого онлайн-СМИ: от замысла до выпуска",
+    title: "Как выпускать онлайн-медиа с агентами",
     note: "О том, как связать маршруты, сущности и интерфейс в одну систему.",
   },
   {
     href: "/articles/agents-as-layout-engineers",
-    title: "Агенты как layout engineers: где заканчивается генерация и начинается композиция",
+    title: "Агент верстает. Кто отвечает за композицию?",
     note: "Про границы компонентов, композицию и дисциплину экрана.",
   },
 ] as const;
