@@ -1489,6 +1489,8 @@ export const communityProfiles: CommunityProfile[] = [
       { network: "github", href: "https://github.com/TemnovTema/kodo.media", label: "prompt-lab" },
       { network: "linkedin", href: "https://www.linkedin.com/company/kodo-media/", label: "KODO MEDIA" },
     ],
+    photoSrc: "/profile-portraits/radia-perlman.png",
+    photoPosition: "center",
   },
   {
     slug: "margaret-hamilton",
@@ -1509,6 +1511,8 @@ export const communityProfiles: CommunityProfile[] = [
       { network: "github", href: "https://github.com/TemnovTema/kodo.media", label: "community" },
       { network: "linkedin", href: "https://www.linkedin.com/company/kodo-media/", label: "KODO MEDIA" },
     ],
+    photoSrc: "/profile-portraits/margaret-hamilton.png",
+    photoPosition: "center",
   },
 ];
 
