@@ -45,10 +45,10 @@ export function CommunityCarouselArticle({
       </div>
 
       <div className="space-y-2">
-        <h3 className="min-h-[3.9rem] text-balance text-[1.32rem] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
+        <h3 className="min-h-[2.7rem] text-balance text-[1.16rem] leading-[1.04] tracking-[-0.045em] text-[var(--color-text)]">
           <Link
             href={`/articles/${article.slug}`}
-            className="line-clamp-3 transition-colors hover:text-[var(--accent)]"
+            className="line-clamp-2 transition-colors hover:text-[var(--accent)]"
           >
             {article.title}
           </Link>

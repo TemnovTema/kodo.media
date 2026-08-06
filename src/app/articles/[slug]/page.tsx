@@ -66,7 +66,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </nav>
 
           <div className="mt-10 sm:mt-14">
-            <h1 className="max-w-[15ch] text-balance text-[clamp(2.7rem,5.8vw,5.9rem)] leading-[0.9] tracking-[-0.075em] text-[var(--color-text)]">
+            <h1 className="max-w-[21ch] text-balance text-[clamp(2.35rem,4.6vw,4.8rem)] leading-[0.92] tracking-[-0.065em] text-[var(--color-text)]">
               {article.title}
             </h1>
             <p className="mt-6 max-w-3xl text-pretty text-[clamp(1.15rem,2.1vw,1.65rem)] leading-[1.45] text-[var(--color-text-soft)]">

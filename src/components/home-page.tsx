@@ -30,30 +30,30 @@ const routes = [
     href: "/prompt-lab",
     index: "03",
     title: "ПромтЛаб",
-    description: "Место, чтобы собрать постановку задачи и проверить её до запуска.",
+    description: "Черновик постановки задачи с ограничениями и критериями готовности.",
     color: "var(--color-brand-pink)",
   },
   {
     href: "/tests",
     index: "04",
     title: "Тесты",
-    description: "Короткие диагностики для процесса, команды и следующего шага.",
+    description: "Короткие проверки постановки задач, кода, интерфейсов и релиза.",
     color: "var(--color-brand-green)",
   },
 ] as const;
 
 const benefits = [
   {
-    title: "Контекст не теряется",
-    description: "Материалы, профили и обсуждения связаны между собой, а не живут отдельными вкладками.",
+    title: "Тема продолжается",
+    description: "Из статьи можно перейти к автору, обсуждению и материалам по той же теме.",
   },
   {
-    title: "Меньше случайных решений",
-    description: "ПромтЛаб и тесты помогают увидеть слабое место до того, как оно попадёт в интерфейс.",
+    title: "Ошибки видны раньше",
+    description: "ПромтЛаб и тесты находят пробелы в задаче до первого прохода по коду.",
   },
   {
-    title: "Есть к кому вернуться",
-    description: "В сообществе остаются авторы, их заметки и разговор вокруг конкретной работы.",
+    title: "У текста есть автор",
+    description: "Профиль показывает практику автора и собирает его заметки в одном месте.",
   },
 ] as const;
 
@@ -77,10 +77,10 @@ export function HomePage() {
 
   const headline = isAuthenticated
     ? "Ваш маршрут в KODO уже собран."
-    : "KODO — среда для агентной сборки.";
+    : "KODO — медиа о работе с агентами.";
   const description = isAuthenticated
-    ? "Сообщество, библиотека, промты и диагностики остаются в одном рабочем контексте."
-    : "Контекст, промты, тесты и живые заметки собираются в один маршрут, а не расходятся по вкладкам.";
+    ? "Статьи, библиотека, ПромтЛаб и тесты доступны из одного профиля."
+    : "Статьи, рабочие ресурсы, конструктор промтов и практические тесты — без разговоров об абстрактной магии ИИ.";
 
   return (
     <div className="page-stack pb-8 md:pb-14">
@@ -131,7 +131,7 @@ export function HomePage() {
 
         <div className="flex min-w-0 flex-col justify-between gap-10 py-2 sm:py-5">
           <h2 className="max-w-2xl text-balance text-[clamp(2.2rem,4vw,4rem)] leading-[0.9] tracking-[-0.065em] text-[var(--color-text)]">
-            Не витрина про ИИ, а среда, в которой работа становится видимой.
+            Здесь разбирают работу, а не пересказывают обещания ИИ.
           </h2>
           <ul className="grid gap-x-7 gap-y-7 sm:grid-cols-3">
             {benefits.map((benefit, index) => (
@@ -161,7 +161,7 @@ export function HomePage() {
               id="home-reading"
               className="mt-3 text-balance text-[clamp(2.2rem,4vw,4rem)] leading-[0.9] tracking-[-0.065em] text-[var(--color-text)]"
             >
-              Из сообщества, в которое можно войти прямо сейчас.
+              Новые материалы сообщества
             </h2>
           </div>
           <Link
@@ -192,10 +192,10 @@ export function HomePage() {
       <section id="routes" className="scroll-mt-8">
         <div className="max-w-3xl">
           <h2 className="text-balance text-[clamp(2.15rem,4.2vw,4rem)] leading-[0.92] tracking-[-0.065em] text-[var(--color-text)]">
-            Четыре раздела. Один рабочий маршрут.
+            Выберите, с чего начать
           </h2>
           <p className="mt-4 text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
-            Выбирайте точку входа по задаче и переходите дальше без потери контекста.
+            Читайте разборы, берите готовые ресурсы, собирайте промт или проверяйте свой процесс.
           </p>
         </div>
 

@@ -119,7 +119,7 @@ export function MerchProductDetail({ item }: MerchProductDetailProps) {
 
       <section className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
         <h2 className="max-w-lg text-balance text-[clamp(2rem,3.5vw,3.4rem)] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)]">
-          Вещь для длинного рабочего маршрута.
+          Характеристики
         </h2>
         <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-3">
           {item.details.map((detail) => (

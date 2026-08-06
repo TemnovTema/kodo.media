@@ -17,9 +17,8 @@ export function SiteFooter() {
             </div>
           </div>
           <p className="max-w-2xl text-sm leading-7 text-[var(--color-text-soft)] md:text-base">
-            Онлайн-СМИ про агентную сборку продуктов, промты, диагностики и
-            рабочие паттерны. Язык сайта теперь опирается на реальную
-            айдентику KODO, а не на абстрактную dark-tech атмосферу.
+            Онлайн-медиа о том, как ставить задачи агентам, собирать продукты
+            и проверять результат до релиза.
           </p>
         </div>
         <div className="grid gap-3 font-mono text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-text-muted)]">

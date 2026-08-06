@@ -61,10 +61,10 @@ export function ArticleCard({
           <span>{article.readingTime}</span>
         </div>
 
-        <h3 className="max-w-2xl text-balance text-[clamp(1.7rem,2.6vw,2.55rem)] leading-[0.98] tracking-[-0.05em] text-[var(--color-text)]">
+        <h3 className="max-w-2xl text-balance text-[clamp(1.45rem,2.15vw,2.1rem)] leading-[1.02] tracking-[-0.045em] text-[var(--color-text)]">
           <Link
             href={`/articles/${article.slug}`}
-            className="transition-colors hover:text-[var(--accent)]"
+            className="line-clamp-2 transition-colors hover:text-[var(--accent)]"
           >
             {article.title}
           </Link>

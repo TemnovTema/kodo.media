@@ -10,15 +10,14 @@ export default function NotFound() {
         Сигнал не найден.
       </h1>
       <p className="max-w-2xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg">
-        Маршрут не существует или уже был перемещен в другой блок редакционной
-        системы.
+        Такой страницы нет. Возможно, ссылка устарела или в адресе опечатка.
       </p>
       <div className="flex flex-wrap gap-3 font-mono text-[0.72rem] uppercase tracking-[0.22em]">
         <Link href="/" className="button-primary">
           На главную
         </Link>
         <Link href="/articles" className="button-secondary">
-          Перейти в архив
+          Открыть сообщество
         </Link>
       </div>
     </section>

@@ -20,9 +20,9 @@ export default function ArticlesPage() {
   const carouselArticles = articles.filter(
     (article) => article.slug !== "why-vibe-coding-needs-an-editor",
   );
-  const popularPosts = [...authorPosts].sort(
-    (first, second) => second.engagement.likes - first.engagement.likes,
-  );
+  const popularPosts = [...authorPosts]
+    .sort((first, second) => second.engagement.likes - first.engagement.likes)
+    .slice(0, 2);
   if (!featuredArticle) {
     return null;
   }
@@ -31,7 +31,7 @@ export default function ArticlesPage() {
     <CatalogShell
       eyebrow="community / feed"
       title="Сообщество"
-      description="Один закреплённый материал, лента остальных статей и короткие посты авторов."
+      description="Статьи, рабочие заметки и обсуждения людей, которые собирают продукты вместе с агентами."
       introVisual={<CommunityIntroGlyph />}
     >
       <div className="-mt-2 space-y-14">

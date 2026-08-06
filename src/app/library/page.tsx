@@ -7,7 +7,7 @@ import { libraryFolders } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Библиотека",
   description:
-    "Библиотека KODO MEDIA: открытые папки со skills, шаблонами, гайдами и системными заготовками для вайб-кодинга.",
+    "Открытые skills, шаблоны и внешние каталоги для работы с AI-агентами.",
 };
 
 export default function LibraryPage() {
@@ -15,7 +15,7 @@ export default function LibraryPage() {
     <CatalogShell
       eyebrow="библиотека / открытые папки"
       title="Библиотека"
-      description="Ресурсы для работы с агентами: skills, шаблоны, внешние каталоги и системные материалы."
+      description="Проверенные skills, шаблоны и внешние каталоги. У каждого ресурса указано, когда он пригодится и где лежит оригинал."
       introVisual={<LibraryIntroGlyph />}
       introVisualPosition="right"
     >
