@@ -5,6 +5,7 @@ import { type CSSProperties, useEffect, useState } from "react";
 import { ArticleCard } from "@/components/article-card";
 import { CommunityMemberCounter } from "@/components/community-member-counter";
 import { HomeRouteMap } from "@/components/home-route-map";
+import { HomePuzzle } from "@/components/home-puzzle";
 import { SymbolSphereHero } from "@/components/symbol-sphere-hero";
 import {
   demoSessionEvent,
@@ -72,8 +73,9 @@ export function HomePage() {
     : { href: "/signup", label: "Создать аккаунт" };
 
   return (
-    <div className="overflow-x-clip pb-8 md:pb-14">
+    <div className="pb-8 md:pb-14">
       <section className="home-welcome" aria-labelledby="home-welcome-title">
+        <HomePuzzle />
         <div className="home-welcome-copy">
           <h1 id="home-welcome-title">Открытое сообщество о вайбкодинге</h1>
           <p>Статьи, гайды, скиллы, открытые курсы и другие материалы</p>
