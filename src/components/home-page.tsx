@@ -73,11 +73,31 @@ export function HomePage() {
 
   return (
     <div className="overflow-x-clip pb-8 md:pb-14">
-      <section className="relative grid min-h-[calc(100dvh-5rem)] content-end gap-8 py-8 sm:py-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(25rem,0.88fr)] lg:items-end lg:gap-12 lg:py-14">
+      <section className="home-welcome" aria-labelledby="home-welcome-title">
+        <div className="home-welcome-copy">
+          <h1 id="home-welcome-title">Открытое сообщество о вайбкодинге</h1>
+          <p>Статьи, гайды, скиллы, открытые курсы и другие материалы</p>
+        </div>
+        <div className="home-welcome-actions">
+          <div className="home-welcome-buttons">
+            <Link href={isAuthenticated ? "/articles" : "/signup"} className="home-welcome-button home-welcome-button-primary">
+              {isAuthenticated ? "Открыть сообщество" : "Создать аккаунт"}
+            </Link>
+            <a href="#home-community" className="home-welcome-button home-welcome-button-secondary">
+              Узнать о сообществе
+            </a>
+          </div>
+          <p>{isAuthenticated
+            ? "Читайте материалы, обсуждайте идеи и делитесь опытом"
+            : "Создайте аккаунт, чтобы сохранять материалы и делиться опытом"}</p>
+        </div>
+      </section>
+
+      <section id="home-community" aria-labelledby="home-community-title" className="relative grid scroll-mt-24 min-h-[calc(100dvh-5rem)] content-end gap-8 py-8 sm:py-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(25rem,0.88fr)] lg:items-end lg:gap-12 lg:py-14">
         <div className="relative z-10 order-2 max-w-5xl space-y-7 lg:order-1 lg:pb-[clamp(1rem,4vw,4rem)]">
-          <h1 className="max-w-[12ch] text-pretty text-[clamp(3.25rem,5.75vw,6.75rem)] leading-[0.84] tracking-[-0.085em] text-[var(--color-text)] lg:max-w-[15ch]">
+          <h2 id="home-community-title" className="max-w-[12ch] text-pretty text-[clamp(3.25rem,5.75vw,6.75rem)] leading-[0.84] tracking-[-0.085em] text-[var(--color-text)] lg:max-w-[15ch]">
             {headline}
-          </h1>
+          </h2>
           <p className="max-w-xl text-base leading-8 text-[var(--color-text-soft)] md:text-lg md:leading-9">
             {description}
           </p>
